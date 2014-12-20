@@ -12,6 +12,12 @@ import java.util.regex.Matcher;
 
 public class ColorationValidator extends Validator {
 
+    private int mColor = Color.RED;
+
+    public void setColor(int color) {
+        mColor = color;
+    }
+
     @Override
     public void trigger() {
         for (ValidationHolder validationHolder : mValidationHolderList) {
@@ -24,7 +30,7 @@ public class ColorationValidator extends Validator {
                     listOfMatching.add(new int[]{matcher.start(), matcher.end() - 1});
                 }
                 ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching, text.length());
-                SpanHelper.setColor(editText, Color.RED, listOfNotMatching);
+                SpanHelper.setColor(editText, mColor, listOfNotMatching);
             }
         }
     }

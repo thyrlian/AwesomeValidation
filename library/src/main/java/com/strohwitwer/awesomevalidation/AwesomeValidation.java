@@ -20,6 +20,14 @@ public class AwesomeValidation {
         }
     }
 
+    public void setColor(int color) {
+        if (mValidator instanceof ColorationValidator) {
+            ((ColorationValidator) mValidator).setColor(color);
+        } else {
+            throw new UnsupportedOperationException("Only ColorationValidator supports setting color.");
+        }
+    }
+
     public void addValidation(EditText editText, String regex, String errMsg) {
         mValidator.set(editText, regex, errMsg);
     }
