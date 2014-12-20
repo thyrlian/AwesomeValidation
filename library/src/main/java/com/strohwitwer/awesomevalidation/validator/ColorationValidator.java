@@ -31,6 +31,7 @@ public class ColorationValidator extends Validator {
                 }
                 ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching, text.length());
                 SpanHelper.setColor(editText, mColor, listOfNotMatching);
+                editText.setError(validationHolder.getErrMsg());
             }
         }
     }
