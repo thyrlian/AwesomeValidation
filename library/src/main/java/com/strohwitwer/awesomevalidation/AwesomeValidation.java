@@ -36,8 +36,8 @@ public class AwesomeValidation {
         mValidator.set(activity, viewId, regex, errMsgId);
     }
 
-    public void validate() {
-        mValidator.trigger();
+    public boolean validate() {
+        return mValidator.trigger();
     }
 
 }

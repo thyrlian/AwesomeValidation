@@ -19,7 +19,8 @@ public class ColorationValidator extends Validator {
     }
 
     @Override
-    public void trigger() {
+    public boolean trigger() {
+        boolean result = true;
         for (ValidationHolder validationHolder : mValidationHolderList) {
             EditText editText = validationHolder.getEditText();
             String text = editText.getText().toString();
@@ -32,8 +33,10 @@ public class ColorationValidator extends Validator {
                 ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching, text.length());
                 SpanHelper.setColor(editText, mColor, listOfNotMatching);
                 editText.setError(validationHolder.getErrMsg());
+                result = false;
             }
         }
+        return result;
     }
 
 }

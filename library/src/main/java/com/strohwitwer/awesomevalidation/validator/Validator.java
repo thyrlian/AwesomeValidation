@@ -28,6 +28,6 @@ public abstract class Validator {
         set(editText, regex, errMsg);
     }
 
-    public abstract void trigger();
+    public abstract boolean trigger();
 
 }
