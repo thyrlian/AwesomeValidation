@@ -2,5 +2,14 @@
 <resources>
 
     <string name="app_name">AwesomeValidationDemo</string>
+    <string name="edt_userid">User ID</string>
+    <string name="edt_name">Name</string>
+    <string name="edt_tel">Telephone number</string>
+    <string name="edt_zipcode">Zip Code</string>
+    <string name="btn_done">Submit</string>
+    <string name="err_userid">Letters, numbers, underscores or hyphens</string>
+    <string name="err_name">Human name please</string>
+    <string name="err_tel">Number only</string>
+    <string name="err_zipcode">Number only</string>
 
 </resources>
