@@ -28,4 +28,8 @@ public class ValidationHolder {
         return mErrMsg;
     }
 
+    public String getText() {
+        return mEditText.getText().toString();
+    }
+
 }

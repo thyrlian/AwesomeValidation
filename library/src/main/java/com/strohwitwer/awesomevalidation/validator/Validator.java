@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.widget.EditText;
 
 import com.strohwitwer.awesomevalidation.ValidationHolder;
+import com.strohwitwer.awesomevalidation.utils.ValidationCallback;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Validator {
@@ -29,5 +31,17 @@ public abstract class Validator {
     }
 
     public abstract boolean trigger();
+
+    protected boolean checkFields(ValidationCallback callback) {
+        boolean result = true;
+        for (ValidationHolder validationHolder : mValidationHolderList) {
+            Matcher matcher = validationHolder.getPattern().matcher(validationHolder.getText());
+            if (!matcher.matches()) {
+                callback.execute(validationHolder, matcher);
+                result = false;
+            }
+        }
+        return result;
+    }
 
 }

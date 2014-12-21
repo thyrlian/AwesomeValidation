@@ -1,8 +1,7 @@
 package com.strohwitwer.awesomevalidation.validator;
 
-import android.widget.EditText;
-
 import com.strohwitwer.awesomevalidation.ValidationHolder;
+import com.strohwitwer.awesomevalidation.utils.ValidationCallback;
 
 import java.util.regex.Matcher;
 
@@ -10,17 +9,12 @@ public class BasicValidator extends Validator {
 
     @Override
     public boolean trigger() {
-        boolean result = true;
-        for (ValidationHolder validationHolder : mValidationHolderList) {
-            EditText editText = validationHolder.getEditText();
-            String text = editText.getText().toString();
-            Matcher matcher = validationHolder.getPattern().matcher(text);
-            if (!matcher.matches()) {
-                editText.setError(validationHolder.getErrMsg());
-                result = false;
+        return checkFields(new ValidationCallback() {
+            @Override
+            public void execute(ValidationHolder validationHolder, Matcher matcher) {
+                validationHolder.getEditText().setError(validationHolder.getErrMsg());
             }
-        }
-        return result;
+        });
     }
 
 }
