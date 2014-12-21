@@ -3,6 +3,7 @@ package com.strohwitwer.awesomevalidation;
 import android.app.Activity;
 import android.widget.EditText;
 
+import com.strohwitwer.awesomevalidation.validator.BasicValidator;
 import com.strohwitwer.awesomevalidation.validator.ColorationValidator;
 import com.strohwitwer.awesomevalidation.validator.Validator;
 
@@ -12,6 +13,11 @@ public class AwesomeValidation {
 
     public AwesomeValidation(ValidationStyle style) {
         switch (style) {
+            case BASIC:
+                if (mValidator == null || !(mValidator instanceof BasicValidator)) {
+                    mValidator = new BasicValidator();
+                }
+                return;
             case COLORATION:
                 if (mValidator == null || !(mValidator instanceof ColorationValidator)) {
                     mValidator = new ColorationValidator();
