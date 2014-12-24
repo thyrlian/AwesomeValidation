@@ -16,6 +16,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main.java.srcDirs = ['src/main/java', 'src/test/java']
+        main.resources.srcDirs = ['src/main/res']
+        androidTest.setRoot('test')
+    }
 }
 
 dependencies {
