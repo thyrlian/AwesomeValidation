@@ -1,12 +1,10 @@
 package com.strohwitwer.awesomevalidation;
 
 import android.app.Activity;
-import android.content.Context;
 import android.widget.EditText;
 
 import com.strohwitwer.awesomevalidation.validator.BasicValidator;
 import com.strohwitwer.awesomevalidation.validator.ColorationValidator;
-import com.strohwitwer.awesomevalidation.validator.CroutonValidator;
 import com.strohwitwer.awesomevalidation.validator.Validator;
 
 public class AwesomeValidation {
@@ -25,11 +23,6 @@ public class AwesomeValidation {
                     mValidator = new ColorationValidator();
                 }
                 return;
-            case CROUTON:
-                if (mValidator == null || !(mValidator instanceof CroutonValidator)) {
-                    mValidator = new CroutonValidator();
-                }
-                return;
         }
     }
 
@@ -38,28 +31,6 @@ public class AwesomeValidation {
             ((ColorationValidator) mValidator).setColor(color);
         } else {
             throw new UnsupportedOperationException("Only ColorationValidator supports setting color.");
-        }
-    }
-
-    public void setContext(Context context) {
-        if (mValidator instanceof CroutonValidator) {
-            ((CroutonValidator) mValidator).setContext(context);
-        } else {
-            throw new UnsupportedOperationException("Only CroutonValidator supports setting context.");
-        }
-    }
-
-    public void setActivity(Activity activity) {
-        if (mValidator instanceof CroutonValidator) {
-            ((CroutonValidator) mValidator).setActivity(activity);
-        } else {
-            throw new UnsupportedOperationException("Only CroutonValidator supports setting activity.");
-        }
-    }
-
-    public void tearDown() {
-        if (mValidator instanceof CroutonValidator) {
-            ((CroutonValidator) mValidator).destroy();
         }
     }
 
