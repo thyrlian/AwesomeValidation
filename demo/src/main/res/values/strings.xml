@@ -11,5 +11,9 @@
     <string name="err_name">Human name please</string>
     <string name="err_tel">Number only</string>
     <string name="err_zipcode">Number only</string>
+    <string-array name="styles">
+        <item>BASIC</item>
+        <item>COLORATION</item>
+    </string-array>
 
 </resources>
