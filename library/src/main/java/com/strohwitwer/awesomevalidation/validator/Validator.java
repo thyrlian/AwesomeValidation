@@ -32,10 +32,17 @@ public abstract class Validator {
 
     protected boolean checkFields(ValidationCallback callback) {
         boolean result = true;
+        boolean hasFailed = false;
         for (ValidationHolder validationHolder : mValidationHolderList) {
             Matcher matcher = validationHolder.getPattern().matcher(validationHolder.getText());
             if (!matcher.matches()) {
                 callback.execute(validationHolder, matcher);
+                if (!hasFailed) {
+                    EditText editText = validationHolder.getEditText();
+                    editText.requestFocus();
+                    editText.setSelection(editText.getText().length());
+                    hasFailed = true;
+                }
                 result = false;
             }
         }
