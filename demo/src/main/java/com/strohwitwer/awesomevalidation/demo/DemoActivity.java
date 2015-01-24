@@ -100,8 +100,15 @@ public class DemoActivity extends ActionBarActivity {
             setTitle(mStyle);
             mDrawerLayout.closeDrawer(mDrawerList);
 
+            clearValidation();
             initValidation(mStyle);
             addValidation(DemoActivity.this);
+        }
+    }
+
+    private void clearValidation() {
+        if (mAwesomeValidation != null) {
+            mAwesomeValidation.clear();
         }
     }
 
@@ -123,11 +130,19 @@ public class DemoActivity extends ActionBarActivity {
         mAwesomeValidation.addValidation(activity, R.id.edt_tel, "\\d+", R.string.err_tel);
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
 
-        Button btnDone = (Button) activity.findViewById(R.id.btn_done);
+        Button btnDone = (Button) findViewById(R.id.btn_done);
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAwesomeValidation.validate();
+            }
+        });
+
+        Button btnClr = (Button) findViewById(R.id.btn_clr);
+        btnClr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAwesomeValidation.clear();
             }
         });
     }

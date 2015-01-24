@@ -36,4 +36,13 @@ public class ColorationValidator extends Validator {
         });
     }
 
+    @Override
+    public void halt() {
+        for (ValidationHolder validationHolder : mValidationHolderList) {
+            EditText editText = validationHolder.getEditText();
+            editText.setError(null);
+            SpanHelper.reset(editText);
+        }
+    }
+
 }

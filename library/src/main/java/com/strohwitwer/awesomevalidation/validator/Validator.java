@@ -30,8 +30,6 @@ public abstract class Validator {
         set(editText, regex, errMsg);
     }
 
-    public abstract boolean trigger();
-
     protected boolean checkFields(ValidationCallback callback) {
         boolean result = true;
         for (ValidationHolder validationHolder : mValidationHolderList) {
@@ -43,5 +41,9 @@ public abstract class Validator {
         }
         return result;
     }
+
+    public abstract boolean trigger();
+
+    public abstract void halt();
 
 }

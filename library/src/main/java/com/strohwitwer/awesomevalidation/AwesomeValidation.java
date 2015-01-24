@@ -46,4 +46,8 @@ public class AwesomeValidation {
         return mValidator.trigger();
     }
 
+    public void clear() {
+        mValidator.halt();
+    }
+
 }

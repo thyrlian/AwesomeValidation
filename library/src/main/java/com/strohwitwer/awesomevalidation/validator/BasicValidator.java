@@ -17,4 +17,11 @@ public class BasicValidator extends Validator {
         });
     }
 
+    @Override
+    public void halt() {
+        for (ValidationHolder validationHolder : mValidationHolderList) {
+            validationHolder.getEditText().setError(null);
+        }
+    }
+
 }

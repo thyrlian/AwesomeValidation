@@ -62,14 +62,28 @@
                     android:singleLine="true"
                     android:hint="@string/edt_zipcode"/>
 
-                <Button
-                    android:id="@+id/btn_done"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:textStyle="bold"
-                    android:text="@string/btn_done"/>
+                    android:layout_marginTop="@dimen/activity_vertical_margin">
+
+                    <Button
+                        android:id="@+id/btn_clr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:textStyle="bold"
+                        android:text="@string/btn_clr"/>
+
+                    <Button
+                        android:id="@+id/btn_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textStyle="bold"
+                        android:text="@string/btn_done"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
