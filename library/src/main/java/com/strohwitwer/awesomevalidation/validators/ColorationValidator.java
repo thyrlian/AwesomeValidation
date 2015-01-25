@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.validator;
+package com.strohwitwer.awesomevalidation.validators;
 
 import android.graphics.Color;
 import android.widget.EditText;
@@ -6,7 +6,7 @@ import android.widget.EditText;
 import com.strohwitwer.awesomevalidation.ValidationHolder;
 import com.strohwitwer.awesomevalidation.helper.RangeHelper;
 import com.strohwitwer.awesomevalidation.helper.SpanHelper;
-import com.strohwitwer.awesomevalidation.utils.ValidationCallback;
+import com.strohwitwer.awesomevalidation.utility.ValidationCallback;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

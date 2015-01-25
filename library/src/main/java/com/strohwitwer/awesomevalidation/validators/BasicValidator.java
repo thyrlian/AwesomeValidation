@@ -1,7 +1,7 @@
-package com.strohwitwer.awesomevalidation.validator;
+package com.strohwitwer.awesomevalidation.validators;
 
 import com.strohwitwer.awesomevalidation.ValidationHolder;
-import com.strohwitwer.awesomevalidation.utils.ValidationCallback;
+import com.strohwitwer.awesomevalidation.utility.ValidationCallback;
 
 import java.util.regex.Matcher;
 

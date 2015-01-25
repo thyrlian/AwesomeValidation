@@ -3,9 +3,9 @@ package com.strohwitwer.awesomevalidation;
 import android.app.Activity;
 import android.widget.EditText;
 
-import com.strohwitwer.awesomevalidation.validator.BasicValidator;
-import com.strohwitwer.awesomevalidation.validator.ColorationValidator;
-import com.strohwitwer.awesomevalidation.validator.Validator;
+import com.strohwitwer.awesomevalidation.validators.BasicValidator;
+import com.strohwitwer.awesomevalidation.validators.ColorationValidator;
+import com.strohwitwer.awesomevalidation.validators.Validator;
 
 public class AwesomeValidation {
 

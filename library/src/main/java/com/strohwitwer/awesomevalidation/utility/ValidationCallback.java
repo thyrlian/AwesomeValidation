@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.utils;
+package com.strohwitwer.awesomevalidation.utility;
 
 import com.strohwitwer.awesomevalidation.ValidationHolder;
 
