@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.strohwitwer.awesomevalidation.AwesomeValidation;
 import com.strohwitwer.awesomevalidation.ValidationStyle;
+import com.strohwitwer.awesomevalidation.utility.RegexTemplate;
 
 import static com.strohwitwer.awesomevalidation.ValidationStyle.BASIC;
 import static com.strohwitwer.awesomevalidation.ValidationStyle.COLORATION;
@@ -127,7 +128,7 @@ public class DemoActivity extends ActionBarActivity {
     private void addValidation(final Activity activity) {
         mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
         mAwesomeValidation.addValidation(activity, R.id.edt_name, "[a-zA-Z\\s]+", R.string.err_name);
-        mAwesomeValidation.addValidation(activity, R.id.edt_tel, "\\d+", R.string.err_tel);
+        mAwesomeValidation.addValidation(activity, R.id.edt_tel, RegexTemplate.TELEPHONE, R.string.err_tel);
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
 
         Button btnDone = (Button) findViewById(R.id.btn_done);
