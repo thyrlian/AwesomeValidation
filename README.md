@@ -9,7 +9,7 @@ Implement validation for Android within only 3 steps.  Developers should focus o
 3. Set a point when to trigger validation.
 
 ##Sample code
-```
+```java
 //Step 1
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
 
