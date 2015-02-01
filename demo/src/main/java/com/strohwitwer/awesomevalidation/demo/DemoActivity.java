@@ -22,6 +22,7 @@ import com.strohwitwer.awesomevalidation.utility.RegexTemplate;
 
 import static com.strohwitwer.awesomevalidation.ValidationStyle.BASIC;
 import static com.strohwitwer.awesomevalidation.ValidationStyle.COLORATION;
+import static com.strohwitwer.awesomevalidation.ValidationStyle.UNDERLABEL;
 
 public class DemoActivity extends ActionBarActivity {
 
@@ -121,6 +122,10 @@ public class DemoActivity extends ActionBarActivity {
             case COLORATION:
                 mAwesomeValidation = new AwesomeValidation(COLORATION);
                 mAwesomeValidation.setColor(Color.YELLOW);
+                break;
+            case UNDERLABEL:
+                mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
+                mAwesomeValidation.setContext(this);
                 break;
         }
     }

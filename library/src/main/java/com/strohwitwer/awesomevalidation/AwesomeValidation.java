@@ -1,10 +1,12 @@
 package com.strohwitwer.awesomevalidation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.EditText;
 
 import com.strohwitwer.awesomevalidation.validators.BasicValidator;
 import com.strohwitwer.awesomevalidation.validators.ColorationValidator;
+import com.strohwitwer.awesomevalidation.validators.UnderlabelValidator;
 import com.strohwitwer.awesomevalidation.validators.Validator;
 
 public class AwesomeValidation {
@@ -23,6 +25,19 @@ public class AwesomeValidation {
                     mValidator = new ColorationValidator();
                 }
                 return;
+            case UNDERLABEL:
+                if (mValidator == null || !(mValidator instanceof UnderlabelValidator)) {
+                    mValidator = new UnderlabelValidator();
+                }
+                return;
+        }
+    }
+
+    public void setContext(Context context) {
+        if (mValidator instanceof UnderlabelValidator) {
+            ((UnderlabelValidator) mValidator).setContext(context);
+        } else {
+            throw new UnsupportedOperationException("Only UnderlabelValidator supports setting context.");
         }
     }
 

@@ -3,7 +3,8 @@ package com.strohwitwer.awesomevalidation;
 public enum ValidationStyle {
 
     BASIC(0),
-    COLORATION(1);
+    COLORATION(1),
+    UNDERLABEL(2);
 
     private int mValue;
 
@@ -21,6 +22,8 @@ public enum ValidationStyle {
                 return ValidationStyle.BASIC;
             case 1:
                 return ValidationStyle.COLORATION;
+            case 2:
+                return ValidationStyle.UNDERLABEL;
             default:
                 throw new IllegalArgumentException("Unknown ValidationStyle value.");
         }
