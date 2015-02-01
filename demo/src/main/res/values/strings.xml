@@ -6,6 +6,8 @@
     <string name="edt_name">Name</string>
     <string name="edt_tel">Telephone number</string>
     <string name="edt_zipcode">Zip Code</string>
+    <string name="edt_firstname">First Name</string>
+    <string name="edt_lastname">Last Name</string>
     <string name="btn_done">Submit</string>
     <string name="btn_clr">Clear</string>
     <string name="err_userid">Letters, numbers, underscores or hyphens</string>
