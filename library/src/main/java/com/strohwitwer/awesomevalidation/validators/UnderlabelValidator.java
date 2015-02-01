@@ -2,6 +2,7 @@ package com.strohwitwer.awesomevalidation.validators;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class UnderlabelValidator extends Validator {
                 TextView textView = new TextView(mContext);
                 textView.setText(validationHolder.getErrMsg());
                 textView.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_light));
+                textView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
                 mTextViews.add(textView);
                 parent.addView(textView, index + 1);
             }
