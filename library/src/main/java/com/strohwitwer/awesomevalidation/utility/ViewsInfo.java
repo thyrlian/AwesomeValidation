@@ -18,6 +18,12 @@ public class ViewsInfo {
         mEditText = editText;
     }
 
+    public void restoreViews() {
+        mNewContainer.removeView(mEditText);
+        mParent.removeView(mNewContainer);
+        mParent.addView(mEditText, mIndex);
+    }
+
     public int getIndex() {
         return mIndex;
     }

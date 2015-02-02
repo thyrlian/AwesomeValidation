@@ -51,13 +51,7 @@ public class UnderlabelValidator extends Validator {
     @Override
     public void halt() {
         for (ViewsInfo viewsInfo : mViewsInfos) {
-            int index = viewsInfo.getIndex();
-            ViewGroup parent = viewsInfo.getParent();
-            LinearLayout newContainer = viewsInfo.getNewContainer();
-            EditText editText = viewsInfo.getEditText();
-            newContainer.removeView(editText);
-            parent.removeView(newContainer);
-            parent.addView(editText, index);
+            viewsInfo.restoreViews();
         }
         mViewsInfos.clear();
     }
