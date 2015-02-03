@@ -19,6 +19,7 @@ public class ViewsInfo {
     }
 
     public void restoreViews() {
+        mEditText.getBackground().clearColorFilter();
         mNewContainer.removeView(mEditText);
         mParent.removeView(mNewContainer);
         mParent.addView(mEditText, mIndex);

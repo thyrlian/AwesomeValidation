@@ -1,6 +1,7 @@
 package com.strohwitwer.awesomevalidation.validators;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ public class UnderlabelValidator extends Validator {
 
     private Context mContext;
     private ArrayList<ViewsInfo> mViewsInfos = new ArrayList<>();
+    private int mColor;
 
     public void setContext(Context context) {
         mContext = context;
@@ -26,6 +28,7 @@ public class UnderlabelValidator extends Validator {
     @Override
     public boolean trigger() {
         halt();
+        mColor = mContext.getResources().getColor(android.R.color.holo_red_light);
         return checkFields(new ValidationCallback() {
             @Override
             public void execute(ValidationHolder validationHolder, Matcher matcher) {
@@ -37,8 +40,9 @@ public class UnderlabelValidator extends Validator {
                 newContainer.setOrientation(LinearLayout.VERTICAL);
                 TextView textView = new TextView(mContext);
                 textView.setText(validationHolder.getErrMsg());
-                textView.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_light));
+                textView.setTextColor(mColor);
                 textView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+                editText.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_ATOP);
                 parent.removeView(editText);
                 newContainer.addView(editText);
                 newContainer.addView(textView);
