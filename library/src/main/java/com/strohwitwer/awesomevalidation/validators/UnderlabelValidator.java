@@ -41,6 +41,7 @@ public class UnderlabelValidator extends Validator {
                 TextView textView = new TextView(mContext);
                 textView.setText(validationHolder.getErrMsg());
                 textView.setTextColor(mColor);
+                textView.setPadding(editText.getPaddingLeft(), 0, editText.getPaddingRight(), 0);
                 textView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
                 editText.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
                 parent.removeView(editText);
