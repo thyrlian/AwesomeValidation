@@ -20,6 +20,8 @@ public class UnderlabelValidator extends Validator {
     private Context mContext;
     private ArrayList<ViewsInfo> mViewsInfos = new ArrayList<>();
     private int mColor;
+    private boolean mHasFailed = false;
+    private TextView mFocusedTextView;
 
     public void setContext(Context context) {
         mContext = context;
@@ -49,6 +51,15 @@ public class UnderlabelValidator extends Validator {
                 newContainer.addView(textView);
                 parent.addView(newContainer, index);
                 mViewsInfos.add(new ViewsInfo(index, parent, newContainer, editText));
+                if (!mHasFailed) {
+                    textView.setFocusable(true);
+                    textView.setFocusableInTouchMode(true);
+                    textView.setClickable(true);
+                    mFocusedTextView = textView;
+                    mHasFailed = true;
+                }
+                editText.requestFocus();
+                mFocusedTextView.requestFocus();
             }
         });
     }
@@ -58,7 +69,12 @@ public class UnderlabelValidator extends Validator {
         for (ViewsInfo viewsInfo : mViewsInfos) {
             viewsInfo.restoreViews();
         }
+        if (mValidationHolderList.size() > 0) {
+            mValidationHolderList.get(0).getEditText().requestFocus();
+        }
         mViewsInfos.clear();
+        mHasFailed = false;
+        mFocusedTextView = null;
     }
 
 }
