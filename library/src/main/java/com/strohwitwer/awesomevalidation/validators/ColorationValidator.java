@@ -21,6 +21,7 @@ public class ColorationValidator extends Validator {
 
     @Override
     public boolean trigger() {
+        halt();
         return checkFields(new ValidationCallback() {
             @Override
             public void execute(ValidationHolder validationHolder, Matcher matcher) {
