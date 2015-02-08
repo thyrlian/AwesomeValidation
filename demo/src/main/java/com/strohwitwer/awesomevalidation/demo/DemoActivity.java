@@ -18,7 +18,10 @@ import android.widget.ListView;
 
 import com.strohwitwer.awesomevalidation.AwesomeValidation;
 import com.strohwitwer.awesomevalidation.ValidationStyle;
+import com.strohwitwer.awesomevalidation.model.NumericRange;
 import com.strohwitwer.awesomevalidation.utility.RegexTemplate;
+
+import java.util.Calendar;
 
 import static com.strohwitwer.awesomevalidation.ValidationStyle.BASIC;
 import static com.strohwitwer.awesomevalidation.ValidationStyle.COLORATION;
@@ -137,6 +140,7 @@ public class DemoActivity extends ActionBarActivity {
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
         mAwesomeValidation.addValidation(activity, R.id.edt_firstname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_lastname, "[a-zA-Z\\s]+", R.string.err_name);
+        mAwesomeValidation.addValidation(activity, R.id.edt_year, new NumericRange(1900, Calendar.getInstance().get(Calendar.YEAR)), R.string.err_year);
 
         Button btnDone = (Button) findViewById(R.id.btn_done);
         btnDone.setOnClickListener(new View.OnClickListener() {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.EditText;
 
+import com.strohwitwer.awesomevalidation.model.NumericRange;
 import com.strohwitwer.awesomevalidation.validators.BasicValidator;
 import com.strohwitwer.awesomevalidation.validators.ColorationValidator;
 import com.strohwitwer.awesomevalidation.validators.UnderlabelValidator;
@@ -55,6 +56,14 @@ public class AwesomeValidation {
 
     public void addValidation(Activity activity, int viewId, String regex, int errMsgId) {
         mValidator.set(activity, viewId, regex, errMsgId);
+    }
+
+    public void addValidation(EditText editText, NumericRange numericRange, String errMsg) {
+        mValidator.set(editText, numericRange, errMsg);
+    }
+
+    public void addValidation(Activity activity, int viewId, NumericRange numericRange, int errMsgId) {
+        mValidator.set(activity, viewId, numericRange, errMsgId);
     }
 
     public boolean validate() {

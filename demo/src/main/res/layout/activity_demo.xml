@@ -87,6 +87,14 @@
 
                 </LinearLayout>
 
+                <EditText
+                    android:id="@+id/edt_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:hint="@string/edt_year"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

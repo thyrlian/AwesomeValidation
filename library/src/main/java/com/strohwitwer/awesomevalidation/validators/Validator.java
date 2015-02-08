@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.EditText;
 
 import com.strohwitwer.awesomevalidation.ValidationHolder;
+import com.strohwitwer.awesomevalidation.model.NumericRange;
 import com.strohwitwer.awesomevalidation.utility.ValidationCallback;
 
 import java.util.ArrayList;
@@ -30,12 +31,37 @@ public abstract class Validator {
         set(editText, regex, errMsg);
     }
 
+    public void set(EditText editText, NumericRange numericRange, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(editText, numericRange, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
+    public void set(Activity activity, int viewId, NumericRange numericRange, int errMsgId) {
+        EditText editText = (EditText) activity.findViewById(viewId);
+        String errMsg = activity.getResources().getString(errMsgId);
+        set(editText, numericRange, errMsg);
+    }
+
     protected boolean checkFields(ValidationCallback callback) {
         boolean result = true;
         boolean hasFailed = false;
         for (ValidationHolder validationHolder : mValidationHolderList) {
-            Matcher matcher = validationHolder.getPattern().matcher(validationHolder.getText());
-            if (!matcher.matches()) {
+            Matcher matcher = null;
+            boolean valid = true;
+            if (validationHolder.isRegexType()) {
+                matcher = validationHolder.getPattern().matcher(validationHolder.getText());
+                valid = matcher.matches();
+            } else if (validationHolder.isRangeType()) {
+                try {
+                    valid = validationHolder.getNumericRange().isValid(validationHolder.getNumber());
+                } catch (NumberFormatException e) {
+                    valid = false;
+                }
+                if (!valid) {
+                    matcher = Pattern.compile("±*").matcher(validationHolder.getText());
+                }
+            }
+            if (!valid && matcher != null) {
                 callback.execute(validationHolder, matcher);
                 if (!hasFailed) {
                     EditText editText = validationHolder.getEditText();
