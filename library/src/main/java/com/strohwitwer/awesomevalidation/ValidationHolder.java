@@ -4,6 +4,7 @@ import android.widget.EditText;
 
 import com.strohwitwer.awesomevalidation.model.NumericRange;
 
+import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 public class ValidationHolder {
@@ -53,13 +54,8 @@ public class ValidationHolder {
         return mEditText.getText().toString();
     }
 
-    public int getNumber() {
-        try {
-            return Integer.parseInt(getText());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            throw e;
-        }
+    public BigDecimal getNumber() {
+        return new BigDecimal(getText());
     }
 
 }

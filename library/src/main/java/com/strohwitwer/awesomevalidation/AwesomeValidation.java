@@ -10,6 +10,8 @@ import com.strohwitwer.awesomevalidation.validators.ColorationValidator;
 import com.strohwitwer.awesomevalidation.validators.UnderlabelValidator;
 import com.strohwitwer.awesomevalidation.validators.Validator;
 
+import java.math.BigDecimal;
+
 public class AwesomeValidation {
 
     private Validator mValidator = null;
@@ -58,12 +60,28 @@ public class AwesomeValidation {
         mValidator.set(activity, viewId, regex, errMsgId);
     }
 
-    public void addValidation(EditText editText, NumericRange numericRange, String errMsg) {
-        mValidator.set(editText, numericRange, errMsg);
+    public void addValidation(EditText editText, int min, int max, boolean minInclusive, boolean maxInclusive, String errMsg) {
+        mValidator.set(editText, new NumericRange(new BigDecimal(min), new BigDecimal(max), minInclusive, maxInclusive), errMsg);
     }
 
-    public void addValidation(Activity activity, int viewId, NumericRange numericRange, int errMsgId) {
-        mValidator.set(activity, viewId, numericRange, errMsgId);
+    public void addValidation(EditText editText, int min, int max, boolean inclusive, String errMsg) {
+        mValidator.set(editText, new NumericRange(new BigDecimal(min), new BigDecimal(max), inclusive), errMsg);
+    }
+
+    public void addValidation(EditText editText, int min, int max, String errMsg) {
+        mValidator.set(editText, new NumericRange(new BigDecimal(min), new BigDecimal(max)), errMsg);
+    }
+
+    public void addValidation(Activity activity, int viewId, int min, int max, boolean minInclusive, boolean maxInclusive, int errMsgId) {
+        mValidator.set(activity, viewId, new NumericRange(new BigDecimal(min), new BigDecimal(max), minInclusive, maxInclusive), errMsgId);
+    }
+
+    public void addValidation(Activity activity, int viewId, int min, int max, boolean inclusive, int errMsgId) {
+        mValidator.set(activity, viewId, new NumericRange(new BigDecimal(min), new BigDecimal(max), inclusive), errMsgId);
+    }
+
+    public void addValidation(Activity activity, int viewId, int min, int max, int errMsgId) {
+        mValidator.set(activity, viewId, new NumericRange(new BigDecimal(min), new BigDecimal(max)), errMsgId);
     }
 
     public boolean validate() {
