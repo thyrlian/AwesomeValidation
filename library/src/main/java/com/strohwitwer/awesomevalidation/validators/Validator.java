@@ -53,7 +53,7 @@ public abstract class Validator {
                 valid = matcher.matches();
             } else if (validationHolder.isRangeType()) {
                 try {
-                    valid = validationHolder.getNumericRange().isValid(validationHolder.getNumber());
+                    valid = validationHolder.getNumericRange().isValid(validationHolder.getText());
                 } catch (NumberFormatException e) {
                     valid = false;
                 }

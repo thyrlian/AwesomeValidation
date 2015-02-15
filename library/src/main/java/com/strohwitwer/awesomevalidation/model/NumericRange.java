@@ -1,6 +1,8 @@
 package com.strohwitwer.awesomevalidation.model;
 
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NumericRange {
 
@@ -33,9 +35,13 @@ public class NumericRange {
         this(min, max, true, true);
     }
 
-    public boolean isValid(BigDecimal value) {
-        boolean valid;
+    public boolean isValid(String valueText) {
+        Matcher matcher = Pattern.compile("^[^1-9]").matcher(valueText);
+        if (matcher.find()) {
+            return false;
+        }
 
+        BigDecimal value = new BigDecimal(valueText);
         switch (mType) {
             case INT:
                 if (value.scale() > 0) {
@@ -59,6 +65,7 @@ public class NumericRange {
                 break;
         }
 
+        boolean valid;
         int resultOfComparison = value.compareTo(mMin);
         valid = (resultOfComparison == 1 || (mMinInclusive && resultOfComparison == 0));
         if (!valid) {
