@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.EditText;
 
+import com.google.common.collect.Range;
 import com.strohwitwer.awesomevalidation.model.NumericRange;
 import com.strohwitwer.awesomevalidation.validators.BasicValidator;
 import com.strohwitwer.awesomevalidation.validators.ColorationValidator;
@@ -58,28 +59,12 @@ public class AwesomeValidation {
         mValidator.set(activity, viewId, regex, errMsgId);
     }
 
-    public void addValidation(EditText editText, int min, int max, boolean minInclusive, boolean maxInclusive, String errMsg) {
-        mValidator.set(editText, new NumericRange(min, max, minInclusive, maxInclusive), errMsg);
+    public void addValidation(EditText editText, Range range, String errMsg) {
+        mValidator.set(editText, new NumericRange(range), errMsg);
     }
 
-    public void addValidation(EditText editText, int min, int max, boolean inclusive, String errMsg) {
-        mValidator.set(editText, new NumericRange(min, max, inclusive), errMsg);
-    }
-
-    public void addValidation(EditText editText, int min, int max, String errMsg) {
-        mValidator.set(editText, new NumericRange(min, max), errMsg);
-    }
-
-    public void addValidation(Activity activity, int viewId, int min, int max, boolean minInclusive, boolean maxInclusive, int errMsgId) {
-        mValidator.set(activity, viewId, new NumericRange(min, max, minInclusive, maxInclusive), errMsgId);
-    }
-
-    public void addValidation(Activity activity, int viewId, int min, int max, boolean inclusive, int errMsgId) {
-        mValidator.set(activity, viewId, new NumericRange(min, max, inclusive), errMsgId);
-    }
-
-    public void addValidation(Activity activity, int viewId, int min, int max, int errMsgId) {
-        mValidator.set(activity, viewId, new NumericRange(min, max), errMsgId);
+    public void addValidation(Activity activity, int viewId, Range range, int errMsgId) {
+        mValidator.set(activity, viewId, new NumericRange(range), errMsgId);
     }
 
     public boolean validate() {

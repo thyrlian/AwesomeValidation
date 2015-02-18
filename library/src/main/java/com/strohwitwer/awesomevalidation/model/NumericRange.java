@@ -1,78 +1,58 @@
 package com.strohwitwer.awesomevalidation.model;
 
+import com.google.common.collect.Range;
+
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NumericRange {
 
-    public enum Type {
-        INT,
-        LONG,
-        FLOAT,
-        DOUBLE
-    }
+    private Range mRange;
 
-    private BigDecimal mMin;
-    private BigDecimal mMax;
-    private boolean mMinInclusive;
-    private boolean mMaxInclusive;
-    private Type mType;
-
-    public NumericRange(int min, int max, boolean minInclusive, boolean maxInclusive) {
-        mMin = new BigDecimal(min);
-        mMax = new BigDecimal(max);
-        mMinInclusive = minInclusive;
-        mMaxInclusive = maxInclusive;
-        mType = Type.INT;
-    }
-
-    public NumericRange(int min, int max, boolean inclusive) {
-        this(min, max, inclusive, inclusive);
-    }
-
-    public NumericRange(int min, int max) {
-        this(min, max, true, true);
+    public NumericRange(Range range) {
+        mRange = range;
     }
 
     public boolean isValid(String valueText) {
+        // check if leading character is not a number (1-9)
         Matcher matcher = Pattern.compile("^[^1-9]").matcher(valueText);
         if (matcher.find()) {
             return false;
         }
 
-        BigDecimal value = new BigDecimal(valueText);
-        switch (mType) {
-            case INT:
-                if (value.scale() > 0) {
-                    return false;
-                }
-                try {
-                    value.intValueExact();
-                } catch (ArithmeticException e) {
-                    return false;
-                }
-                break;
-            case LONG:
-                if (value.scale() > 0) {
-                    return false;
-                }
-                try {
-                    value.longValueExact();
-                } catch (ArithmeticException e) {
-                    return false;
-                }
-                break;
+        boolean valid;
+        BigDecimal value;
+        try {
+            value = new BigDecimal(valueText);
+        } catch (Exception e) {
+            return false;
         }
 
-        boolean valid;
-        int resultOfComparison = value.compareTo(mMin);
-        valid = (resultOfComparison == 1 || (mMinInclusive && resultOfComparison == 0));
-        if (!valid) {
-            return valid;
+        if (value.scale() == 0) {
+            try {
+                valid = mRange.contains(value.intValueExact());
+                return valid;
+            } catch (Exception e) {
+            }
+            try {
+                valid = mRange.contains(value.longValueExact());
+                return valid;
+            } catch (Exception e) {
+            }
+        } else if (value.scale() > 0) {
+            try {
+                valid = mRange.contains(value.floatValue());
+                return valid;
+            } catch (Exception e) {
+            }
+            try {
+                valid = mRange.contains(value.doubleValue());
+                return valid;
+            } catch (Exception e) {
+            }
         }
-        resultOfComparison = value.compareTo(mMax);
-        return resultOfComparison == -1 || (mMaxInclusive && resultOfComparison == 0);
+        return false;
     }
 
 }
