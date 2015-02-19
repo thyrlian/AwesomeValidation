@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.test;
+package com.strohwitwer.awesomevalidation.test.helper;
 
 import android.test.AndroidTestCase;
 
