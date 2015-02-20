@@ -52,22 +52,6 @@
                         android:singleLine="true"
                         android:hint="@string/edt_name"/>
 
-                    <EditText
-                        android:id="@+id/edt_tel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_tel"/>
-
-                    <EditText
-                        android:id="@+id/edt_zipcode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_zipcode"/>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -92,6 +76,22 @@
                             android:hint="@string/edt_lastname"/>
 
                     </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/edt_tel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:hint="@string/edt_tel"/>
+
+                    <EditText
+                        android:id="@+id/edt_zipcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:hint="@string/edt_zipcode"/>
 
                     <EditText
                         android:id="@+id/edt_year"
