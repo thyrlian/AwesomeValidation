@@ -21,7 +21,6 @@ public class UnderlabelValidator extends Validator {
     private ArrayList<ViewsInfo> mViewsInfos = new ArrayList<>();
     private int mColor;
     private boolean mHasFailed = false;
-    private TextView mFocusedTextView;
 
     public void setContext(Context context) {
         mContext = context;
@@ -45,7 +44,6 @@ public class UnderlabelValidator extends Validator {
                 textView.setTextColor(mColor);
                 textView.setPadding(editText.getPaddingLeft(), 0, editText.getPaddingRight(), 0);
                 textView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
-                editText.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
                 parent.removeView(editText);
                 newContainer.addView(editText);
                 newContainer.addView(textView);
@@ -55,11 +53,10 @@ public class UnderlabelValidator extends Validator {
                     textView.setFocusable(true);
                     textView.setFocusableInTouchMode(true);
                     textView.setClickable(true);
-                    mFocusedTextView = textView;
+                    textView.requestFocus();
                     mHasFailed = true;
                 }
-                editText.requestFocus();
-                mFocusedTextView.requestFocus();
+                editText.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
             }
         });
     }
@@ -74,7 +71,6 @@ public class UnderlabelValidator extends Validator {
         }
         mViewsInfos.clear();
         mHasFailed = false;
-        mFocusedTextView = null;
     }
 
 }
