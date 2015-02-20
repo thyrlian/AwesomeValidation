@@ -3,7 +3,6 @@ package com.strohwitwer.awesomevalidation.model;
 import com.google.common.collect.Range;
 
 import java.math.BigDecimal;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NumericRange {
@@ -14,14 +13,15 @@ public class NumericRange {
         mRange = range;
     }
 
+    public static boolean isNumberFormat(String text) {
+        return Pattern.compile("^([1-9]|(0(\\.|$)))").matcher(text).find();
+    }
+
     public boolean isValid(String valueText) {
-        // check if leading character is not a number (1-9)
-        Matcher matcher = Pattern.compile("^[^1-9]").matcher(valueText);
-        if (matcher.find()) {
+        if (!isNumberFormat(valueText)) {
             return false;
         }
 
-        boolean valid;
         BigDecimal value;
         try {
             value = new BigDecimal(valueText);
@@ -31,27 +31,23 @@ public class NumericRange {
 
         if (value.scale() == 0) {
             try {
-                valid = mRange.contains(value.intValueExact());
-                return valid;
+                return mRange.contains(value.intValueExact());
             } catch (Exception e) {
             }
             try {
-                valid = mRange.contains(value.longValueExact());
-                return valid;
-            } catch (Exception e) {
-            }
-        } else if (value.scale() > 0) {
-            try {
-                valid = mRange.contains(value.floatValue());
-                return valid;
-            } catch (Exception e) {
-            }
-            try {
-                valid = mRange.contains(value.doubleValue());
-                return valid;
+                return mRange.contains(value.longValueExact());
             } catch (Exception e) {
             }
         }
+        try {
+            return mRange.contains(value.floatValue());
+        } catch (Exception e) {
+        }
+        try {
+            return mRange.contains(value.doubleValue());
+        } catch (Exception e) {
+        }
+
         return false;
     }
 
