@@ -16,119 +16,130 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:layout_below="@id/toolbar">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/edt_userid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="@string/edt_userid"/>
-
-                <EditText
-                    android:id="@+id/edt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="@string/edt_name"/>
-
-                <EditText
-                    android:id="@+id/edt_tel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="@string/edt_tel"/>
-
-                <EditText
-                    android:id="@+id/edt_zipcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="@string/edt_zipcode"/>
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:layout_below="@id/toolbar">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <EditText
-                        android:id="@+id/edt_firstname"
+                        android:id="@+id/edt_userid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:hint="@string/edt_firstname"/>
+                        android:hint="@string/edt_userid"/>
 
                     <EditText
-                        android:id="@+id/edt_lastname"
+                        android:id="@+id/edt_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:hint="@string/edt_lastname"/>
+                        android:hint="@string/edt_name"/>
+
+                    <EditText
+                        android:id="@+id/edt_tel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:hint="@string/edt_tel"/>
+
+                    <EditText
+                        android:id="@+id/edt_zipcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:hint="@string/edt_zipcode"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edt_firstname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_firstname"/>
+
+                        <EditText
+                            android:id="@+id/edt_lastname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_lastname"/>
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/edt_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:hint="@string/edt_year"/>
+
+                    <EditText
+                        android:id="@+id/edt_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:hint="@string/edt_height"/>
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edt_year"
-                    android:layout_width="match_parent"
+            </ScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <Button
+                    android:id="@+id/btn_clr"
+                    android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="@string/edt_year"/>
+                    android:layout_alignParentLeft="true"
+                    android:textStyle="bold"
+                    android:text="@string/btn_clr"/>
 
-                <EditText
-                    android:id="@+id/edt_height"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_done"
+                    android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="@string/edt_height"/>
+                    android:layout_alignParentRight="true"
+                    android:textStyle="bold"
+                    android:text="@string/btn_done"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin">
+            </RelativeLayout>
 
-                    <Button
-                        android:id="@+id/btn_clr"
-                        android:layout_width="@dimen/button_width"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:textStyle="bold"
-                        android:text="@string/btn_clr"/>
-
-                    <Button
-                        android:id="@+id/btn_done"
-                        android:layout_width="@dimen/button_width"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:textStyle="bold"
-                        android:text="@string/btn_done"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </ScrollView>
+        </LinearLayout>
 
         <ListView
             android:id="@+id/left_drawer"
