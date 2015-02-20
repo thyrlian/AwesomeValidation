@@ -13,11 +13,11 @@ Implement validation for Android within only 3 steps.  Developers should focus o
 // Step 1: designate a style
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
 // or
-// AwesomeValidation mAwesomeValidation = new AwesomeValidation(COLORATION);
-// mAwesomeValidation.setColor(Color.YELLOW);  // optional, default color is RED if not set
+AwesomeValidation mAwesomeValidation = new AwesomeValidation(COLORATION);
+mAwesomeValidation.setColor(Color.YELLOW);  // optional, default color is RED if not set
 // or
-// AwesomeValidation mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
-// mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
+AwesomeValidation mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
+mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
 
 // Step 2: add validations
 // support regex string or Guava#Range
@@ -47,7 +47,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 ```
 
 ##Screenshots
-<a href="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" height="400"></a>
-<a href="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" height="400"></a>
-<a href="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" height="400"></a>
-<a href="https://cloud.githubusercontent.com/assets/352956/6310453/4d3a89de-b957-11e4-8937-6772ccd4ee81.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310453/4d3a89de-b957-11e4-8937-6772ccd4ee81.png" height="400"></a>
+<a href="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" height="600"></a>
+<a href="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" height="600"></a>
+<a href="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" height="600"></a>
+<a href="https://cloud.githubusercontent.com/assets/352956/6310453/4d3a89de-b957-11e4-8937-6772ccd4ee81.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310453/4d3a89de-b957-11e4-8937-6772ccd4ee81.png" height="600"></a>
