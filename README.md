@@ -51,3 +51,6 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 <a href="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" height="600"></a>
 <a href="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" height="600"></a>
 <a href="https://cloud.githubusercontent.com/assets/352956/6311996/999f2fcc-b96c-11e4-948a-1e142f9bc04a.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6311996/999f2fcc-b96c-11e4-948a-1e142f9bc04a.png" height="600"></a>
+
+##License
+Copyright (c) 2015 Jing Li. See the LICENSE file for license rights and limitations (MIT).
