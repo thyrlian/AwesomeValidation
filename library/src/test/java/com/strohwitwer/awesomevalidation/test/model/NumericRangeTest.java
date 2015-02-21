@@ -63,12 +63,18 @@ public class NumericRangeTest extends AndroidTestCase {
         assertTrue(numericRange.isValid(Float.toString(100.0f)));
         assertTrue(numericRange.isValid(Float.toString(100.00000f)));
         assertTrue(numericRange.isValid(Float.toString(50.0f)));
+        assertTrue(numericRange.isValid(Integer.toString(-0)));
+        assertTrue(numericRange.isValid(Integer.toString(0)));
+        assertTrue(numericRange.isValid(Integer.toString(50)));
+        assertTrue(numericRange.isValid(Integer.toString(100)));
 
         assertFalse(numericRange.isValid(Float.toString(-0.0f)));
         assertFalse(numericRange.isValid(Float.toString(-1.0f)));
         assertFalse(numericRange.isValid(Float.toString(-0.00001f)));
         assertFalse(numericRange.isValid(Float.toString(100.00001f)));
         assertFalse(numericRange.isValid(Float.toString(1000.0f)));
+        assertFalse(numericRange.isValid(Integer.toString(-1)));
+        assertFalse(numericRange.isValid(Integer.toString(101)));
     }
 
 }
