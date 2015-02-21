@@ -14,7 +14,7 @@
     <string name="btn_clr">Clear</string>
     <string name="err_userid">Letters, numbers, underscores or hyphens</string>
     <string name="err_name">Human name please</string>
-    <string name="err_tel">Number only</string>
+    <string name="err_tel">Telephone Number please</string>
     <string name="err_zipcode">Number only</string>
     <string name="err_year">Year must be between 1900 and this year</string>
     <string name="err_height">Human height should be between 0 to 2.72 meters</string>
