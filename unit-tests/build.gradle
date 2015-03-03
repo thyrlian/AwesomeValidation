@@ -1,0 +1,10 @@
+evaluationDependsOn(':library')
+
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':library')
+    testCompile project(path: ':library', configuration: 'debugCompile')
+    testCompile 'junit:junit:4.+'
+}

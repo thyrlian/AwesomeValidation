@@ -17,14 +17,13 @@ android {
         }
     }
     sourceSets {
-        main.java.srcDirs = ['src/main/java', 'src/test/java']
+        main.java.srcDirs = ['src/main/java']
         main.resources.srcDirs = ['src/main/res']
-        androidTest.setRoot('test')
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:21.0.+'
     compile 'com.google.guava:guava:18.0'
 }
