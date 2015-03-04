@@ -17,11 +17,13 @@ android {
         }
     }
     sourceSets {
-        main.java.srcDirs = ['src/main/java']
+        main.java.srcDirs = ['src/main/java', 'src/test/java']
         main.resources.srcDirs = ['src/main/res']
+        androidTest.setRoot('test')
     }
 }
 
 dependencies {
     compile 'com.google.guava:guava:18.0'
+    testCompile 'junit:junit:4.+'
 }
