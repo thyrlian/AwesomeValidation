@@ -3,8 +3,12 @@ evaluationDependsOn(':library')
 apply plugin: 'java'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':library')
-    testCompile project(path: ':library', configuration: 'debugCompile')
+    compile 'com.google.android:android-test:4.1.1.4'
     testCompile 'junit:junit:4.+'
+}
+
+sourceSets {
+    main.java.srcDirs = ['../library/src/main/java']
+    main.resources.srcDirs = ['../library/src/main/res']
 }

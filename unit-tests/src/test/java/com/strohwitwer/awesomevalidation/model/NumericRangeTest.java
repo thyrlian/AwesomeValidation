@@ -1,13 +1,12 @@
-package com.strohwitwer.awesomevalidation.test.model;
-
-import android.test.AndroidTestCase;
+package com.strohwitwer.awesomevalidation.model;
 
 import com.google.common.collect.Range;
-import com.strohwitwer.awesomevalidation.model.NumericRange;
+
+import junit.framework.TestCase;
 
 import java.util.Calendar;
 
-public class NumericRangeTest extends AndroidTestCase {
+public class NumericRangeTest extends TestCase {
 
     public void testIsNumberFormatPositive() {
         assertTrue(NumericRange.isNumberFormat("0"));

@@ -1,13 +1,11 @@
-package com.strohwitwer.awesomevalidation.test.helper;
+package com.strohwitwer.awesomevalidation.helper;
 
-import android.test.AndroidTestCase;
-
-import com.strohwitwer.awesomevalidation.helper.RangeHelper;
+import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class RangeHelperTest extends AndroidTestCase {
+public class RangeHelperTest extends TestCase {
 
     ArrayList<int[]> expected;
     ArrayList<int[]> ranges;
