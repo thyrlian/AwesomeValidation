@@ -1,0 +1,27 @@
+sudo: false
+
+language: android
+
+android:
+  components:
+    - build-tools-21.1.2
+    - android-21
+    - sys-img-armeabi-v7a-android-21
+    - add-on
+    - extra
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+
+jdk:
+  - oraclejdk7
+
+before_install:
+  - echo yes | android update sdk --all --filter build-tools-21.1.2 --no-ui --force
+
+before_script:
+  - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
