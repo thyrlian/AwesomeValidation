@@ -1,1 +1,1 @@
-include ':demo', ':library', ':unit-tests'
+include ':library', ':demo'
