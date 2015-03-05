@@ -8,6 +8,7 @@ import com.google.common.collect.Range;
 import com.strohwitwer.awesomevalidation.model.NumericRange;
 import com.strohwitwer.awesomevalidation.validators.BasicValidator;
 import com.strohwitwer.awesomevalidation.validators.ColorationValidator;
+import com.strohwitwer.awesomevalidation.validators.ToastValidator;
 import com.strohwitwer.awesomevalidation.validators.UnderlabelValidator;
 import com.strohwitwer.awesomevalidation.validators.Validator;
 
@@ -30,6 +31,11 @@ public class AwesomeValidation {
             case UNDERLABEL:
                 if (mValidator == null || !(mValidator instanceof UnderlabelValidator)) {
                     mValidator = new UnderlabelValidator();
+                }
+                return;
+            case TOASTMSG:
+                if (mValidator == null || !(mValidator instanceof ToastValidator)) {
+                    mValidator = new ToastValidator();
                 }
                 return;
         }
