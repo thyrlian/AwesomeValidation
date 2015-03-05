@@ -22,6 +22,7 @@
         <item>BASIC</item>
         <item>COLORATION</item>
         <item>UNDERLABEL</item>
+        <item>TOASTMSG</item>
     </string-array>
 
 </resources>
