@@ -43,6 +43,10 @@ public abstract class Validator {
     }
 
     protected boolean checkFields(ValidationCallback callback) {
+        return checkFields(callback, true);
+    }
+
+    protected boolean checkFields(ValidationCallback callback, boolean checkAll) {
         boolean result = true;
         boolean hasFailed = false;
         for (ValidationHolder validationHolder : mValidationHolderList) {
@@ -70,6 +74,10 @@ public abstract class Validator {
                     hasFailed = true;
                 }
                 result = false;
+            }
+
+            if (checkAll && !result) {
+                break;
             }
         }
         return result;

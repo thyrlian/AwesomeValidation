@@ -25,6 +25,7 @@ import java.util.Calendar;
 
 import static com.strohwitwer.awesomevalidation.ValidationStyle.BASIC;
 import static com.strohwitwer.awesomevalidation.ValidationStyle.COLORATION;
+import static com.strohwitwer.awesomevalidation.ValidationStyle.TOASTMSG;
 import static com.strohwitwer.awesomevalidation.ValidationStyle.UNDERLABEL;
 
 public class DemoActivity extends ActionBarActivity {
@@ -80,7 +81,7 @@ public class DemoActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(Gravity.START|Gravity.LEFT)){
+        if (mDrawerLayout.isDrawerOpen(Gravity.START | Gravity.LEFT)) {
             mDrawerLayout.closeDrawers();
             return;
         }
@@ -129,6 +130,9 @@ public class DemoActivity extends ActionBarActivity {
             case UNDERLABEL:
                 mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
                 mAwesomeValidation.setContext(this);
+                break;
+            case TOASTMSG:
+                mAwesomeValidation = new AwesomeValidation(TOASTMSG);
                 break;
         }
     }
