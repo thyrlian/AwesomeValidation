@@ -1,0 +1,76 @@
+apply plugin: 'maven'
+
+def localReleaseDest = "${buildDir}/release/${pomVersion}"
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+    classpath += files(ext.androidJar)
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+task zipRelease(type: Zip) {
+    from localReleaseDest
+    destinationDir buildDir
+    archiveName "release-${pomVersion}.zip"
+}
+
+task generateRelease << {
+    println "Release v${pomVersion} is generated to ${localReleaseDest}/"
+    println "Release v${pomVersion} (zip) is generated to ${buildDir}/release-${pomVersion}.zip"
+}
+
+generateRelease.dependsOn(uploadArchives)
+generateRelease.dependsOn(zipRelease)
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = pomGroupId
+        pom.artifactId = pomArtifactId
+        pom.version = pomVersion
+
+        pom.project {
+            name pomName
+            packaging pomPackaging
+            description pomDescription
+            url pomUrl
+
+            scm {
+                url pomScmUrl
+                connection pomScmConnection
+                developerConnection pomScmDevConnection
+            }
+
+            licenses {
+                license {
+                    name pomLicenceName
+                    url pomLicenceUrl
+                    distribution pomLicenceDist
+                }
+            }
+
+            developers {
+                developer {
+                    id pomDeveloperId
+                    name pomDeveloperName
+                }
+            }
+        }
+
+        repository(url: "file://${localReleaseDest}")
+    }
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
