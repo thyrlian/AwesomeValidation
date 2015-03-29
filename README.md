@@ -53,6 +53,14 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 });
 ```
 
+##Import as dependency
+For Gradle it's so easy: just add below compile line to your module's build.gradle (it's available on JCenter).
+```java
+dependencies {
+    compile 'com.basgeekball:awesome-validation:1.0'
+}
+```
+
 ##Screenshots
 <a href="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" height="600"></a>
 <a href="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" height="600"></a>
