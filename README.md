@@ -1,4 +1,5 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AwesomeValidation-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1605)
+[ ![JCenter](https://api.bintray.com/packages/thyrlian/android-libraries/com.basgeekball.awesomevalidation/images/download.svg) ](https://bintray.com/thyrlian/android-libraries/com.basgeekball.awesomevalidation/_latestVersion)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![Build Status](https://travis-ci.org/thyrlian/AwesomeValidation.svg?branch=master)](https://travis-ci.org/thyrlian/AwesomeValidation)
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23142-brightgreen.svg)](http://androidweekly.net/issues/issue-142)
