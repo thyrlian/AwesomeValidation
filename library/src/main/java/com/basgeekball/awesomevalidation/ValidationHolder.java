@@ -1,8 +1,8 @@
-package com.strohwitwer.awesomevalidation;
+package com.basgeekball.awesomevalidation;
 
 import android.widget.EditText;
 
-import com.strohwitwer.awesomevalidation.model.NumericRange;
+import com.basgeekball.awesomevalidation.model.NumericRange;
 
 import java.util.regex.Pattern;
 

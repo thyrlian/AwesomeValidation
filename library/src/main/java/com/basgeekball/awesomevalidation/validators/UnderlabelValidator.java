@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.validators;
+package com.basgeekball.awesomevalidation.validators;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -8,9 +8,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.strohwitwer.awesomevalidation.ValidationHolder;
-import com.strohwitwer.awesomevalidation.utility.ValidationCallback;
-import com.strohwitwer.awesomevalidation.utility.ViewsInfo;
+import com.basgeekball.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.utility.ValidationCallback;
+import com.basgeekball.awesomevalidation.utility.ViewsInfo;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation;
+package com.basgeekball.awesomevalidation;
 
 public enum ValidationStyle {
 

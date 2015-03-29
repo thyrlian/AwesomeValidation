@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.helper;
+package com.basgeekball.awesomevalidation.helper;
 
 import junit.framework.TestCase;
 

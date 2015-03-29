@@ -1,15 +1,15 @@
-package com.strohwitwer.awesomevalidation;
+package com.basgeekball.awesomevalidation;
 
 import android.app.Activity;
 import android.content.Context;
 import android.widget.EditText;
 
 import com.google.common.collect.Range;
-import com.strohwitwer.awesomevalidation.model.NumericRange;
-import com.strohwitwer.awesomevalidation.validators.BasicValidator;
-import com.strohwitwer.awesomevalidation.validators.ColorationValidator;
-import com.strohwitwer.awesomevalidation.validators.UnderlabelValidator;
-import com.strohwitwer.awesomevalidation.validators.Validator;
+import com.basgeekball.awesomevalidation.model.NumericRange;
+import com.basgeekball.awesomevalidation.validators.BasicValidator;
+import com.basgeekball.awesomevalidation.validators.ColorationValidator;
+import com.basgeekball.awesomevalidation.validators.UnderlabelValidator;
+import com.basgeekball.awesomevalidation.validators.Validator;
 
 public class AwesomeValidation {
 

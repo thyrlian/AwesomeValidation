@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.model;
+package com.basgeekball.awesomevalidation.model;
 
 import com.google.common.collect.Range;
 

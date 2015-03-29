@@ -1,6 +1,6 @@
-package com.strohwitwer.awesomevalidation.utility;
+package com.basgeekball.awesomevalidation.utility;
 
-import com.strohwitwer.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.ValidationHolder;
 
 import java.util.regex.Matcher;
 

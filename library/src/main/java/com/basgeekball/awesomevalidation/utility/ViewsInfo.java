@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.utility;
+package com.basgeekball.awesomevalidation.utility;
 
 import android.view.ViewGroup;
 import android.widget.EditText;

@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.demo;
+package com.basgeekball.awesomevalidation.demo;
 
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -17,15 +17,15 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.common.collect.Range;
-import com.strohwitwer.awesomevalidation.AwesomeValidation;
-import com.strohwitwer.awesomevalidation.ValidationStyle;
-import com.strohwitwer.awesomevalidation.utility.RegexTemplate;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 
 import java.util.Calendar;
 
-import static com.strohwitwer.awesomevalidation.ValidationStyle.BASIC;
-import static com.strohwitwer.awesomevalidation.ValidationStyle.COLORATION;
-import static com.strohwitwer.awesomevalidation.ValidationStyle.UNDERLABEL;
+import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
+import static com.basgeekball.awesomevalidation.ValidationStyle.COLORATION;
+import static com.basgeekball.awesomevalidation.ValidationStyle.UNDERLABEL;
 
 public class DemoActivity extends ActionBarActivity {
 

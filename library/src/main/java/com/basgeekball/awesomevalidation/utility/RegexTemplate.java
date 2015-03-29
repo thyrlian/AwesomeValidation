@@ -1,4 +1,4 @@
-package com.strohwitwer.awesomevalidation.utility;
+package com.basgeekball.awesomevalidation.utility;
 
 public class RegexTemplate {
 

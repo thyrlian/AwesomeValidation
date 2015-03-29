@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.strohwitwer.awesomevalidation">
+    package="com.basgeekball.awesomevalidation">
 
     <application android:allowBackup="true">
 

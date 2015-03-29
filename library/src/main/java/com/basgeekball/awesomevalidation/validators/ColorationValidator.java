@@ -1,12 +1,12 @@
-package com.strohwitwer.awesomevalidation.validators;
+package com.basgeekball.awesomevalidation.validators;
 
 import android.graphics.Color;
 import android.widget.EditText;
 
-import com.strohwitwer.awesomevalidation.ValidationHolder;
-import com.strohwitwer.awesomevalidation.helper.RangeHelper;
-import com.strohwitwer.awesomevalidation.helper.SpanHelper;
-import com.strohwitwer.awesomevalidation.utility.ValidationCallback;
+import com.basgeekball.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.helper.RangeHelper;
+import com.basgeekball.awesomevalidation.helper.SpanHelper;
+import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
