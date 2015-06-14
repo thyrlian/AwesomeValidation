@@ -4,9 +4,9 @@ language: android
 
 android:
   components:
-    - build-tools-21.1.2
-    - android-21
-    - sys-img-armeabi-v7a-android-21
+    - build-tools-22.0.1
+    - android-22
+    - sys-img-armeabi-v7a-android-22
     - add-on
     - extra
   licenses:
@@ -18,7 +18,7 @@ jdk:
   - oraclejdk7
 
 before_install:
-  - echo yes | android update sdk --all --filter build-tools-21.1.2 --no-ui --force
+  - echo yes | android update sdk --all --filter build-tools-22.0.1 --no-ui --force
 
 before_script:
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
