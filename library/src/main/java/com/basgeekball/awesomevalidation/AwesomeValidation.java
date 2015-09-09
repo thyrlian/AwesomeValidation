@@ -11,6 +11,8 @@ import com.basgeekball.awesomevalidation.validators.ColorationValidator;
 import com.basgeekball.awesomevalidation.validators.UnderlabelValidator;
 import com.basgeekball.awesomevalidation.validators.Validator;
 
+import java.util.regex.Pattern;
+
 public class AwesomeValidation {
 
     private Validator mValidator = null;
@@ -57,6 +59,14 @@ public class AwesomeValidation {
 
     public void addValidation(Activity activity, int viewId, String regex, int errMsgId) {
         mValidator.set(activity, viewId, regex, errMsgId);
+    }
+
+    public void addValidation(EditText editText, Pattern pattern, String errMsg) {
+        mValidator.set(editText, pattern, errMsg);
+    }
+
+    public void addValidation(Activity activity, int viewId, Pattern pattern, int errMsgId) {
+        mValidator.set(activity, viewId, pattern, errMsgId);
     }
 
     public void addValidation(EditText editText, Range range, String errMsg) {

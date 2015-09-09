@@ -4,6 +4,8 @@
     <string name="app_name">AwesomeValidationDemo</string>
     <string name="edt_userid">User ID</string>
     <string name="edt_name">Name</string>
+    <string name="edt_email">Email Address</string>
+    <string name="edt_ip">IP Address</string>
     <string name="edt_tel">Telephone number</string>
     <string name="edt_zipcode">Zip Code</string>
     <string name="edt_firstname">First Name</string>
@@ -14,6 +16,8 @@
     <string name="btn_clr">Clear</string>
     <string name="err_userid">Letters, numbers, underscores or hyphens</string>
     <string name="err_name">Human name please</string>
+    <string name="err_email">Email address please</string>
+    <string name="err_ip">IP address please</string>
     <string name="err_tel">Telephone Number please</string>
     <string name="err_zipcode">Number only</string>
     <string name="err_year">Year must be between 1900 and this year</string>

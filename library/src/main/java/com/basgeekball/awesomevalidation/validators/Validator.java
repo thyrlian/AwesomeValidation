@@ -31,6 +31,17 @@ public abstract class Validator {
         set(editText, regex, errMsg);
     }
 
+    public void set(EditText editText, Pattern pattern, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(editText, pattern, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
+    public void set(Activity activity, int viewId, Pattern pattern, int errMsgId) {
+        EditText editText = (EditText) activity.findViewById(viewId);
+        String errMsg = activity.getResources().getString(errMsgId);
+        set(editText, pattern, errMsg);
+    }
+
     public void set(EditText editText, NumericRange numericRange, String errMsg) {
         ValidationHolder validationHolder = new ValidationHolder(editText, numericRange, errMsg);
         mValidationHolderList.add(validationHolder);
