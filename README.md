@@ -27,7 +27,7 @@ AwesomeValidation mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
 mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
 
 // Step 2: add validations
-// support regex string or java.util.regex.Pattern or Guava#Range
+// support regex string, java.util.regex.Pattern and Guava#Range
 // you can pass resource or string
 mAwesomeValidation.addValidation(activity, R.id.edt_name, "[a-zA-Z\\s]+", R.string.err_name);
 mAwesomeValidation.addValidation(activity, R.id.edt_tel, RegexTemplate.TELEPHONE, R.string.err_tel);
