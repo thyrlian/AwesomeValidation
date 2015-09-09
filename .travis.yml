@@ -4,18 +4,18 @@ language: android
 
 android:
   components:
-    - build-tools-22.0.1
-    - android-22
-    - sys-img-armeabi-v7a-android-22
-    - add-on
+    - build-tools-23.0.1
+    - android-23
+    - extra-google-google_play_services
+    - extra-android-support
     - extra
-  licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 
 jdk:
   - oraclejdk7
+
+env:
+  matrix:
+    - ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a
 
 before_install:
   - echo yes | android update sdk --all --filter build-tools-22.0.1 --no-ui --force
