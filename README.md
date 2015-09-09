@@ -27,10 +27,11 @@ AwesomeValidation mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
 mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
 
 // Step 2: add validations
-// support regex string or Guava#Range
+// support regex string or java.util.regex.Pattern or Guava#Range
 // you can pass resource or string
 mAwesomeValidation.addValidation(activity, R.id.edt_name, "[a-zA-Z\\s]+", R.string.err_name);
 mAwesomeValidation.addValidation(activity, R.id.edt_tel, RegexTemplate.TELEPHONE, R.string.err_tel);
+mAwesomeValidation.addValidation(activity, R.id.edt_email, android.util.Patterns.EMAIL_ADDRESS, R.string.err_email);
 mAwesomeValidation.addValidation(activity, R.id.edt_year, Range.closed(1900, Calendar.getInstance().get(Calendar.YEAR)), R.string.err_year);
 mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2.72f), R.string.err_height);
 // or
