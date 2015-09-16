@@ -58,7 +58,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 For Gradle it's so easy: just add below compile line to your module's build.gradle (it's available on JCenter).
 ```java
 dependencies {
-    compile 'com.basgeekball:awesome-validation:1.0'
+    compile 'com.basgeekball:awesome-validation:1.1'
 }
 ```
 
@@ -69,10 +69,10 @@ dependencies {
 <a href="https://cloud.githubusercontent.com/assets/352956/6311996/999f2fcc-b96c-11e4-948a-1e142f9bc04a.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6311996/999f2fcc-b96c-11e4-948a-1e142f9bc04a.png" height="600"></a>
 
 ##Release guide
-* Update version number in build.gradle & gradle.properties.
-* Run `gradle clean build generateRelease` to generate release zip file;
-* Run `gradle bintrayUpload` to create a new version in bintray;
-* Upload release zip file manually to bintray, make sure to check '**Explode this archive**'.
+* Update version number in *build.gradle*, *gradle.properties* and *README*
+* Run `gradle clean build generateRelease` to generate release zip file
+* Run `gradle bintrayUpload` to create a new version in bintray
+* Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
 
 ##License
 Copyright (c) 2015 Jing Li. See the LICENSE file for license rights and limitations (MIT).
