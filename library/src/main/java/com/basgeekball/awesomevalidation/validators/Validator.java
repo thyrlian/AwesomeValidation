@@ -1,6 +1,7 @@
 package com.basgeekball.awesomevalidation.validators;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
@@ -31,6 +32,12 @@ public abstract class Validator {
         set(editText, regex, errMsg);
     }
 
+    public void set(View rootView, int viewId, String regex, int errMsgId) {
+        EditText editText = (EditText) rootView.findViewById(viewId);
+        String errMsg = rootView.getResources().getString(errMsgId);
+        set(editText, regex, errMsg);
+    }
+
     public void set(EditText editText, Pattern pattern, String errMsg) {
         ValidationHolder validationHolder = new ValidationHolder(editText, pattern, errMsg);
         mValidationHolderList.add(validationHolder);
@@ -42,6 +49,12 @@ public abstract class Validator {
         set(editText, pattern, errMsg);
     }
 
+    public void set(View rootView, int viewId, Pattern pattern, int errMsgId) {
+        EditText editText = (EditText) rootView.findViewById(viewId);
+        String errMsg = rootView.getResources().getString(errMsgId);
+        set(editText, pattern, errMsg);
+    }
+
     public void set(EditText editText, NumericRange numericRange, String errMsg) {
         ValidationHolder validationHolder = new ValidationHolder(editText, numericRange, errMsg);
         mValidationHolderList.add(validationHolder);
@@ -50,6 +63,12 @@ public abstract class Validator {
     public void set(Activity activity, int viewId, NumericRange numericRange, int errMsgId) {
         EditText editText = (EditText) activity.findViewById(viewId);
         String errMsg = activity.getResources().getString(errMsgId);
+        set(editText, numericRange, errMsg);
+    }
+
+    public void set(View rootView, int viewId, NumericRange numericRange, int errMsgId) {
+        EditText editText = (EditText) rootView.findViewById(viewId);
+        String errMsg = rootView.getResources().getString(errMsgId);
         set(editText, numericRange, errMsg);
     }
 
