@@ -38,6 +38,7 @@ public class DemoActivity extends ActionBarActivity {
     private DrawerItemClickListener mDrawerItemClickListener = new DrawerItemClickListener();
     private int mPosition = 0;
     private AwesomeValidation mAwesomeValidation;
+    private View mFormWrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +136,9 @@ public class DemoActivity extends ActionBarActivity {
     }
 
     private void addValidation(final Activity activity) {
-        mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
+        mFormWrapper = findViewById(R.id.form_wrapper);
+        mAwesomeValidation.addValidation(mFormWrapper, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
+
         mAwesomeValidation.addValidation(activity, R.id.edt_name, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_firstname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_lastname, "[a-zA-Z\\s]+", R.string.err_name);

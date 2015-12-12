@@ -1,10 +1,12 @@
 package com.basgeekball.awesomevalidation;
 
+import com.google.common.collect.Range;
+
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 import android.widget.EditText;
 
-import com.google.common.collect.Range;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.validators.BasicValidator;
 import com.basgeekball.awesomevalidation.validators.ColorationValidator;
@@ -61,6 +63,10 @@ public class AwesomeValidation {
         mValidator.set(activity, viewId, regex, errMsgId);
     }
 
+    public void addValidation(View rootView, int viewId, String regex, int errMsgId) {
+        mValidator.set(rootView, viewId, regex, errMsgId);
+    }
+
     public void addValidation(EditText editText, Pattern pattern, String errMsg) {
         mValidator.set(editText, pattern, errMsg);
     }
@@ -69,12 +75,20 @@ public class AwesomeValidation {
         mValidator.set(activity, viewId, pattern, errMsgId);
     }
 
+    public void addValidation(View rootView, int viewId, Pattern pattern, int errMsgId) {
+        mValidator.set(rootView, viewId, pattern, errMsgId);
+    }
+
     public void addValidation(EditText editText, Range range, String errMsg) {
         mValidator.set(editText, new NumericRange(range), errMsg);
     }
 
     public void addValidation(Activity activity, int viewId, Range range, int errMsgId) {
         mValidator.set(activity, viewId, new NumericRange(range), errMsgId);
+    }
+
+    public void addValidation(View rootView, int viewId, Range range, int errMsgId) {
+        mValidator.set(rootView, viewId, new NumericRange(range), errMsgId);
     }
 
     public boolean validate() {
