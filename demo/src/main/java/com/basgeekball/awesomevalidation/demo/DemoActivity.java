@@ -5,8 +5,8 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -17,10 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.common.collect.Range;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.google.common.collect.Range;
 
 import java.util.Calendar;
 
@@ -28,10 +28,9 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 import static com.basgeekball.awesomevalidation.ValidationStyle.COLORATION;
 import static com.basgeekball.awesomevalidation.ValidationStyle.UNDERLABEL;
 
-public class DemoActivity extends ActionBarActivity {
+public class DemoActivity extends AppCompatActivity {
 
     private String[] mStyles;
-    private String mStyle;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -102,12 +101,12 @@ public class DemoActivity extends ActionBarActivity {
         private void selectItem(int position) {
             mDrawerList.setItemChecked(position, true);
             mPosition = position;
-            mStyle = mStyles[mPosition];
-            setTitle(mStyle);
+            String style = mStyles[mPosition];
+            setTitle(style);
             mDrawerLayout.closeDrawer(mDrawerList);
 
             clearValidation();
-            initValidation(mStyle);
+            initValidation(style);
             addValidation(DemoActivity.this);
         }
     }
@@ -136,7 +135,6 @@ public class DemoActivity extends ActionBarActivity {
 
     private void addValidation(final Activity activity) {
         mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
-        mAwesomeValidation.addValidation(activity, R.id.edt_name, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_firstname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_lastname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_email, Patterns.EMAIL_ADDRESS, R.string.err_email);

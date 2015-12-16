@@ -44,38 +44,11 @@
                         android:singleLine="true"
                         android:hint="@string/edt_userid"/>
 
-                    <EditText
-                        android:id="@+id/edt_name"
+                    <fragment
+                        android:name="com.basgeekball.awesomevalidation.demo.NameFragment"
+                        android:id="@+id/name_fragment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_name"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/edt_firstname"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:hint="@string/edt_firstname"/>
-
-                        <EditText
-                            android:id="@+id/edt_lastname"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:hint="@string/edt_lastname"/>
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/edt_email"
