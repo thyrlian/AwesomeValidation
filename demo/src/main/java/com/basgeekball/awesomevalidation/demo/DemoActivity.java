@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -80,7 +80,7 @@ public class DemoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(Gravity.START|Gravity.LEFT)){
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
             mDrawerLayout.closeDrawers();
             return;
         }
