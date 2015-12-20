@@ -28,8 +28,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:layout_below="@id/toolbar">
+                android:paddingBottom="@dimen/activity_vertical_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,6 +51,7 @@
 
                     <EditText
                         android:id="@+id/edt_email"
+                        android:inputType="textEmailAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -92,6 +92,7 @@
 
                     <EditText
                         android:id="@+id/edt_height"
+                        android:inputType="numberDecimal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -115,6 +116,7 @@
                     android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:textStyle="bold"
                     android:text="@string/btn_clr"/>
 
@@ -123,6 +125,7 @@
                     android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:textStyle="bold"
                     android:text="@string/btn_done"/>
 

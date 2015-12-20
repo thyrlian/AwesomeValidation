@@ -3,7 +3,6 @@
 
     <string name="app_name">AwesomeValidationDemo</string>
     <string name="edt_userid">User ID</string>
-    <string name="edt_name">Name</string>
     <string name="edt_email">Email Address</string>
     <string name="edt_ip">IP Address</string>
     <string name="edt_tel">Telephone number</string>
