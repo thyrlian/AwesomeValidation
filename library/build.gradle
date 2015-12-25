@@ -17,15 +17,26 @@ android {
         }
     }
     sourceSets {
-        main.java.srcDirs = ['src/main/java', 'src/test/java']
-        main.resources.srcDirs = ['src/main/res']
+        main {
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/res']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+            resources.srcDirs = ['src/test/res']
+        }
         androidTest.setRoot('test')
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 
 dependencies {
     compile 'com.google.guava:guava:18.0'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.+'
+    testCompile 'com.squareup.assertj:assertj-android:1.1.1'
 }
 
 apply from: 'https://raw.githubusercontent.com/thyrlian/AwesomeValidation/master/publish.gradle'
