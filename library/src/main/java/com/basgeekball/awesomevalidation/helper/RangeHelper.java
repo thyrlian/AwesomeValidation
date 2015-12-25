@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class RangeHelper {
 
-    private RangeHelper() {}
+    private RangeHelper() {
+        throw new UnsupportedOperationException();
+    }
 
     public static ArrayList<int[]> inverse(ArrayList<int[]> ranges, int lengthOfText) {
         ArrayList<int[]> inverseRanges = new ArrayList<int[]>();

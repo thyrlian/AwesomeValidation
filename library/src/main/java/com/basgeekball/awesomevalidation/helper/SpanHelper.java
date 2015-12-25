@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 public class SpanHelper {
 
-    private SpanHelper() {}
+    private SpanHelper() {
+        throw new UnsupportedOperationException();
+    }
 
     public static void setColor(EditText editText, int color, ArrayList<int[]> ranges) {
         String text = editText.getText().toString();
