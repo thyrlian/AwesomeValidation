@@ -3,7 +3,7 @@ package com.basgeekball.awesomevalidation.utility;
 public class RegexTemplate {
 
     public static final String NOT_EMPTY = "^(?=\\s*\\S).*$";
-    public static final String TELEPHONE = "(^\\+)?[0-9()-]*";
+    public static final String TELEPHONE = "(^\\+\\d+)?[0-9\\s()-]*";
 
     private RegexTemplate() {
         throw new UnsupportedOperationException();
