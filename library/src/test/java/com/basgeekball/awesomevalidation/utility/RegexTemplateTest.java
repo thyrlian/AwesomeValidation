@@ -32,7 +32,16 @@ public class RegexTemplateTest extends TestCase {
         Pattern pattern = Pattern.compile(RegexTemplate.TELEPHONE);
         assertTrue(pattern.matcher("1234567890").matches());
         assertTrue(pattern.matcher("+49-030-00000001").matches());
+        assertTrue(pattern.matcher("+49-(030)-00000001").matches());
+        assertTrue(pattern.matcher("+490123456789").matches());
+        assertTrue(pattern.matcher("(0)12345678").matches());
+        assertTrue(pattern.matcher("030-00000001").matches());
+        assertTrue(pattern.matcher("123456789-001").matches());
+        assertFalse(pattern.matcher("49+007").matches());
         assertFalse(pattern.matcher("a123456789").matches());
+        assertFalse(pattern.matcher("123456789b").matches());
+        assertFalse(pattern.matcher("++49-00000001").matches());
+        assertFalse(pattern.matcher("123*456").matches());
     }
 
 }
