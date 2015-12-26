@@ -6,11 +6,6 @@ import java.util.regex.Pattern;
 
 public class RegexTemplateTest extends TestCase {
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
     public void testConstantNotEmpty() {
         Pattern pattern = Pattern.compile(RegexTemplate.NOT_EMPTY);
         assertTrue(pattern.matcher("a").matches());
