@@ -39,4 +39,10 @@ dependencies {
     testCompile 'com.squareup.assertj:assertj-android:1.1.1'
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'junit:junit:4.12'
+    }
+}
+
 apply from: 'https://raw.githubusercontent.com/thyrlian/AwesomeValidation/master/publish.gradle'
