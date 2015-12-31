@@ -127,7 +127,6 @@ public class ValidatorTest extends TestCase {
         } else if (type == ValidationHolderType.RANGE) {
             when(mockedValidationHolder.isRegexType()).thenReturn(false);
             when(mockedValidationHolder.isRangeType()).thenReturn(true);
-
             NumericRange mockedNumericRange = mock(NumericRange.class);
             when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
             when(mockedNumericRange.isValid(mockedString)).thenReturn(validity);
