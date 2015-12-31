@@ -112,7 +112,7 @@ public class ValidatorTest extends TestCase {
         assertFalse(mValidator.checkFields(mEmptyValidationCallback));
     }
 
-    private ValidationHolder mockValidationHolder(ValidationHolderType type, boolean shouldMatchOrNot) {
+    private ValidationHolder mockValidationHolder(ValidationHolderType type, boolean validity) {
         ValidationHolder mockedValidationHolder = mock(ValidationHolder.class, RETURNS_DEEP_STUBS);
         String mockedString = PowerMockito.mock(String.class);
         when(mockedValidationHolder.getText()).thenReturn(mockedString);
@@ -123,14 +123,14 @@ public class ValidatorTest extends TestCase {
             Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
             when(mockedValidationHolder.getPattern()).thenReturn(mockedPattern);
             when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
-            when(mockedMatcher.matches()).thenReturn(shouldMatchOrNot);
+            when(mockedMatcher.matches()).thenReturn(validity);
         } else if (type == ValidationHolderType.RANGE) {
             when(mockedValidationHolder.isRegexType()).thenReturn(false);
             when(mockedValidationHolder.isRangeType()).thenReturn(true);
 
             NumericRange mockedNumericRange = mock(NumericRange.class);
             when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
-            when(mockedNumericRange.isValid(mockedString)).thenReturn(shouldMatchOrNot);
+            when(mockedNumericRange.isValid(mockedString)).thenReturn(validity);
         }
         return mockedValidationHolder;
     }
