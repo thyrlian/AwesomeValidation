@@ -27,6 +27,7 @@ import static com.basgeekball.awesomevalidation.validators.MockValidationHolderH
 import static org.mockito.Mockito.RETURNS_MOCKS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -111,6 +112,58 @@ public class UnderlabelValidatorTest extends TestCase {
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mockedValidationHolderRangeTypePass);
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mockedValidationHolderRegexTypeFail);
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mockedValidationHolderRangeTypeFail);
+    }
+
+    public void testHaltRestoreViewsForAllValid() throws IllegalAccessException {
+        ArrayList<ViewsInfo> spiedViewsInfos = spy(ArrayList.class);
+        ViewsInfo mockedViewsInfo1 = mock(ViewsInfo.class);
+        ViewsInfo mockedViewsInfo2 = mock(ViewsInfo.class);
+        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2));
+        MemberModifier.field(UnderlabelValidator.class, "mViewsInfos").set(mSpiedUnderlabelValidator, spiedViewsInfos);
+        ValidationHolder mockedValidationHolderRegexType = generate(REGEX, true);
+        ValidationHolder mockedValidationHolderRangeType = generate(RANGE, true);
+        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
+        mSpiedUnderlabelValidator.halt();
+        for (ViewsInfo viewsInfo : spiedViewsInfos) {
+            verify(viewsInfo, times(1)).restoreViews();
+        }
+    }
+
+    public void testHaltRestoreViewsForAllInvalid() throws IllegalAccessException {
+        ArrayList<ViewsInfo> spiedViewsInfos = spy(ArrayList.class);
+        ViewsInfo mockedViewsInfo1 = mock(ViewsInfo.class);
+        ViewsInfo mockedViewsInfo2 = mock(ViewsInfo.class);
+        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2));
+        MemberModifier.field(UnderlabelValidator.class, "mViewsInfos").set(mSpiedUnderlabelValidator, spiedViewsInfos);
+        ValidationHolder mockedValidationHolderRegexType = generate(REGEX, false);
+        ValidationHolder mockedValidationHolderRangeType = generate(RANGE, false);
+        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
+        mSpiedUnderlabelValidator.halt();
+        for (ViewsInfo viewsInfo : spiedViewsInfos) {
+            verify(viewsInfo, times(1)).restoreViews();
+        }
+    }
+
+    public void testHaltRestoreViewsForAllAnyway() throws IllegalAccessException {
+        ArrayList<ViewsInfo> spiedViewsInfos = spy(ArrayList.class);
+        ViewsInfo mockedViewsInfo1 = mock(ViewsInfo.class);
+        ViewsInfo mockedViewsInfo2 = mock(ViewsInfo.class);
+        ViewsInfo mockedViewsInfo3 = mock(ViewsInfo.class);
+        ViewsInfo mockedViewsInfo4 = mock(ViewsInfo.class);
+        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2, mockedViewsInfo3, mockedViewsInfo4));
+        MemberModifier.field(UnderlabelValidator.class, "mViewsInfos").set(mSpiedUnderlabelValidator, spiedViewsInfos);
+        ValidationHolder mockedValidationHolderRegexTypePass = generate(REGEX, true);
+        ValidationHolder mockedValidationHolderRegexTypeFail = generate(REGEX, false);
+        ValidationHolder mockedValidationHolderRangeTypePass = generate(RANGE, true);
+        ValidationHolder mockedValidationHolderRangeTypeFail = generate(RANGE, false);
+        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexTypePass,
+                mockedValidationHolderRegexTypeFail,
+                mockedValidationHolderRangeTypePass,
+                mockedValidationHolderRangeTypeFail));
+        mSpiedUnderlabelValidator.halt();
+        for (ViewsInfo viewsInfo : spiedViewsInfos) {
+            verify(viewsInfo, times(1)).restoreViews();
+        }
     }
 
 }
