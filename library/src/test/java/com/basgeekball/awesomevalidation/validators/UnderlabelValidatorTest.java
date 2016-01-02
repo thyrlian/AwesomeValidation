@@ -85,4 +85,32 @@ public class UnderlabelValidatorTest extends TestCase {
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mockedValidationHolderRangeType);
     }
 
+    public void testTriggerOneWithError() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(REGEX, false);
+        when(mockedValidationHolder.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
+        mSpiedUnderlabelValidator.mValidationHolderList.add(mockedValidationHolder);
+        mSpiedUnderlabelValidator.trigger();
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mockedValidationHolder);
+    }
+
+    public void testTriggerManyWithError() throws Exception {
+        ValidationHolder mockedValidationHolderRegexTypePass = generate(REGEX, true);
+        ValidationHolder mockedValidationHolderRegexTypeFail = generate(REGEX, false);
+        ValidationHolder mockedValidationHolderRangeTypePass = generate(RANGE, true);
+        ValidationHolder mockedValidationHolderRangeTypeFail = generate(RANGE, false);
+        when(mockedValidationHolderRegexTypePass.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
+        when(mockedValidationHolderRegexTypeFail.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
+        when(mockedValidationHolderRangeTypePass.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
+        when(mockedValidationHolderRangeTypeFail.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
+        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexTypePass,
+                mockedValidationHolderRegexTypeFail,
+                mockedValidationHolderRangeTypePass,
+                mockedValidationHolderRangeTypeFail));
+        mSpiedUnderlabelValidator.trigger();
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mockedValidationHolderRegexTypePass);
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mockedValidationHolderRangeTypePass);
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mockedValidationHolderRegexTypeFail);
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mockedValidationHolderRangeTypeFail);
+    }
+
 }
