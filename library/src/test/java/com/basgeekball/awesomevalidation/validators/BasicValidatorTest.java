@@ -33,28 +33,28 @@ public class BasicValidatorTest extends TestCase {
     public void testTriggerRegexTypeWithoutError() {
         ValidationHolder mockedValidationHolder = generate(REGEX, true);
         mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
-        mBasicValidator.trigger();
+        assertTrue(mBasicValidator.trigger());
         verify(mockedValidationHolder.getEditText(), never()).setError(anyString());
     }
 
     public void testTriggerRegexTypeWithError() {
         ValidationHolder mockedValidationHolder = generate(REGEX, false);
         mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
-        mBasicValidator.trigger();
+        assertFalse(mBasicValidator.trigger());
         verify(mockedValidationHolder.getEditText(), times(1)).setError(mockedValidationHolder.getErrMsg());
     }
 
     public void testTriggerRangeTypeWithoutError() {
         ValidationHolder mockedValidationHolder = generate(RANGE, true);
         mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
-        mBasicValidator.trigger();
+        assertTrue(mBasicValidator.trigger());
         verify(mockedValidationHolder.getEditText(), never()).setError(anyString());
     }
 
     public void testTriggerRangeTypeWithError() {
         ValidationHolder mockedValidationHolder = generate(RANGE, false);
         mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
-        mBasicValidator.trigger();
+        assertFalse(mBasicValidator.trigger());
         verify(mockedValidationHolder.getEditText(), times(1)).setError(mockedValidationHolder.getErrMsg());
     }
 
@@ -62,7 +62,7 @@ public class BasicValidatorTest extends TestCase {
         ValidationHolder mockedValidationHolderRegexType = generate(REGEX, true);
         ValidationHolder mockedValidationHolderRangeType = generate(RANGE, true);
         mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
-        mBasicValidator.trigger();
+        assertTrue(mBasicValidator.trigger());
         verify(mockedValidationHolderRegexType.getEditText(), never()).setError(anyString());
         verify(mockedValidationHolderRangeType.getEditText(), never()).setError(anyString());
     }
@@ -76,7 +76,7 @@ public class BasicValidatorTest extends TestCase {
                 mockedValidationHolderRegexTypeFail,
                 mockedValidationHolderRangeTypePass,
                 mockedValidationHolderRangeTypeFail));
-        mBasicValidator.trigger();
+        assertFalse(mBasicValidator.trigger());
         verify(mockedValidationHolderRegexTypePass.getEditText(), never()).setError(anyString());
         verify(mockedValidationHolderRangeTypePass.getEditText(), never()).setError(anyString());
         verify(mockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(mockedValidationHolderRegexTypeFail.getErrMsg());
