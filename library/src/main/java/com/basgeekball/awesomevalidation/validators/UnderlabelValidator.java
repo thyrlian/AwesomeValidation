@@ -33,22 +33,7 @@ public class UnderlabelValidator extends Validator {
         return checkFields(new ValidationCallback() {
             @Override
             public void execute(ValidationHolder validationHolder, Matcher matcher) {
-                EditText editText = validationHolder.getEditText();
-                ViewGroup parent = (ViewGroup) editText.getParent();
-                int index = parent.indexOfChild(editText);
-                LinearLayout newContainer = new LinearLayout(mContext);
-                newContainer.setLayoutParams(editText.getLayoutParams());
-                newContainer.setOrientation(LinearLayout.VERTICAL);
-                TextView textView = new TextView(mContext);
-                textView.setText(validationHolder.getErrMsg());
-                textView.setTextColor(mColor);
-                textView.setPadding(editText.getPaddingLeft(), 0, editText.getPaddingRight(), 0);
-                textView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
-                parent.removeView(editText);
-                newContainer.addView(editText);
-                newContainer.addView(textView);
-                parent.addView(newContainer, index);
-                mViewsInfos.add(new ViewsInfo(index, parent, newContainer, editText));
+                TextView textView = replaceView(validationHolder);
                 if (!mHasFailed) {
                     textView.setFocusable(true);
                     textView.setFocusableInTouchMode(true);
@@ -56,7 +41,7 @@ public class UnderlabelValidator extends Validator {
                     textView.requestFocus();
                     mHasFailed = true;
                 }
-                editText.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
+                validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
             }
         });
     }
@@ -71,6 +56,26 @@ public class UnderlabelValidator extends Validator {
         }
         mViewsInfos.clear();
         mHasFailed = false;
+    }
+
+    private TextView replaceView(ValidationHolder validationHolder) {
+        EditText editText = validationHolder.getEditText();
+        ViewGroup parent = (ViewGroup) editText.getParent();
+        int index = parent.indexOfChild(editText);
+        LinearLayout newContainer = new LinearLayout(mContext);
+        newContainer.setLayoutParams(editText.getLayoutParams());
+        newContainer.setOrientation(LinearLayout.VERTICAL);
+        TextView textView = new TextView(mContext);
+        textView.setText(validationHolder.getErrMsg());
+        textView.setTextColor(mColor);
+        textView.setPadding(editText.getPaddingLeft(), 0, editText.getPaddingRight(), 0);
+        textView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+        parent.removeView(editText);
+        newContainer.addView(editText);
+        newContainer.addView(textView);
+        parent.addView(newContainer, index);
+        mViewsInfos.add(new ViewsInfo(index, parent, newContainer, editText));
+        return textView;
     }
 
 }
