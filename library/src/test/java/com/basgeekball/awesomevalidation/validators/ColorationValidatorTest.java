@@ -105,4 +105,49 @@ public class ColorationValidatorTest extends TestCase {
         SpanHelper.setColor(eq(mockedValidationHolderRangeTypeFail.getEditText()), eq(Color.RED), any(ArrayList.class));
     }
 
+    public void testHaltClearErrorForAllValid() {
+        ValidationHolder mockedValidationHolderRegexType = generate(REGEX, true);
+        ValidationHolder mockedValidationHolderRangeType = generate(RANGE, true);
+        mColorationValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
+        mColorationValidator.halt();
+        verify(mockedValidationHolderRegexType.getEditText(), times(1)).setError(null);
+        verify(mockedValidationHolderRangeType.getEditText(), times(1)).setError(null);
+        PowerMockito.verifyStatic(times(1));
+        SpanHelper.reset(mockedValidationHolderRegexType.getEditText());
+        SpanHelper.reset(mockedValidationHolderRangeType.getEditText());
+    }
+
+    public void testHaltClearErrorForAllInvalid() {
+        ValidationHolder mockedValidationHolderRegexType = generate(REGEX, false);
+        ValidationHolder mockedValidationHolderRangeType = generate(RANGE, false);
+        mColorationValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
+        mColorationValidator.halt();
+        verify(mockedValidationHolderRegexType.getEditText(), times(1)).setError(null);
+        verify(mockedValidationHolderRangeType.getEditText(), times(1)).setError(null);
+        PowerMockito.verifyStatic(times(1));
+        SpanHelper.reset(mockedValidationHolderRegexType.getEditText());
+        SpanHelper.reset(mockedValidationHolderRangeType.getEditText());
+    }
+
+    public void testHaltClearErrorForAllAnyway() {
+        ValidationHolder mockedValidationHolderRegexTypePass = generate(REGEX, true);
+        ValidationHolder mockedValidationHolderRegexTypeFail = generate(REGEX, false);
+        ValidationHolder mockedValidationHolderRangeTypePass = generate(RANGE, true);
+        ValidationHolder mockedValidationHolderRangeTypeFail = generate(RANGE, false);
+        mColorationValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexTypePass,
+                mockedValidationHolderRegexTypeFail,
+                mockedValidationHolderRangeTypePass,
+                mockedValidationHolderRangeTypeFail));
+        mColorationValidator.halt();
+        verify(mockedValidationHolderRegexTypePass.getEditText(), times(1)).setError(null);
+        verify(mockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(null);
+        verify(mockedValidationHolderRangeTypePass.getEditText(), times(1)).setError(null);
+        verify(mockedValidationHolderRangeTypeFail.getEditText(), times(1)).setError(null);
+        PowerMockito.verifyStatic(times(1));
+        SpanHelper.reset(mockedValidationHolderRegexTypePass.getEditText());
+        SpanHelper.reset(mockedValidationHolderRegexTypeFail.getEditText());
+        SpanHelper.reset(mockedValidationHolderRangeTypePass.getEditText());
+        SpanHelper.reset(mockedValidationHolderRangeTypeFail.getEditText());
+    }
+
 }
