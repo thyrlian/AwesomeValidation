@@ -34,6 +34,7 @@ public class AwesomeValidation {
                     mValidator = new UnderlabelValidator();
                 }
                 return;
+            default:
         }
     }
 

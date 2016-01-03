@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 public class RangeHelperTest extends TestCase {
 
-    ArrayList<int[]> expected;
-    ArrayList<int[]> ranges;
+    private ArrayList<int[]> expected;
+    private ArrayList<int[]> ranges;
 
     @Override
     protected void setUp() throws Exception {

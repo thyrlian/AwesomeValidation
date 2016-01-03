@@ -28,12 +28,14 @@ public class ValidatorTest extends TestCase {
 
         @Override
         public void halt() {
+            // intentionally empty, no need to test here
         }
     };
 
     private ValidationCallback mEmptyValidationCallback = new ValidationCallback() {
         @Override
         public void execute(ValidationHolder validationHolder, Matcher matcher) {
+            // intentionally empty, no need to test here
         }
     };
 
