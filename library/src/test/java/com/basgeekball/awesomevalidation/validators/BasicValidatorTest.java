@@ -23,98 +23,88 @@ import static org.mockito.Mockito.verify;
 public class BasicValidatorTest extends TestCase {
 
     private BasicValidator mBasicValidator;
+    private ValidationHolder mMockedValidationHolderRegexTypePass;
+    private ValidationHolder mMockedValidationHolderRegexTypeFail;
+    private ValidationHolder mMockedValidationHolderRangeTypePass;
+    private ValidationHolder mMockedValidationHolderRangeTypeFail;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mBasicValidator = new BasicValidator();
+        mMockedValidationHolderRegexTypePass = generate(REGEX, true);
+        mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
+        mMockedValidationHolderRangeTypePass = generate(RANGE, true);
+        mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
     }
 
     public void testTriggerRegexTypeWithoutError() {
-        ValidationHolder mockedValidationHolder = generate(REGEX, true);
-        mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
+        mBasicValidator.mValidationHolderList.add(mMockedValidationHolderRegexTypePass);
         assertTrue(mBasicValidator.trigger());
-        verify(mockedValidationHolder.getEditText(), never()).setError(anyString());
+        verify(mMockedValidationHolderRegexTypePass.getEditText(), never()).setError(anyString());
     }
 
     public void testTriggerRegexTypeWithError() {
-        ValidationHolder mockedValidationHolder = generate(REGEX, false);
-        mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
+        mBasicValidator.mValidationHolderList.add(mMockedValidationHolderRegexTypeFail);
         assertFalse(mBasicValidator.trigger());
-        verify(mockedValidationHolder.getEditText(), times(1)).setError(mockedValidationHolder.getErrMsg());
+        verify(mMockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(mMockedValidationHolderRegexTypeFail.getErrMsg());
     }
 
     public void testTriggerRangeTypeWithoutError() {
-        ValidationHolder mockedValidationHolder = generate(RANGE, true);
-        mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
+        mBasicValidator.mValidationHolderList.add(mMockedValidationHolderRangeTypePass);
         assertTrue(mBasicValidator.trigger());
-        verify(mockedValidationHolder.getEditText(), never()).setError(anyString());
+        verify(mMockedValidationHolderRangeTypePass.getEditText(), never()).setError(anyString());
     }
 
     public void testTriggerRangeTypeWithError() {
-        ValidationHolder mockedValidationHolder = generate(RANGE, false);
-        mBasicValidator.mValidationHolderList.add(mockedValidationHolder);
+        mBasicValidator.mValidationHolderList.add(mMockedValidationHolderRangeTypeFail);
         assertFalse(mBasicValidator.trigger());
-        verify(mockedValidationHolder.getEditText(), times(1)).setError(mockedValidationHolder.getErrMsg());
+        verify(mMockedValidationHolderRangeTypeFail.getEditText(), times(1)).setError(mMockedValidationHolderRangeTypeFail.getErrMsg());
     }
 
     public void testTriggerMixedTypesWithoutError() {
-        ValidationHolder mockedValidationHolderRegexType = generate(REGEX, true);
-        ValidationHolder mockedValidationHolderRangeType = generate(RANGE, true);
-        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
+        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass, mMockedValidationHolderRangeTypePass));
         assertTrue(mBasicValidator.trigger());
-        verify(mockedValidationHolderRegexType.getEditText(), never()).setError(anyString());
-        verify(mockedValidationHolderRangeType.getEditText(), never()).setError(anyString());
+        verify(mMockedValidationHolderRegexTypePass.getEditText(), never()).setError(anyString());
+        verify(mMockedValidationHolderRangeTypePass.getEditText(), never()).setError(anyString());
     }
 
     public void testTriggerMixedTypesWithError() {
-        ValidationHolder mockedValidationHolderRegexTypePass = generate(REGEX, true);
-        ValidationHolder mockedValidationHolderRegexTypeFail = generate(REGEX, false);
-        ValidationHolder mockedValidationHolderRangeTypePass = generate(RANGE, true);
-        ValidationHolder mockedValidationHolderRangeTypeFail = generate(RANGE, false);
-        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexTypePass,
-                mockedValidationHolderRegexTypeFail,
-                mockedValidationHolderRangeTypePass,
-                mockedValidationHolderRangeTypeFail));
+        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass,
+                mMockedValidationHolderRegexTypeFail,
+                mMockedValidationHolderRangeTypePass,
+                mMockedValidationHolderRangeTypeFail));
         assertFalse(mBasicValidator.trigger());
-        verify(mockedValidationHolderRegexTypePass.getEditText(), never()).setError(anyString());
-        verify(mockedValidationHolderRangeTypePass.getEditText(), never()).setError(anyString());
-        verify(mockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(mockedValidationHolderRegexTypeFail.getErrMsg());
-        verify(mockedValidationHolderRangeTypeFail.getEditText(), times(1)).setError(mockedValidationHolderRangeTypeFail.getErrMsg());
+        verify(mMockedValidationHolderRegexTypePass.getEditText(), never()).setError(anyString());
+        verify(mMockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(mMockedValidationHolderRegexTypeFail.getErrMsg());
+        verify(mMockedValidationHolderRangeTypePass.getEditText(), never()).setError(anyString());
+        verify(mMockedValidationHolderRangeTypeFail.getEditText(), times(1)).setError(mMockedValidationHolderRangeTypeFail.getErrMsg());
     }
 
     public void testHaltClearErrorForAllValid() {
-        ValidationHolder mockedValidationHolderRegexType = generate(REGEX, true);
-        ValidationHolder mockedValidationHolderRangeType = generate(RANGE, true);
-        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
+        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass, mMockedValidationHolderRangeTypePass));
         mBasicValidator.halt();
-        verify(mockedValidationHolderRegexType.getEditText(), times(1)).setError(null);
-        verify(mockedValidationHolderRangeType.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRegexTypePass.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRangeTypePass.getEditText(), times(1)).setError(null);
     }
 
     public void testHaltClearErrorForAllInvalid() {
-        ValidationHolder mockedValidationHolderRegexType = generate(REGEX, false);
-        ValidationHolder mockedValidationHolderRangeType = generate(RANGE, false);
-        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexType, mockedValidationHolderRangeType));
+        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypeFail, mMockedValidationHolderRangeTypeFail));
         mBasicValidator.halt();
-        verify(mockedValidationHolderRegexType.getEditText(), times(1)).setError(null);
-        verify(mockedValidationHolderRangeType.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRangeTypeFail.getEditText(), times(1)).setError(null);
     }
 
     public void testHaltClearErrorForAllAnyway() {
-        ValidationHolder mockedValidationHolderRegexTypePass = generate(REGEX, true);
-        ValidationHolder mockedValidationHolderRegexTypeFail = generate(REGEX, false);
-        ValidationHolder mockedValidationHolderRangeTypePass = generate(RANGE, true);
-        ValidationHolder mockedValidationHolderRangeTypeFail = generate(RANGE, false);
-        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mockedValidationHolderRegexTypePass,
-                mockedValidationHolderRegexTypeFail,
-                mockedValidationHolderRangeTypePass,
-                mockedValidationHolderRangeTypeFail));
+        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass,
+                mMockedValidationHolderRegexTypeFail,
+                mMockedValidationHolderRangeTypePass,
+                mMockedValidationHolderRangeTypeFail));
         mBasicValidator.halt();
-        verify(mockedValidationHolderRegexTypePass.getEditText(), times(1)).setError(null);
-        verify(mockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(null);
-        verify(mockedValidationHolderRangeTypePass.getEditText(), times(1)).setError(null);
-        verify(mockedValidationHolderRangeTypeFail.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRegexTypePass.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRegexTypeFail.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRangeTypePass.getEditText(), times(1)).setError(null);
+        verify(mMockedValidationHolderRangeTypeFail.getEditText(), times(1)).setError(null);
     }
 
 }

@@ -20,26 +20,35 @@ import static com.basgeekball.awesomevalidation.validators.MockValidationHolderH
 @PrepareForTest({Validator.class, MockValidationHolderHelper.class})
 public class ValidatorTest extends TestCase {
 
-    private Validator mValidator;
+    private Validator mValidator = new Validator() {
+        @Override
+        public boolean trigger() {
+            return false;
+        }
+
+        @Override
+        public void halt() {
+        }
+    };
+
     private ValidationCallback mEmptyValidationCallback = new ValidationCallback() {
         @Override
         public void execute(ValidationHolder validationHolder, Matcher matcher) {
         }
     };
 
+    private ValidationHolder mMockedValidationHolderRegexTypePass;
+    private ValidationHolder mMockedValidationHolderRegexTypeFail;
+    private ValidationHolder mMockedValidationHolderRangeTypePass;
+    private ValidationHolder mMockedValidationHolderRangeTypeFail;
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mValidator = new Validator() {
-            @Override
-            public boolean trigger() {
-                return false;
-            }
-
-            @Override
-            public void halt() {
-            }
-        };
+        mMockedValidationHolderRegexTypePass = generate(REGEX, true);
+        mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
+        mMockedValidationHolderRangeTypePass = generate(RANGE, true);
+        mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
     }
 
     public void testValidator() {
@@ -47,26 +56,22 @@ public class ValidatorTest extends TestCase {
     }
 
     public void testCheckFieldsPassWithOnlyOneRegexValidationHolder() {
-        ValidationHolder mockedValidationHolder = generate(REGEX, true);
-        mValidator.mValidationHolderList.add(mockedValidationHolder);
+        mValidator.mValidationHolderList.add(mMockedValidationHolderRegexTypePass);
         assertTrue(mValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsFailWithOnlyOneRegexValidationHolder() {
-        ValidationHolder mockedValidationHolder = generate(REGEX, false);
-        mValidator.mValidationHolderList.add(mockedValidationHolder);
+        mValidator.mValidationHolderList.add(mMockedValidationHolderRegexTypeFail);
         assertFalse(mValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsPassWithOnlyOneRangeValidationHolder() {
-        ValidationHolder mockedValidationHolder = generate(RANGE, true);
-        mValidator.mValidationHolderList.add(mockedValidationHolder);
+        mValidator.mValidationHolderList.add(mMockedValidationHolderRangeTypePass);
         assertTrue(mValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsFailWithOnlyOneRangeValidationHolder() {
-        ValidationHolder mockedValidationHolder = generate(RANGE, false);
-        mValidator.mValidationHolderList.add(mockedValidationHolder);
+        mValidator.mValidationHolderList.add(mMockedValidationHolderRangeTypeFail);
         assertFalse(mValidator.checkFields(mEmptyValidationCallback));
     }
 
