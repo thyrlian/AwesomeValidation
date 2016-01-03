@@ -32,6 +32,30 @@ import static org.mockito.Mockito.when;
 @PrepareForTest({AwesomeValidation.class, Range.class})
 public class AwesomeValidationTest extends TestCase {
 
+    private BasicValidator mSpiedBasicValidator;
+    private ColorationValidator mSpiedColorationValidator;
+    private UnderlabelValidator mSpiedUnderlabelValidator;
+    private AwesomeValidation mSpiedAwesomeValidationBasicStyle;
+    private AwesomeValidation mSpiedAwesomeValidationColorationStyle;
+    private AwesomeValidation mSpiedAwesomeValidationUnderlabelStyle;
+    private Context mMockedContext;
+    private int mColor = 256;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        mSpiedBasicValidator = spy(BasicValidator.class);
+        mSpiedColorationValidator = spy(ColorationValidator.class);
+        mSpiedUnderlabelValidator = spy(UnderlabelValidator.class);
+        mSpiedAwesomeValidationBasicStyle = spy(new AwesomeValidation(ValidationStyle.BASIC));
+        mSpiedAwesomeValidationColorationStyle = spy(new AwesomeValidation(ValidationStyle.COLORATION));
+        mSpiedAwesomeValidationUnderlabelStyle = spy(new AwesomeValidation(ValidationStyle.UNDERLABEL));
+        MemberModifier.field(AwesomeValidation.class, "mValidator").set(mSpiedAwesomeValidationBasicStyle, mSpiedBasicValidator);
+        MemberModifier.field(AwesomeValidation.class, "mValidator").set(mSpiedAwesomeValidationColorationStyle, mSpiedColorationValidator);
+        MemberModifier.field(AwesomeValidation.class, "mValidator").set(mSpiedAwesomeValidationUnderlabelStyle, mSpiedUnderlabelValidator);
+        mMockedContext = mock(Context.class);
+    }
+
     public void testAwesomeValidationConstructBasicStyle() {
         AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof BasicValidator);
@@ -48,44 +72,24 @@ public class AwesomeValidationTest extends TestCase {
     }
 
     public void testSetContextForUnderlabelStyle() throws Exception {
-        UnderlabelValidator spiedUnderlabelValidator = spy(UnderlabelValidator.class);
-        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.UNDERLABEL));
-        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedUnderlabelValidator);
-        Context mockedContext = mock(Context.class);
-        spiedAwesomeValidation.setContext(mockedContext);
-        PowerMockito.verifyPrivate(spiedUnderlabelValidator, times(1)).invoke("setContext", mockedContext);
+        mSpiedAwesomeValidationUnderlabelStyle.setContext(mMockedContext);
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("setContext", mMockedContext);
     }
 
     public void testSetContextForNonUnderlabelStyle() throws Exception {
-        BasicValidator spiedBasicValidator = spy(BasicValidator.class);
-        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.BASIC));
-        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedBasicValidator);
-        Context mockedContext = mock(Context.class);
-        doThrow(UnsupportedOperationException.class).when(spiedAwesomeValidation).setContext(mockedContext);
+        doThrow(UnsupportedOperationException.class).when(mSpiedAwesomeValidationBasicStyle).setContext(mMockedContext);
     }
 
     public void testSetColorForColorationStyle() throws Exception {
-        ColorationValidator spiedColorationValidator = spy(ColorationValidator.class);
-        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.COLORATION));
-        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedColorationValidator);
-        int color = 256;
-        spiedAwesomeValidation.setColor(color);
-        PowerMockito.verifyPrivate(spiedColorationValidator, times(1)).invoke("setColor", color);
+        mSpiedAwesomeValidationColorationStyle.setColor(mColor);
+        PowerMockito.verifyPrivate(mSpiedColorationValidator, times(1)).invoke("setColor", mColor);
     }
 
     public void testSetColorForNonColorationStyle() throws Exception {
-        BasicValidator spiedBasicValidator = spy(BasicValidator.class);
-        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.BASIC));
-        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedBasicValidator);
-        int color = 256;
-        doThrow(UnsupportedOperationException.class).when(spiedAwesomeValidation).setColor(color);
+        doThrow(UnsupportedOperationException.class).when(mSpiedAwesomeValidationBasicStyle).setColor(mColor);
     }
 
     public void testAddValidation() throws Exception {
-        BasicValidator spiedValidator = spy(BasicValidator.class);
-        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.BASIC));
-        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedValidator);
-
         Activity mockedActivity = mock(Activity.class, RETURNS_MOCKS);
         EditText mockedEditText = mock(EditText.class, RETURNS_MOCKS);
         Pattern mockedPattern = PowerMockito.mock(Pattern.class, RETURNS_MOCKS);
@@ -98,40 +102,34 @@ public class AwesomeValidationTest extends TestCase {
         when(mockedActivity.findViewById(viewId)).thenReturn(mockedEditText);
         PowerMockito.whenNew(NumericRange.class).withArguments(mockedRange).thenReturn(mockedNumericRange);
 
-        spiedAwesomeValidation.addValidation(mockedEditText, mockedRegex, mockedErrMsg);
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("set", mockedEditText, mockedRegex, mockedErrMsg);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRegex, mockedErrMsg);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, mockedRegex, mockedErrMsg);
 
-        spiedAwesomeValidation.addValidation(mockedActivity, viewId, mockedRegex, errMsgId);
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("set", mockedActivity, viewId, mockedRegex, errMsgId);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedRegex, errMsgId);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedRegex, errMsgId);
 
-        spiedAwesomeValidation.addValidation(mockedEditText, mockedPattern, mockedErrMsg);
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("set", mockedEditText, mockedPattern, mockedErrMsg);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedPattern, mockedErrMsg);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, mockedPattern, mockedErrMsg);
 
-        spiedAwesomeValidation.addValidation(mockedActivity, viewId, mockedPattern, errMsgId);
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("set", mockedActivity, viewId, mockedPattern, errMsgId);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedPattern, errMsgId);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedPattern, errMsgId);
 
-        spiedAwesomeValidation.addValidation(mockedEditText, mockedRange, mockedErrMsg);
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("set", mockedEditText, new NumericRange(mockedRange), mockedErrMsg);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRange, mockedErrMsg);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, new NumericRange(mockedRange), mockedErrMsg);
 
-        spiedAwesomeValidation.addValidation(mockedActivity, viewId, mockedRange, errMsgId);
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("set", mockedActivity, viewId, new NumericRange(mockedRange), errMsgId);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedRange, errMsgId);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, new NumericRange(mockedRange), errMsgId);
     }
 
     public void testValidate() throws Exception {
-        BasicValidator spiedValidator = spy(BasicValidator.class);
-        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.BASIC));
-        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedValidator);
-        spiedAwesomeValidation.validate();
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("trigger");
-        assertEquals(Whitebox.invokeMethod(spiedValidator, "trigger"), spiedAwesomeValidation.validate());
+        mSpiedAwesomeValidationBasicStyle.validate();
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("trigger");
+        assertEquals(Whitebox.invokeMethod(mSpiedBasicValidator, "trigger"), mSpiedAwesomeValidationBasicStyle.validate());
     }
 
     public void testClear() throws Exception {
-        BasicValidator spiedValidator = spy(BasicValidator.class);
-        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.BASIC));
-        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedValidator);
-        spiedAwesomeValidation.clear();
-        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("halt");
+        mSpiedAwesomeValidationBasicStyle.clear();
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("halt");
     }
 
 }
