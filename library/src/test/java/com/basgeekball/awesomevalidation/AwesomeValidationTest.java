@@ -73,4 +73,21 @@ public class AwesomeValidationTest extends TestCase {
         doThrow(UnsupportedOperationException.class).when(spiedAwesomeValidation).setColor(color);
     }
 
+    public void testValidate() throws Exception {
+        BasicValidator spiedValidator = spy(BasicValidator.class);
+        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.BASIC));
+        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedValidator);
+        spiedAwesomeValidation.validate();
+        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("trigger");
+        assertEquals(Whitebox.invokeMethod(spiedValidator, "trigger"), spiedAwesomeValidation.validate());
+    }
+
+    public void testClear() throws Exception {
+        BasicValidator spiedValidator = spy(BasicValidator.class);
+        AwesomeValidation spiedAwesomeValidation = spy(new AwesomeValidation(ValidationStyle.BASIC));
+        MemberModifier.field(AwesomeValidation.class, "mValidator").set(spiedAwesomeValidation, spiedValidator);
+        spiedAwesomeValidation.clear();
+        PowerMockito.verifyPrivate(spiedValidator, times(1)).invoke("halt");
+    }
+
 }
