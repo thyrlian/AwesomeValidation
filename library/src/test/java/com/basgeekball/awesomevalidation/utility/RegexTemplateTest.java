@@ -18,9 +18,22 @@ public class RegexTemplateTest extends TestCase {
         assertTrue(pattern.matcher(" x").matches());
         assertTrue(pattern.matcher("x ").matches());
         assertTrue(pattern.matcher(" x ").matches());
+        assertTrue(pattern.matcher("\nx").matches());
+        assertTrue(pattern.matcher("x\n").matches());
+        assertTrue(pattern.matcher("\nx\n").matches());
+        assertTrue(pattern.matcher(" x\n").matches());
+        assertTrue(pattern.matcher("\nx ").matches());
+        assertTrue(pattern.matcher("a b c").matches());
+        assertTrue(pattern.matcher("a\nb\nc").matches());
+        assertTrue(pattern.matcher(" a b c ").matches());
         assertFalse(pattern.matcher("").matches());
         assertFalse(pattern.matcher(" ").matches());
         assertFalse(pattern.matcher("  ").matches());
+        assertFalse(pattern.matcher("\n").matches());
+        assertFalse(pattern.matcher("\n\n").matches());
+        assertFalse(pattern.matcher("\n \n").matches());
+        assertFalse(pattern.matcher("\n  \n").matches());
+        assertFalse(pattern.matcher("\n \n \n").matches());
     }
 
     public void testConstantTelephone() {
