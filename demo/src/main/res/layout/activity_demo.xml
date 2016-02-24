@@ -60,6 +60,7 @@
 
                     <EditText
                         android:id="@+id/edt_ip"
+                        android:inputType="numberDecimal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -68,6 +69,7 @@
 
                     <EditText
                         android:id="@+id/edt_tel"
+                        android:inputType="phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -79,6 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:hint="@string/edt_zipcode"/>
 
@@ -87,12 +90,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:hint="@string/edt_year"/>
 
                     <EditText
                         android:id="@+id/edt_height"
-                        android:inputType="numberDecimal"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
