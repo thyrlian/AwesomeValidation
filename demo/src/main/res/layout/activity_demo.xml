@@ -68,6 +68,7 @@
 
                     <EditText
                         android:id="@+id/edt_tel"
+                        android:inputType="phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -84,6 +85,7 @@
 
                     <EditText
                         android:id="@+id/edt_year"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"

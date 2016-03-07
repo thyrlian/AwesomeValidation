@@ -16,7 +16,7 @@ android {
             testCoverageEnabled true
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,14 +34,10 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-    jacoco {
-        version = '0.7.5.201505241946'
-    }
 }
 
 dependencies {
-    compile 'com.google.guava:guava:18.0'
-
+    compile 'com.google.guava:guava:19.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:2.0.+'
     testCompile 'org.easymock:easymock:3.4'
