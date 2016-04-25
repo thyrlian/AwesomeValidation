@@ -14,7 +14,7 @@ public class NumericRange {
     }
 
     public static boolean isNumberFormat(String text) {
-        return Pattern.compile("^([1-9]|(0(\\.|$)))").matcher(text).find();
+        return Pattern.compile("^-?(([1-9]\\d*(\\.\\d+)?)||(0\\.\\d+)||0)$").matcher(text).find();
     }
 
     public boolean isValid(String valueText) {
