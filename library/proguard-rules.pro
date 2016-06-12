@@ -20,3 +20,5 @@
  -keep public class com.google.common.collect.Range
  -keepclassmembers class com.google.common.collect.Range** { *; }
  -keep class com.basgeekball.awesomevalidation.** { *; }
+
+ -dontwarn com.google.common.**
