@@ -15,7 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
- -keep class com.google.common.base.** { *; }
- -keep class com.google.common.annotations.** { *; }
- -keep class com.google.common.collect.Range
+ -keep public class com.google.common.base.** { public *; }
+ -keep public class com.google.common.annotations.** { public *; }
+ -keep public class com.google.common.collect.Range
+ -keepclassmembers class com.google.common.collect.Range** { *; }
  -keep class com.basgeekball.awesomevalidation.** { *; }
