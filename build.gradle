@@ -31,7 +31,7 @@ bintray {
         vcsUrl = 'https://github.com/thyrlian/AwesomeValidation.git'
         labels = ['Android', 'UI', 'validation']
         version {
-            name = '1.2'
+            name = '1.3'
             released  = new Date()
         }
     }
@@ -49,6 +49,6 @@ ext {
     compileSdkVersion = 23
     buildToolsVersion = '23.0.3'
     androidSupportLibVersion = '23.4.0'
-    versionCode = 3
-    versionName = "1.2"
+    versionCode = 4
+    versionName = "1.3"
 }
