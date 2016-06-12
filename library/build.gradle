@@ -37,6 +37,10 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    lintOptions {
+        disable 'GradleDynamicVersion'
+        abortOnError false
+    }
 }
 
 dependencies {
