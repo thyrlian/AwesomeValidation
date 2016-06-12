@@ -5,7 +5,7 @@ language: android
 android:
   components:
     - tools
-    - build-tools-23.0.2
+    - build-tools-23.0.3
     - android-23
     - extra-google-google_play_services
     - extra-android-support
@@ -19,7 +19,7 @@ env:
     - ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a
 
 before_install:
-  - echo yes | android update sdk --all --filter build-tools-23.0.1 --no-ui --force
+  - echo yes | android update sdk --all --filter build-tools-23.0.3 --no-ui --force
 
 before_script:
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
