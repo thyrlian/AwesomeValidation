@@ -12,7 +12,7 @@ buildscript {
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.3.1"
+    id "com.jfrog.bintray" version "1.6"
 }
 
 bintray {
