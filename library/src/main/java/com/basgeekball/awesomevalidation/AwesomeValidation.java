@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.EditText;
 
-import com.google.common.collect.Range;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.validators.BasicValidator;
 import com.basgeekball.awesomevalidation.validators.ColorationValidator;
 import com.basgeekball.awesomevalidation.validators.UnderlabelValidator;
 import com.basgeekball.awesomevalidation.validators.Validator;
+
+import net.tribe7.common.collect.Range;
 
 import java.util.regex.Pattern;
 

@@ -1,8 +1,8 @@
 package com.basgeekball.awesomevalidation.model;
 
-import com.google.common.collect.Range;
-
 import junit.framework.TestCase;
+
+import net.tribe7.common.collect.Range;
 
 import java.util.Calendar;
 

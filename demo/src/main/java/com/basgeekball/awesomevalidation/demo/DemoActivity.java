@@ -20,7 +20,8 @@ import android.widget.ListView;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.google.common.collect.Range;
+
+import net.tribe7.common.collect.Range;
 
 import java.util.Calendar;
 

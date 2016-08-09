@@ -1,6 +1,6 @@
 package com.basgeekball.awesomevalidation.model;
 
-import com.google.common.collect.Range;
+import net.tribe7.common.collect.Range;
 
 import java.math.BigDecimal;
 import java.util.regex.Pattern;
