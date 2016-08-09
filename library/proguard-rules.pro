@@ -15,10 +15,10 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
- -keep public class com.google.common.base.** { public *; }
- -keep public class com.google.common.annotations.** { public *; }
- -keep public class com.google.common.collect.Range
- -keepclassmembers class com.google.common.collect.Range** { *; }
+ -keep public class net.tribe7.common.base.** { public *; }
+ -keep public class net.tribe7.common.annotations.** { public *; }
+ -keep public class net.tribe7.common.collect.Range
+ -keepclassmembers class net.tribe7.common.collect.Range** { *; }
  -keep class com.basgeekball.awesomevalidation.** { *; }
 
- -dontwarn com.google.common.**
+ -dontwarn net.tribe7.common.**

@@ -8,9 +8,10 @@ import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.validators.BasicValidator;
 import com.basgeekball.awesomevalidation.validators.ColorationValidator;
 import com.basgeekball.awesomevalidation.validators.UnderlabelValidator;
-import com.google.common.collect.Range;
 
 import junit.framework.TestCase;
+
+import net.tribe7.common.collect.Range;
 
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;

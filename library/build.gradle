@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    compile 'com.google.guava:guava:19.0'
+    compile 'net.tribe7.seeds:seeds-collect:16.0.1'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:2.0.+'
     testCompile 'org.easymock:easymock:3.4'
