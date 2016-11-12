@@ -21,6 +21,7 @@ import org.powermock.reflect.Whitebox;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.CONFIRMATION;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.RANGE;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.REGEX;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.generate;
@@ -42,6 +43,8 @@ public class UnderlabelValidatorTest extends TestCase {
     private ValidationHolder mMockedValidationHolderRegexTypeFail;
     private ValidationHolder mMockedValidationHolderRangeTypePass;
     private ValidationHolder mMockedValidationHolderRangeTypeFail;
+    private ValidationHolder mMockedValidationHolderConfirmationTypePass;
+    private ValidationHolder mMockedValidationHolderConfirmationTypeFail;
 
     @Override
     protected void setUp() throws Exception {
@@ -53,6 +56,8 @@ public class UnderlabelValidatorTest extends TestCase {
         mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
         mMockedValidationHolderRangeTypePass = generate(RANGE, true);
         mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
+        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION, true);
+        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION, false);
     }
 
     public void testReplaceView() throws Exception {
@@ -83,10 +88,13 @@ public class UnderlabelValidatorTest extends TestCase {
     }
 
     public void testTriggerManyWithoutError() throws Exception {
-        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass, mMockedValidationHolderRangeTypePass));
+        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass,
+                mMockedValidationHolderRangeTypePass,
+                mMockedValidationHolderConfirmationTypePass));
         assertTrue(mSpiedUnderlabelValidator.trigger());
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mMockedValidationHolderRegexTypePass);
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mMockedValidationHolderRangeTypePass);
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mMockedValidationHolderConfirmationTypePass);
     }
 
     public void testTriggerOneWithError() throws Exception {
@@ -101,24 +109,33 @@ public class UnderlabelValidatorTest extends TestCase {
         when(mMockedValidationHolderRegexTypeFail.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
         when(mMockedValidationHolderRangeTypePass.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
         when(mMockedValidationHolderRangeTypeFail.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
+        when(mMockedValidationHolderConfirmationTypePass.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
+        when(mMockedValidationHolderConfirmationTypeFail.getEditText().getParent()).thenReturn(mock(ViewGroup.class));
         mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass,
                 mMockedValidationHolderRegexTypeFail,
                 mMockedValidationHolderRangeTypePass,
-                mMockedValidationHolderRangeTypeFail));
+                mMockedValidationHolderRangeTypeFail,
+                mMockedValidationHolderConfirmationTypePass,
+                mMockedValidationHolderConfirmationTypeFail));
         assertFalse(mSpiedUnderlabelValidator.trigger());
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mMockedValidationHolderRegexTypePass);
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mMockedValidationHolderRegexTypeFail);
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mMockedValidationHolderRangeTypePass);
         PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mMockedValidationHolderRangeTypeFail);
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, never()).invoke("replaceView", mMockedValidationHolderConfirmationTypePass);
+        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("replaceView", mMockedValidationHolderConfirmationTypeFail);
     }
 
     public void testHaltRestoreViewsForAllValid() throws IllegalAccessException {
         ArrayList<ViewsInfo> spiedViewsInfos = spy(ArrayList.class);
         ViewsInfo mockedViewsInfo1 = mock(ViewsInfo.class);
         ViewsInfo mockedViewsInfo2 = mock(ViewsInfo.class);
-        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2));
+        ViewsInfo mockedViewsInfo3 = mock(ViewsInfo.class);
+        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2, mockedViewsInfo3));
         MemberModifier.field(UnderlabelValidator.class, "mViewsInfos").set(mSpiedUnderlabelValidator, spiedViewsInfos);
-        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass, mMockedValidationHolderRangeTypePass));
+        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass,
+                mMockedValidationHolderRangeTypePass,
+                mMockedValidationHolderConfirmationTypePass));
         mSpiedUnderlabelValidator.halt();
         for (ViewsInfo viewsInfo : spiedViewsInfos) {
             verify(viewsInfo, times(1)).restoreViews();
@@ -129,9 +146,12 @@ public class UnderlabelValidatorTest extends TestCase {
         ArrayList<ViewsInfo> spiedViewsInfos = spy(ArrayList.class);
         ViewsInfo mockedViewsInfo1 = mock(ViewsInfo.class);
         ViewsInfo mockedViewsInfo2 = mock(ViewsInfo.class);
-        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2));
+        ViewsInfo mockedViewsInfo3 = mock(ViewsInfo.class);
+        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2, mockedViewsInfo3));
         MemberModifier.field(UnderlabelValidator.class, "mViewsInfos").set(mSpiedUnderlabelValidator, spiedViewsInfos);
-        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypeFail, mMockedValidationHolderRangeTypeFail));
+        mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypeFail,
+                mMockedValidationHolderRangeTypeFail,
+                mMockedValidationHolderConfirmationTypeFail));
         mSpiedUnderlabelValidator.halt();
         for (ViewsInfo viewsInfo : spiedViewsInfos) {
             verify(viewsInfo, times(1)).restoreViews();
@@ -144,12 +164,17 @@ public class UnderlabelValidatorTest extends TestCase {
         ViewsInfo mockedViewsInfo2 = mock(ViewsInfo.class);
         ViewsInfo mockedViewsInfo3 = mock(ViewsInfo.class);
         ViewsInfo mockedViewsInfo4 = mock(ViewsInfo.class);
-        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2, mockedViewsInfo3, mockedViewsInfo4));
+        ViewsInfo mockedViewsInfo5 = mock(ViewsInfo.class);
+        ViewsInfo mockedViewsInfo6 = mock(ViewsInfo.class);
+        spiedViewsInfos.addAll(Arrays.asList(mockedViewsInfo1, mockedViewsInfo2, mockedViewsInfo3,
+                mockedViewsInfo4, mockedViewsInfo5, mockedViewsInfo6));
         MemberModifier.field(UnderlabelValidator.class, "mViewsInfos").set(mSpiedUnderlabelValidator, spiedViewsInfos);
         mSpiedUnderlabelValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass,
                 mMockedValidationHolderRegexTypeFail,
                 mMockedValidationHolderRangeTypePass,
-                mMockedValidationHolderRangeTypeFail));
+                mMockedValidationHolderRangeTypeFail,
+                mMockedValidationHolderConfirmationTypePass,
+                mMockedValidationHolderConfirmationTypeFail));
         mSpiedUnderlabelValidator.halt();
         for (ViewsInfo viewsInfo : spiedViewsInfos) {
             verify(viewsInfo, times(1)).restoreViews();
