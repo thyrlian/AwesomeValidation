@@ -138,7 +138,6 @@ public class DemoActivity extends AppCompatActivity {
         mAwesomeValidation.addValidation(activity, R.id.edt_firstname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_lastname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_email, Patterns.EMAIL_ADDRESS, R.string.err_email);
-        mAwesomeValidation.addValidation(activity, R.id.edt_email_confirmation, Patterns.EMAIL_ADDRESS, R.string.err_email);
         mAwesomeValidation.addValidation(activity, R.id.edt_email, R.id.edt_email_confirmation, R.string.err_confirmation);
         mAwesomeValidation.addValidation(activity, R.id.edt_ip, Patterns.IP_ADDRESS, R.string.err_ip);
         mAwesomeValidation.addValidation(activity, R.id.edt_tel, RegexTemplate.TELEPHONE, R.string.err_tel);
