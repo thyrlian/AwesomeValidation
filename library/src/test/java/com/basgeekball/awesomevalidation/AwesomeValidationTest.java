@@ -92,14 +92,17 @@ public class AwesomeValidationTest extends TestCase {
     public void testAddValidation() throws Exception {
         Activity mockedActivity = mock(Activity.class, RETURNS_MOCKS);
         EditText mockedEditText = mock(EditText.class, RETURNS_MOCKS);
+        EditText mockedConfirmationEditText = mock(EditText.class, RETURNS_MOCKS);
         Pattern mockedPattern = PowerMockito.mock(Pattern.class, RETURNS_MOCKS);
         Range mockedRange = PowerMockito.mock(Range.class, RETURNS_MOCKS);
         String mockedRegex = PowerMockito.mock(String.class);
         String mockedErrMsg = PowerMockito.mock(String.class);
         NumericRange mockedNumericRange = mock(NumericRange.class);
         int viewId = 65536;
+        int confirmationViewId = 65535;
         int errMsgId = 32768;
         when(mockedActivity.findViewById(viewId)).thenReturn(mockedEditText);
+        when(mockedActivity.findViewById(confirmationViewId)).thenReturn(mockedConfirmationEditText);
         PowerMockito.whenNew(NumericRange.class).withArguments(mockedRange).thenReturn(mockedNumericRange);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRegex, mockedErrMsg);
@@ -113,6 +116,9 @@ public class AwesomeValidationTest extends TestCase {
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedPattern, errMsgId);
         PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedPattern, errMsgId);
+
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, confirmationViewId, errMsgId);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, confirmationViewId, errMsgId);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRange, mockedErrMsg);
         PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, new NumericRange(mockedRange), mockedErrMsg);

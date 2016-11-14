@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class ValidationHolder {
 
     private EditText mEditText;
+    private EditText mConfirmationEditText;
     private Pattern mPattern;
     private NumericRange mNumericRange;
     private String mErrMsg;
@@ -25,6 +26,12 @@ public class ValidationHolder {
         mErrMsg = errMsg;
     }
 
+    public ValidationHolder(EditText editText, EditText confirmationEditText, String errMsg) {
+        mEditText = editText;
+        mConfirmationEditText = confirmationEditText;
+        mErrMsg = errMsg;
+    }
+
     public boolean isRegexType() {
         return mPattern != null;
     }
@@ -33,8 +40,12 @@ public class ValidationHolder {
         return mNumericRange != null;
     }
 
+    public boolean isConfirmationType() {
+        return mConfirmationEditText != null;
+    }
+
     public EditText getEditText() {
-        return mEditText;
+        return isConfirmationType() ? mConfirmationEditText : mEditText;
     }
 
     public Pattern getPattern() {
@@ -53,4 +64,7 @@ public class ValidationHolder {
         return mEditText.getText().toString();
     }
 
+    public String getConfirmationText() {
+        return mConfirmationEditText.getText().toString();
+    }
 }

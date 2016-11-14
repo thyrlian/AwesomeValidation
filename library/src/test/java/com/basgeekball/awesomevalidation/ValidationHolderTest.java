@@ -22,18 +22,22 @@ import static org.mockito.Mockito.when;
 public class ValidationHolderTest extends TestCase {
 
     private EditText mMockedEditText;
+    private EditText mMockedConfirmationEditText;
     private ValidationHolder mValidationHolderRegexType;
     private ValidationHolder mValidationHolderRangeType;
+    private ValidationHolder mValidationHolderConfirmationType;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mMockedEditText = mock(EditText.class);
+        mMockedConfirmationEditText = mock(EditText.class);
         Pattern mockedPattern = PowerMock.createMock(Pattern.class);
         NumericRange mockedNumericRange = mock(NumericRange.class);
         String mockedErrMsg = PowerMock.createMock(String.class);
         mValidationHolderRegexType = new ValidationHolder(mMockedEditText, mockedPattern, mockedErrMsg);
         mValidationHolderRangeType = new ValidationHolder(mMockedEditText, mockedNumericRange, mockedErrMsg);
+        mValidationHolderConfirmationType = new ValidationHolder(mMockedEditText, mMockedConfirmationEditText, mockedErrMsg);
     }
 
     public void testIsRegexTypeTrue() {
@@ -42,6 +46,7 @@ public class ValidationHolderTest extends TestCase {
 
     public void testIsRegexTypeFalse() {
         assertFalse(mValidationHolderRangeType.isRegexType());
+        assertFalse(mValidationHolderConfirmationType.isRegexType());
     }
 
     public void testIsRangeTypeTrue() {
@@ -50,6 +55,17 @@ public class ValidationHolderTest extends TestCase {
 
     public void testIsRangeTypeFalse() {
         assertFalse(mValidationHolderRegexType.isRangeType());
+        assertFalse(mValidationHolderConfirmationType.isRangeType());
+    }
+
+    public void testIsConfirmationTypeTrue() {
+        assertTrue(mValidationHolderConfirmationType.isConfirmationType());
+    }
+
+    public void testIsConfirmationTypeFalse() {
+        assertFalse(mValidationHolderRangeType.isConfirmationType());
+        assertFalse(mValidationHolderRegexType.isConfirmationType());
+
     }
 
     public void testGetText() {
@@ -59,6 +75,15 @@ public class ValidationHolderTest extends TestCase {
         when(mockedEditable.toString()).thenReturn(text);
         assertEquals(text, mValidationHolderRegexType.getText());
         assertEquals(text, mValidationHolderRangeType.getText());
+        assertEquals(text, mValidationHolderConfirmationType.getText());
+    }
+
+    public void testGetConfirmationText() {
+        String text = "OK";
+        Editable mockedEditable = mock(Editable.class);
+        when(mMockedConfirmationEditText.getText()).thenReturn(mockedEditable);
+        when(mockedEditable.toString()).thenReturn(text);
+        assertEquals(text, mValidationHolderConfirmationType.getConfirmationText());
     }
 
 }

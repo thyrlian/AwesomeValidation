@@ -26,11 +26,14 @@ public class ColorationValidator extends Validator {
             @Override
             public void execute(ValidationHolder validationHolder, Matcher matcher) {
                 ArrayList<int[]> listOfMatching = new ArrayList<int[]>();
-                while (matcher.find()) {
-                    listOfMatching.add(new int[]{matcher.start(), matcher.end() - 1});
+                if (matcher != null) {
+                    while (matcher.find()) {
+                        listOfMatching.add(new int[]{matcher.start(), matcher.end() - 1});
+                    }
                 }
                 EditText editText = validationHolder.getEditText();
-                ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching, validationHolder.getText().length());
+                ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching,
+                        editText.getText().length());
                 SpanHelper.setColor(editText, mColor, listOfNotMatching);
                 editText.setError(validationHolder.getErrMsg());
             }

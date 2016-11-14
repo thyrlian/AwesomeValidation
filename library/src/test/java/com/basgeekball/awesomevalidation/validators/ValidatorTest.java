@@ -12,6 +12,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 
+import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.CONFIRMATION;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.RANGE;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.REGEX;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.generate;
@@ -43,6 +44,8 @@ public class ValidatorTest extends TestCase {
     private ValidationHolder mMockedValidationHolderRegexTypeFail;
     private ValidationHolder mMockedValidationHolderRangeTypePass;
     private ValidationHolder mMockedValidationHolderRangeTypeFail;
+    private ValidationHolder mMockedValidationHolderConfirmationTypePass;
+    private ValidationHolder mMockedValidationHolderConfirmationTypeFail;
 
     @Override
     protected void setUp() throws Exception {
@@ -51,6 +54,8 @@ public class ValidatorTest extends TestCase {
         mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
         mMockedValidationHolderRangeTypePass = generate(RANGE, true);
         mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
+        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION, true);
+        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION, false);
     }
 
     public void testValidator() {
@@ -77,12 +82,24 @@ public class ValidatorTest extends TestCase {
         assertFalse(mValidator.checkFields(mEmptyValidationCallback));
     }
 
+    public void testCheckFieldsPassWithOnlyOneConfirmationValidationHolder() {
+        mValidator.mValidationHolderList.add(mMockedValidationHolderConfirmationTypePass);
+        assertTrue(mValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsFailWithOnlyOneConfirmationValidationHolder() {
+        mValidator.mValidationHolderList.add(mMockedValidationHolderConfirmationTypeFail);
+        assertFalse(mValidator.checkFields(mEmptyValidationCallback));
+    }
+
     public void testCheckFieldsPassWithManyDifferentValidationHolders() {
         mValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX, true),
                 generate(RANGE, true),
+                generate(CONFIRMATION, true),
                 generate(REGEX, true),
-                generate(RANGE, true)
+                generate(RANGE, true),
+                generate(CONFIRMATION, true)
         ));
         assertTrue(mValidator.checkFields(mEmptyValidationCallback));
     }
@@ -91,9 +108,11 @@ public class ValidatorTest extends TestCase {
         mValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX, true),
                 generate(RANGE, true),
+                generate(CONFIRMATION, true),
                 generate(REGEX, false),
                 generate(RANGE, true),
                 generate(REGEX, true),
+                generate(CONFIRMATION, true),
                 generate(RANGE, true)
         ));
         assertFalse(mValidator.checkFields(mEmptyValidationCallback));
@@ -102,10 +121,26 @@ public class ValidatorTest extends TestCase {
     public void testCheckFieldsFailDueToOneRangeFromManyDifferentValidationHolders() {
         mValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX, true),
+                generate(CONFIRMATION, true),
                 generate(RANGE, true),
                 generate(REGEX, true),
                 generate(RANGE, false),
                 generate(REGEX, true),
+                generate(CONFIRMATION, true),
+                generate(RANGE, true)
+        ));
+        assertFalse(mValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsFailDueToOneConfirmationFromManyDifferentValidationHolders() {
+        mValidator.mValidationHolderList.addAll(Arrays.asList(
+                generate(REGEX, true),
+                generate(CONFIRMATION, false),
+                generate(RANGE, true),
+                generate(REGEX, true),
+                generate(RANGE, true),
+                generate(REGEX, true),
+                generate(CONFIRMATION, true),
                 generate(RANGE, true)
         ));
         assertFalse(mValidator.checkFields(mEmptyValidationCallback));

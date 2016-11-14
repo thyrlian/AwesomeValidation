@@ -70,6 +70,10 @@ public class AwesomeValidation {
         mValidator.set(activity, viewId, pattern, errMsgId);
     }
 
+    public void addValidation(Activity activity, int viewId, int confirmationViewId, int errMsgId) {
+        mValidator.set(activity, viewId, confirmationViewId, errMsgId);
+    }
+
     public void addValidation(EditText editText, Range range, String errMsg) {
         mValidator.set(editText, new NumericRange(range), errMsg);
     }
