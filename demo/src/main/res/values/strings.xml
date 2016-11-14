@@ -17,7 +17,7 @@
     <string name="err_userid">Letters, numbers, underscores or hyphens</string>
     <string name="err_name">Human name please</string>
     <string name="err_email">Email address please</string>
-    <string name="err_confirmation">Confirmation failed</string>
+    <string name="err_email_confirmation">Please re-enter the email address</string>
     <string name="err_ip">IP address please</string>
     <string name="err_tel">Telephone Number please</string>
     <string name="err_zipcode">Number only</string>

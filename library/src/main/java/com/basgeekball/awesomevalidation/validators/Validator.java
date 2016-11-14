@@ -13,12 +13,11 @@ import java.util.regex.Pattern;
 
 public abstract class Validator {
 
-    protected ArrayList<ValidationHolder> mValidationHolderList;
+    ArrayList<ValidationHolder> mValidationHolderList;
     private boolean mHasFailed = false;
     private boolean mValidationResult = true;
-    private ValidationCallback mCallback;
 
-    public Validator() {
+    Validator() {
         mValidationHolderList = new ArrayList<ValidationHolder>();
     }
 
@@ -45,16 +44,6 @@ public abstract class Validator {
         set(editText, pattern, errMsg);
     }
 
-
-    public void set(Activity activity, int viewId, int confirmationViewId, int errMsgId) {
-        EditText editText = (EditText) activity.findViewById(viewId);
-        EditText editTextConfirmation = (EditText) activity.findViewById(confirmationViewId);
-        String errMsg = activity.getResources().getString(errMsgId);
-        ValidationHolder validationHolder = new ValidationHolder(editText, editTextConfirmation,
-                errMsg);
-        mValidationHolderList.add(validationHolder);
-    }
-
     public void set(EditText editText, NumericRange numericRange, String errMsg) {
         ValidationHolder validationHolder = new ValidationHolder(editText, numericRange, errMsg);
         mValidationHolderList.add(validationHolder);
@@ -66,31 +55,41 @@ public abstract class Validator {
         set(editText, numericRange, errMsg);
     }
 
+    public void set(EditText confirmationEditText, EditText editText, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(confirmationEditText, editText, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
 
-    protected boolean checkFields(ValidationCallback callback) {
+    public void set(Activity activity, int confirmationViewId, int viewId, int errMsgId) {
+        EditText confirmationEditText = (EditText) activity.findViewById(confirmationViewId);
+        EditText editText = (EditText) activity.findViewById(viewId);
+        String errMsg = activity.getResources().getString(errMsgId);
+        set(confirmationEditText, editText, errMsg);
+    }
+
+    boolean checkFields(ValidationCallback callback) {
         mHasFailed = false;
         mValidationResult = true;
-        mCallback = callback;
         for (ValidationHolder validationHolder : mValidationHolderList) {
             if (validationHolder.isRegexType()) {
-                checkRegexTypeField(validationHolder);
+                checkRegexTypeField(validationHolder, callback);
             } else if (validationHolder.isRangeType()) {
-                checkRangeTypeField(validationHolder);
+                checkRangeTypeField(validationHolder, callback);
             } else if (validationHolder.isConfirmationType()) {
-                checkConfirmationTypeField(validationHolder);
+                checkConfirmationTypeField(validationHolder, callback);
             }
         }
         return mValidationResult;
     }
 
-    private void checkRegexTypeField(ValidationHolder validationHolder) {
+    private void checkRegexTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         Matcher matcher = validationHolder.getPattern().matcher(validationHolder.getText());
-        if (matcher != null && !matcher.matches()) {
-            executeCallBack(matcher, validationHolder);
+        if (!matcher.matches()) {
+            executeCallBack(callback, validationHolder, matcher);
         }
     }
 
-    private void checkRangeTypeField(ValidationHolder validationHolder) {
+    private void checkRangeTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         Matcher matcher;
         boolean valid;
         try {
@@ -100,21 +99,21 @@ public abstract class Validator {
         }
         if (!valid) {
             matcher = Pattern.compile("±*").matcher(validationHolder.getText());
-            executeCallBack(matcher, validationHolder);
+            executeCallBack(callback, validationHolder, matcher);
         }
     }
 
-    private void checkConfirmationTypeField(ValidationHolder validationHolder) {
+    private void checkConfirmationTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         boolean valid = validationHolder.getText().equals(validationHolder.getConfirmationText());
         if (!valid) {
-            executeCallBack(null, validationHolder);
+            executeCallBack(callback, validationHolder, null);
         }
     }
 
-    private void executeCallBack(Matcher matcher, ValidationHolder validationHolder) {
-        mCallback.execute(validationHolder, matcher);
-        mValidationResult = false;
+    private void executeCallBack(ValidationCallback callback, ValidationHolder validationHolder, Matcher matcher) {
+        callback.execute(validationHolder, matcher);
         requestFocus(validationHolder);
+        mValidationResult = false;
     }
 
     private void requestFocus(ValidationHolder validationHolder) {

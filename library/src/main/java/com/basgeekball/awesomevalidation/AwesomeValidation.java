@@ -70,16 +70,20 @@ public class AwesomeValidation {
         mValidator.set(activity, viewId, pattern, errMsgId);
     }
 
-    public void addValidation(Activity activity, int viewId, int confirmationViewId, int errMsgId) {
-        mValidator.set(activity, viewId, confirmationViewId, errMsgId);
-    }
-
     public void addValidation(EditText editText, Range range, String errMsg) {
         mValidator.set(editText, new NumericRange(range), errMsg);
     }
 
     public void addValidation(Activity activity, int viewId, Range range, int errMsgId) {
         mValidator.set(activity, viewId, new NumericRange(range), errMsgId);
+    }
+
+    public void addValidation(EditText confirmationEditText, EditText editText, String errMsg) {
+        mValidator.set(confirmationEditText, editText, errMsg);
+    }
+
+    public void addValidation(Activity activity, int confirmationViewId, int viewId, int errMsgId) {
+        mValidator.set(activity, confirmationViewId, viewId, errMsgId);
     }
 
     public boolean validate() {

@@ -26,9 +26,9 @@ public class ValidationHolder {
         mErrMsg = errMsg;
     }
 
-    public ValidationHolder(EditText editText, EditText confirmationEditText, String errMsg) {
-        mEditText = editText;
+    public ValidationHolder(EditText confirmationEditText, EditText editText, String errMsg) {
         mConfirmationEditText = confirmationEditText;
+        mEditText = editText;
         mErrMsg = errMsg;
     }
 
