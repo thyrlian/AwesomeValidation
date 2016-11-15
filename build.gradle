@@ -5,14 +5,14 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'org.jacoco:org.jacoco.core:0.7.7.201606060606'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.3'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.1'
     }
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.6"
+    id "com.jfrog.bintray" version "1.7"
 }
 
 bintray {
@@ -45,10 +45,10 @@ allprojects {
 
 ext {
     minSdk = 14
-    targetSdk = 23
-    compileSdkVersion = 23
-    buildToolsVersion = '23.0.3'
-    androidSupportLibVersion = '23.4.0'
+    targetSdk = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.0'
+    androidSupportLibVersion = '25.0.0'
     versionCode = 4
     versionName = "1.3"
 }
