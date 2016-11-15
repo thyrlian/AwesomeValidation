@@ -5,8 +5,8 @@ language: android
 android:
   components:
     - tools
-    - build-tools-23.0.3
-    - android-23
+    - build-tools-25.0.0
+    - android-25
     - extra-google-google_play_services
     - extra-android-support
     - extra
@@ -16,10 +16,10 @@ jdk:
 
 env:
   matrix:
-    - ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-25  ANDROID_ABI=armeabi-v7a
 
 before_install:
-  - echo yes | android update sdk --all --filter build-tools-23.0.3 --no-ui --force
+  - echo yes | android update sdk --all --filter build-tools-25.0.0 --no-ui --force
 
 before_script:
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
