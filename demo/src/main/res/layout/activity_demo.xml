@@ -44,6 +44,12 @@
                         android:hint="@string/edt_userid"/>
 
                     <fragment
+                        android:name="com.basgeekball.awesomevalidation.demo.PasswordFragment"
+                        android:id="@+id/password_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <fragment
                         android:name="com.basgeekball.awesomevalidation.demo.NameFragment"
                         android:id="@+id/name_fragment"
                         android:layout_width="match_parent"
@@ -57,15 +63,6 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:hint="@string/edt_email"/>
-
-                    <EditText
-                        android:id="@+id/edt_email_confirmation"
-                        android:inputType="textEmailAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_email_confirmation"/>
 
                     <EditText
                         android:id="@+id/edt_ip"

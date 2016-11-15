@@ -135,10 +135,11 @@ public class DemoActivity extends AppCompatActivity {
 
     private void addValidation(final Activity activity) {
         mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
+        mAwesomeValidation.addValidation(activity, R.id.edt_password, "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}", R.string.err_password);
+        mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
         mAwesomeValidation.addValidation(activity, R.id.edt_firstname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_lastname, "[a-zA-Z\\s]+", R.string.err_name);
         mAwesomeValidation.addValidation(activity, R.id.edt_email, Patterns.EMAIL_ADDRESS, R.string.err_email);
-        mAwesomeValidation.addValidation(activity, R.id.edt_email_confirmation, R.id.edt_email, R.string.err_email_confirmation);
         mAwesomeValidation.addValidation(activity, R.id.edt_ip, Patterns.IP_ADDRESS, R.string.err_ip);
         mAwesomeValidation.addValidation(activity, R.id.edt_tel, RegexTemplate.TELEPHONE, R.string.err_tel);
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
