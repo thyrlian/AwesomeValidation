@@ -72,8 +72,8 @@ public class ColorationValidatorTest extends TestCase {
 
     public void testTriggerManyWithoutError() {
         mColorationValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass,
-                mMockedValidationHolderConfirmationTypePass,
-                mMockedValidationHolderRangeTypePass));
+                mMockedValidationHolderRangeTypePass,
+                mMockedValidationHolderConfirmationTypePass));
         assertTrue(mColorationValidator.trigger());
         verify(mMockedValidationHolderRegexTypePass.getEditText(), never()).setError(mMockedErrMsg);
         verify(mMockedValidationHolderRangeTypePass.getEditText(), never()).setError(mMockedErrMsg);
@@ -107,9 +107,11 @@ public class ColorationValidatorTest extends TestCase {
         PowerMockito.verifyStatic(never());
         SpanHelper.setColor(eq(mMockedValidationHolderRegexTypePass.getEditText()), anyInt(), any(ArrayList.class));
         SpanHelper.setColor(eq(mMockedValidationHolderRangeTypePass.getEditText()), anyInt(), any(ArrayList.class));
+        SpanHelper.setColor(eq(mMockedValidationHolderConfirmationTypePass.getEditText()), anyInt(), any(ArrayList.class));
         PowerMockito.verifyStatic(times(1));
         SpanHelper.setColor(eq(mMockedValidationHolderRegexTypeFail.getEditText()), eq(Color.RED), any(ArrayList.class));
         SpanHelper.setColor(eq(mMockedValidationHolderRangeTypeFail.getEditText()), eq(Color.RED), any(ArrayList.class));
+        SpanHelper.setColor(eq(mMockedValidationHolderConfirmationTypeFail.getEditText()), eq(Color.RED), any(ArrayList.class));
     }
 
     public void testHaltClearErrorForAllValid() {
@@ -136,6 +138,7 @@ public class ColorationValidatorTest extends TestCase {
         PowerMockito.verifyStatic(times(1));
         SpanHelper.reset(mMockedValidationHolderRegexTypeFail.getEditText());
         SpanHelper.reset(mMockedValidationHolderRangeTypeFail.getEditText());
+        SpanHelper.reset(mMockedValidationHolderConfirmationTypeFail.getEditText());
     }
 
     public void testHaltClearErrorForAllAnyway() {
@@ -157,6 +160,8 @@ public class ColorationValidatorTest extends TestCase {
         SpanHelper.reset(mMockedValidationHolderRegexTypeFail.getEditText());
         SpanHelper.reset(mMockedValidationHolderRangeTypePass.getEditText());
         SpanHelper.reset(mMockedValidationHolderRangeTypeFail.getEditText());
+        SpanHelper.reset(mMockedValidationHolderConfirmationTypePass.getEditText());
+        SpanHelper.reset(mMockedValidationHolderConfirmationTypeFail.getEditText());
     }
 
 }

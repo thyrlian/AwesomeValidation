@@ -26,8 +26,9 @@ public class MockValidationHolderHelper {
 
     public static ValidationHolder generate(ValidationHolderType type, boolean validity) {
         ValidationHolder mockedValidationHolder = mock(ValidationHolder.class, RETURNS_DEEP_STUBS);
-        String text = "some text";
-        when(mockedValidationHolder.getText()).thenReturn(text);
+        String aString = "One";
+        String anotherString = "Another";
+        when(mockedValidationHolder.getText()).thenReturn(aString);
         if (type == ValidationHolderType.REGEX) {
             when(mockedValidationHolder.isRegexType()).thenReturn(true);
             when(mockedValidationHolder.isRangeType()).thenReturn(false);
@@ -35,7 +36,7 @@ public class MockValidationHolderHelper {
             Pattern mockedPattern = PowerMockito.mock(Pattern.class);
             Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
             when(mockedValidationHolder.getPattern()).thenReturn(mockedPattern);
-            when(mockedPattern.matcher(text)).thenReturn(mockedMatcher);
+            when(mockedPattern.matcher(aString)).thenReturn(mockedMatcher);
             when(mockedMatcher.matches()).thenReturn(validity);
         } else if (type == ValidationHolderType.RANGE) {
             when(mockedValidationHolder.isRegexType()).thenReturn(false);
@@ -43,14 +44,13 @@ public class MockValidationHolderHelper {
             when(mockedValidationHolder.isConfirmationType()).thenReturn(false);
             NumericRange mockedNumericRange = mock(NumericRange.class);
             when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
-            when(mockedNumericRange.isValid(text)).thenReturn(validity);
+            when(mockedNumericRange.isValid(aString)).thenReturn(validity);
         } else if (type == ValidationHolderType.CONFIRMATION) {
             when(mockedValidationHolder.isRegexType()).thenReturn(false);
             when(mockedValidationHolder.isRangeType()).thenReturn(false);
             when(mockedValidationHolder.isConfirmationType()).thenReturn(true);
-            String confirmationField = validity ? text : text + "some other text";
-            when(mockedValidationHolder.getConfirmationText()).thenReturn(confirmationField);
-
+            String confirmationText = validity ? aString : anotherString;
+            when(mockedValidationHolder.getConfirmationText()).thenReturn(confirmationText);
         }
         return mockedValidationHolder;
     }

@@ -98,8 +98,8 @@ public class AwesomeValidationTest extends TestCase {
         String mockedRegex = PowerMockito.mock(String.class);
         String mockedErrMsg = PowerMockito.mock(String.class);
         NumericRange mockedNumericRange = mock(NumericRange.class);
-        int viewId = 65536;
-        int confirmationViewId = 65535;
+        int viewId = 65535;
+        int confirmationViewId = 65536;
         int errMsgId = 32768;
         when(mockedActivity.findViewById(viewId)).thenReturn(mockedEditText);
         when(mockedActivity.findViewById(confirmationViewId)).thenReturn(mockedConfirmationEditText);
@@ -117,14 +117,17 @@ public class AwesomeValidationTest extends TestCase {
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedPattern, errMsgId);
         PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedPattern, errMsgId);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, confirmationViewId, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, confirmationViewId, errMsgId);
-
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRange, mockedErrMsg);
         PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, new NumericRange(mockedRange), mockedErrMsg);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedRange, errMsgId);
         PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, new NumericRange(mockedRange), errMsgId);
+
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedConfirmationEditText, mockedEditText, mockedErrMsg);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedConfirmationEditText, mockedEditText, mockedErrMsg);
+
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, confirmationViewId, viewId, errMsgId);
+        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, confirmationViewId, viewId, errMsgId);
     }
 
     public void testValidate() throws Exception {

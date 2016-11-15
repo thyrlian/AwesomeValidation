@@ -135,12 +135,12 @@ public class ValidatorTest extends TestCase {
     public void testCheckFieldsFailDueToOneConfirmationFromManyDifferentValidationHolders() {
         mValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX, true),
-                generate(CONFIRMATION, false),
-                generate(RANGE, true),
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(REGEX, true),
                 generate(CONFIRMATION, true),
+                generate(RANGE, true),
+                generate(REGEX, true),
+                generate(RANGE, true),
+                generate(REGEX, true),
+                generate(CONFIRMATION, false),
                 generate(RANGE, true)
         ));
         assertFalse(mValidator.checkFields(mEmptyValidationCallback));

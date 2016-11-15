@@ -80,10 +80,11 @@ public class BasicValidatorTest extends TestCase {
     }
 
     public void testTriggerMixedTypesWithoutError() {
-        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass, mMockedValidationHolderRangeTypePass));
+        mBasicValidator.mValidationHolderList.addAll(Arrays.asList(mMockedValidationHolderRegexTypePass, mMockedValidationHolderRangeTypePass, mMockedValidationHolderConfirmationTypePass));
         assertTrue(mBasicValidator.trigger());
         verify(mMockedValidationHolderRegexTypePass.getEditText(), never()).setError(anyString());
         verify(mMockedValidationHolderRangeTypePass.getEditText(), never()).setError(anyString());
+        verify(mMockedValidationHolderConfirmationTypePass.getEditText(), never()).setError(anyString());
     }
 
     public void testTriggerMixedTypesWithError() {

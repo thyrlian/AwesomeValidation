@@ -37,7 +37,7 @@ public class ValidationHolderTest extends TestCase {
         String mockedErrMsg = PowerMock.createMock(String.class);
         mValidationHolderRegexType = new ValidationHolder(mMockedEditText, mockedPattern, mockedErrMsg);
         mValidationHolderRangeType = new ValidationHolder(mMockedEditText, mockedNumericRange, mockedErrMsg);
-        mValidationHolderConfirmationType = new ValidationHolder(mMockedEditText, mMockedConfirmationEditText, mockedErrMsg);
+        mValidationHolderConfirmationType = new ValidationHolder(mMockedConfirmationEditText, mMockedEditText, mockedErrMsg);
     }
 
     public void testIsRegexTypeTrue() {
@@ -65,7 +65,6 @@ public class ValidationHolderTest extends TestCase {
     public void testIsConfirmationTypeFalse() {
         assertFalse(mValidationHolderRangeType.isConfirmationType());
         assertFalse(mValidationHolderRegexType.isConfirmationType());
-
     }
 
     public void testGetText() {
