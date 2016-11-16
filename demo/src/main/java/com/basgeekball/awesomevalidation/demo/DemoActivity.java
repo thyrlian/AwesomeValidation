@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
@@ -37,6 +39,8 @@ public class DemoActivity extends AppCompatActivity {
     private DrawerItemClickListener mDrawerItemClickListener = new DrawerItemClickListener();
     private int mPosition = 0;
     private AwesomeValidation mAwesomeValidation;
+    private LinearLayout mViewSuccess;
+    private ScrollView mScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,8 @@ public class DemoActivity extends AppCompatActivity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mStyles));
         mDrawerList.setOnItemClickListener(mDrawerItemClickListener);
         mDrawerItemClickListener.selectItem(mPosition);
+        mViewSuccess = (LinearLayout) findViewById(R.id.container_success);
+        mScrollView = (ScrollView) findViewById(R.id.scroll_view);
     }
 
     @Override
@@ -150,7 +156,12 @@ public class DemoActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAwesomeValidation.validate();
+                if (mAwesomeValidation.validate()) {
+                    mScrollView.fullScroll(View.FOCUS_DOWN);
+                    mViewSuccess.setVisibility(View.VISIBLE);
+                } else {
+                    mViewSuccess.setVisibility(View.GONE);
+                }
             }
         });
 

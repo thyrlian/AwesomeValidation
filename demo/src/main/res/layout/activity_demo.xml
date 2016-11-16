@@ -22,6 +22,7 @@
             android:orientation="vertical">
 
             <ScrollView
+                android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
@@ -106,6 +107,34 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:hint="@string/edt_height"/>
+
+                    <LinearLayout
+                        android:id="@+id/container_success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:src="@android:drawable/presence_online"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/img_success" />
+
+                        <ImageView
+                            android:src="@android:drawable/presence_online"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/img_success" />
+
+                        <ImageView
+                            android:src="@android:drawable/presence_online"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/img_success" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
