@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    compile 'com.google.guava:guava:19.0'
+    compile 'com.google.guava:guava:20.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:2.0.2-beta'
     testCompile 'org.easymock:easymock:3.4'
