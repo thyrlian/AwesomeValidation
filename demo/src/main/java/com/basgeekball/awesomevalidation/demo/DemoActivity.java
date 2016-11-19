@@ -120,6 +120,7 @@ public class DemoActivity extends AppCompatActivity {
     private void clearValidation() {
         if (mAwesomeValidation != null) {
             mAwesomeValidation.clear();
+            mViewSuccess.setVisibility(View.GONE);
         }
     }
 
@@ -170,6 +171,7 @@ public class DemoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAwesomeValidation.clear();
+                mViewSuccess.setVisibility(View.GONE);
             }
         });
     }
