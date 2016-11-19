@@ -45,12 +45,12 @@ public class ColorationValidatorTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         mColorationValidator = new ColorationValidator();
-        mMockedValidationHolderRegexTypePass = generate(REGEX, true);
-        mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
-        mMockedValidationHolderRangeTypePass = generate(RANGE, true);
-        mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
-        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION, true);
-        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION, false);
+        mMockedValidationHolderRegexTypePass = generate(REGEX);
+        mMockedValidationHolderRegexTypeFail = generate(REGEX);
+        mMockedValidationHolderRangeTypePass = generate(RANGE);
+        mMockedValidationHolderRangeTypeFail = generate(RANGE);
+        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION);
+        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION);
         mMockedErrMsg = PowerMockito.mock(String.class);
         when(mMockedValidationHolderRegexTypePass.getErrMsg()).thenReturn(mMockedErrMsg);
         when(mMockedValidationHolderRegexTypeFail.getErrMsg()).thenReturn(mMockedErrMsg);

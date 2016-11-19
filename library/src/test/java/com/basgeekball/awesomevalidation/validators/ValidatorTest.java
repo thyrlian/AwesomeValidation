@@ -1,6 +1,10 @@
 package com.basgeekball.awesomevalidation.validators;
 
+import android.text.SpannableStringBuilder;
+import android.widget.EditText;
+
 import com.basgeekball.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 
 import junit.framework.TestCase;
@@ -10,19 +14,31 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.api.mockito.expectation.PowerMockitoStubber;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.CONFIRMATION;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.RANGE;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.REGEX;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.generate;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Validator.class)
+@PrepareForTest({Validator.class, Pattern.class})
 public class ValidatorTest extends TestCase {
 
     private Validator mSpiedValidator = PowerMockito.spy(new Validator() {
@@ -44,27 +60,9 @@ public class ValidatorTest extends TestCase {
         }
     };
 
-    private ValidationHolder mMockedValidationHolderRegexTypePass;
-    private ValidationHolder mMockedValidationHolderRegexTypeFail;
-    private ValidationHolder mMockedValidationHolderRangeTypePass;
-    private ValidationHolder mMockedValidationHolderRangeTypeFail;
-    private ValidationHolder mMockedValidationHolderConfirmationTypePass;
-    private ValidationHolder mMockedValidationHolderConfirmationTypeFail;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        mMockedValidationHolderRegexTypePass = generate(REGEX, true);
-        mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
-        mMockedValidationHolderRangeTypePass = generate(RANGE, true);
-        mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
-        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION, true);
-        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION, false);
-    }
-
     private void mockPrivateMethods() {
         try {
-            PowerMockito.doNothing().when(mSpiedValidator, "executeCallBack", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+            PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
             PowerMockito.doNothing().when(mSpiedValidator, "requestFocus", any(ValidationHolder.class));
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,42 +112,42 @@ public class ValidatorTest extends TestCase {
     public void testCheckFieldsPassWithOnlyOneRegexValidationHolder() {
         mockPrivateMethods();
         mockCheckRegexTypeField(true);
-        mSpiedValidator.mValidationHolderList.add(mMockedValidationHolderRegexTypePass);
+        mSpiedValidator.mValidationHolderList.add(generate(REGEX));
         assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsFailWithOnlyOneRegexValidationHolder() {
         mockPrivateMethods();
         mockCheckRegexTypeField(false);
-        mSpiedValidator.mValidationHolderList.add(mMockedValidationHolderRegexTypeFail);
+        mSpiedValidator.mValidationHolderList.add(generate(REGEX));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsPassWithOnlyOneRangeValidationHolder() {
         mockPrivateMethods();
         mockCheckRangeTypeField(true);
-        mSpiedValidator.mValidationHolderList.add(mMockedValidationHolderRangeTypePass);
+        mSpiedValidator.mValidationHolderList.add(generate(RANGE));
         assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsFailWithOnlyOneRangeValidationHolder() {
         mockPrivateMethods();
         mockCheckRangeTypeField(false);
-        mSpiedValidator.mValidationHolderList.add(mMockedValidationHolderRangeTypeFail);
+        mSpiedValidator.mValidationHolderList.add(generate(RANGE));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsPassWithOnlyOneConfirmationValidationHolder() {
         mockPrivateMethods();
         mockCheckConfirmationTypeField(true);
-        mSpiedValidator.mValidationHolderList.add(mMockedValidationHolderConfirmationTypePass);
+        mSpiedValidator.mValidationHolderList.add(generate(CONFIRMATION));
         assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
 
     public void testCheckFieldsFailWithOnlyOneConfirmationValidationHolder() {
         mockPrivateMethods();
         mockCheckConfirmationTypeField(false);
-        mSpiedValidator.mValidationHolderList.add(mMockedValidationHolderConfirmationTypeFail);
+        mSpiedValidator.mValidationHolderList.add(generate(CONFIRMATION));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
 
@@ -159,12 +157,12 @@ public class ValidatorTest extends TestCase {
         mockCheckRangeTypeField(Arrays.asList(true, true));
         mockCheckConfirmationTypeField(Arrays.asList(true, true));
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true),
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true)
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION)
         ));
         assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -175,15 +173,15 @@ public class ValidatorTest extends TestCase {
         mockCheckRangeTypeField(Arrays.asList(true, true, true));
         mockCheckConfirmationTypeField(Arrays.asList(true, true, true));
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true),
-                generate(REGEX, false),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true),
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true)
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION)
         ));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -194,15 +192,15 @@ public class ValidatorTest extends TestCase {
         mockCheckRangeTypeField(Arrays.asList(true, false, true));
         mockCheckConfirmationTypeField(Arrays.asList(true, true, true));
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true),
-                generate(REGEX, true),
-                generate(RANGE, false),
-                generate(CONFIRMATION, true),
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true)
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION)
         ));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -213,17 +211,135 @@ public class ValidatorTest extends TestCase {
         mockCheckRangeTypeField(Arrays.asList(true, true, true));
         mockCheckConfirmationTypeField(Arrays.asList(true, false, true));
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true),
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, false),
-                generate(REGEX, true),
-                generate(RANGE, true),
-                generate(CONFIRMATION, true)
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION)
         ));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckRegexTypeFieldPass() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(REGEX);
+        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
+        String mockedString = PowerMockito.mock(String.class);
+        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
+        when(mockedValidationHolder.getPattern()).thenReturn(mockedPattern);
+        when(mockedValidationHolder.getText()).thenReturn(mockedString);
+        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
+        when(mockedMatcher.matches()).thenReturn(true);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRegexTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, never()).invoke("executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+    }
+
+    public void testCheckRegexTypeFieldFail() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(REGEX);
+        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
+        String mockedString = PowerMockito.mock(String.class);
+        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
+        when(mockedValidationHolder.getPattern()).thenReturn(mockedPattern);
+        when(mockedValidationHolder.getText()).thenReturn(mockedString);
+        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
+        when(mockedMatcher.matches()).thenReturn(false);
+        PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRegexTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, mockedMatcher);
+    }
+
+    public void testCheckRangeTypeFieldPass() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(RANGE);
+        NumericRange mockedNumericRange = mock(NumericRange.class);
+        String mockedString = PowerMockito.mock(String.class);
+        when(mockedValidationHolder.getText()).thenReturn(mockedString);
+        when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
+        when(mockedNumericRange.isValid(mockedString)).thenReturn(true);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, never()).invoke("executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+    }
+
+    public void testCheckRangeTypeFieldFail() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(RANGE);
+        NumericRange mockedNumericRange = mock(NumericRange.class);
+        String mockedString = PowerMockito.mock(String.class);
+        when(mockedValidationHolder.getText()).thenReturn(mockedString);
+        when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
+        when(mockedNumericRange.isValid(mockedString)).thenReturn(false);
+        PowerMockito.mockStatic(Pattern.class);
+        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
+        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
+        when(Pattern.compile(anyString())).thenReturn(mockedPattern);
+        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
+        PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, mockedMatcher);
+    }
+
+    public void testCheckRangeTypeFieldFailDueToException() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(RANGE);
+        NumericRange mockedNumericRange = mock(NumericRange.class);
+        String mockedString = PowerMockito.mock(String.class);
+        when(mockedValidationHolder.getText()).thenReturn(mockedString);
+        when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
+        doThrow(NumberFormatException.class).when(mockedNumericRange).isValid(mockedString);
+        PowerMockito.mockStatic(Pattern.class);
+        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
+        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
+        when(Pattern.compile(anyString())).thenReturn(mockedPattern);
+        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
+        PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, mockedMatcher);
+    }
+
+    public void testCheckConfirmationTypeFieldPass() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(CONFIRMATION);
+        String mockedStringA = "aaa";
+        String mockedStringB = "aaa";
+        when(mockedValidationHolder.getText()).thenReturn(mockedStringA);
+        when(mockedValidationHolder.getConfirmationText()).thenReturn(mockedStringB);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkConfirmationTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, never()).invoke("executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+    }
+
+    public void testCheckConfirmationTypeFieldFail() throws Exception {
+        ValidationHolder mockedValidationHolder = generate(CONFIRMATION);
+        String mockedStringA = "aaa";
+        String mockedStringB = "bbb";
+        when(mockedValidationHolder.getText()).thenReturn(mockedStringA);
+        when(mockedValidationHolder.getConfirmationText()).thenReturn(mockedStringB);
+        PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkConfirmationTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, null);
+    }
+
+    public void testExecuteCallback() throws Exception {
+        ValidationHolder mockedValidationHolder = mock(ValidationHolder.class);
+        ValidationCallback mockedValidationCallback = mock(ValidationCallback.class);
+        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
+        doNothing().when(mockedValidationCallback).execute(any(ValidationHolder.class), any(Matcher.class));
+        PowerMockito.doNothing().when(mSpiedValidator, "requestFocus", any(ValidationHolder.class));
+        Whitebox.invokeMethod(mSpiedValidator, "executeCallback", mockedValidationCallback, mockedValidationHolder, mockedMatcher);
+        verify(mockedValidationCallback).execute(mockedValidationHolder, mockedMatcher);
+        verifyPrivate(mSpiedValidator, times(1)).invoke("requestFocus", mockedValidationHolder);
+    }
+
+    public void testRequestFocus() throws Exception {
+        ValidationHolder mockedValidationHolder = mock(ValidationHolder.class);
+        EditText mockedEditText = mock(EditText.class);
+        SpannableStringBuilder mockedEditable = PowerMockito.mock(SpannableStringBuilder.class);
+        when(mockedValidationHolder.getEditText()).thenReturn(mockedEditText);
+        when(mockedEditText.getText()).thenReturn(mockedEditable);
+        when(mockedEditable.length()).thenReturn(PowerMockito.mock(Integer.class));
+        when(mockedEditText.requestFocus()).thenReturn(true);
+        doNothing().when(mockedEditText).setSelection(anyInt());
+        Whitebox.setInternalState(mSpiedValidator, "mHasFailed", false);
+        Whitebox.invokeMethod(mSpiedValidator, "requestFocus", mockedValidationHolder);
+        assertTrue((Boolean) Whitebox.getInternalState(mSpiedValidator, "mHasFailed"));
     }
 
 }

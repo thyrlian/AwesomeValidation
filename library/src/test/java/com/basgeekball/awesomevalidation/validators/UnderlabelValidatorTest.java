@@ -52,12 +52,12 @@ public class UnderlabelValidatorTest extends TestCase {
         mSpiedUnderlabelValidator = PowerMockito.spy(new UnderlabelValidator());
         mMockedContext = mock(Context.class, RETURNS_MOCKS);
         mSpiedUnderlabelValidator.setContext(mMockedContext);
-        mMockedValidationHolderRegexTypePass = generate(REGEX, true);
-        mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
-        mMockedValidationHolderRangeTypePass = generate(RANGE, true);
-        mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
-        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION, true);
-        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION, false);
+        mMockedValidationHolderRegexTypePass = generate(REGEX);
+        mMockedValidationHolderRegexTypeFail = generate(REGEX);
+        mMockedValidationHolderRangeTypePass = generate(RANGE);
+        mMockedValidationHolderRangeTypeFail = generate(RANGE);
+        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION);
+        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION);
     }
 
     public void testReplaceView() throws Exception {

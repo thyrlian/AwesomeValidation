@@ -84,14 +84,13 @@ public abstract class Validator {
     private boolean checkRegexTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         Matcher matcher = validationHolder.getPattern().matcher(validationHolder.getText());
         if (!matcher.matches()) {
-            executeCallBack(callback, validationHolder, matcher);
+            executeCallback(callback, validationHolder, matcher);
             return false;
         }
         return true;
     }
 
     private boolean checkRangeTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
-        Matcher matcher;
         boolean valid;
         try {
             valid = validationHolder.getNumericRange().isValid(validationHolder.getText());
@@ -99,8 +98,8 @@ public abstract class Validator {
             valid = false;
         }
         if (!valid) {
-            matcher = Pattern.compile("±*").matcher(validationHolder.getText());
-            executeCallBack(callback, validationHolder, matcher);
+            Matcher matcher = Pattern.compile("±*").matcher(validationHolder.getText());
+            executeCallback(callback, validationHolder, matcher);
             return false;
         }
         return true;
@@ -109,13 +108,13 @@ public abstract class Validator {
     private boolean checkConfirmationTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         boolean valid = validationHolder.getText().equals(validationHolder.getConfirmationText());
         if (!valid) {
-            executeCallBack(callback, validationHolder, null);
+            executeCallback(callback, validationHolder, null);
             return false;
         }
         return true;
     }
 
-    private void executeCallBack(ValidationCallback callback, ValidationHolder validationHolder, Matcher matcher) {
+    private void executeCallback(ValidationCallback callback, ValidationHolder validationHolder, Matcher matcher) {
         callback.execute(validationHolder, matcher);
         requestFocus(validationHolder);
     }

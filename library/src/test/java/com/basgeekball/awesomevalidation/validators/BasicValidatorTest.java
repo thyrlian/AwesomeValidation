@@ -35,12 +35,12 @@ public class BasicValidatorTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         mBasicValidator = new BasicValidator();
-        mMockedValidationHolderRegexTypePass = generate(REGEX, true);
-        mMockedValidationHolderRegexTypeFail = generate(REGEX, false);
-        mMockedValidationHolderRangeTypePass = generate(RANGE, true);
-        mMockedValidationHolderRangeTypeFail = generate(RANGE, false);
-        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION, true);
-        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION, false);
+        mMockedValidationHolderRegexTypePass = generate(REGEX);
+        mMockedValidationHolderRegexTypeFail = generate(REGEX);
+        mMockedValidationHolderRangeTypePass = generate(RANGE);
+        mMockedValidationHolderRangeTypeFail = generate(RANGE);
+        mMockedValidationHolderConfirmationTypePass = generate(CONFIRMATION);
+        mMockedValidationHolderConfirmationTypeFail = generate(CONFIRMATION);
     }
 
     public void testTriggerRegexTypeWithoutError() {
