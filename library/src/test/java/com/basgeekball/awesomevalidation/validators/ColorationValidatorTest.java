@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ColorationValidator.class, MockValidationHolderHelper.class, SpanHelper.class})
+@PrepareForTest({ColorationValidator.class, SpanHelper.class})
 public class ColorationValidatorTest extends TestCase {
 
     private ColorationValidator mColorationValidator;

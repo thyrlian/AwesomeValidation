@@ -20,7 +20,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({BasicValidator.class, MockValidationHolderHelper.class})
+@PrepareForTest(BasicValidator.class)
 public class BasicValidatorTest extends TestCase {
 
     private BasicValidator mBasicValidator;

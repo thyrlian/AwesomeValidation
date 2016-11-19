@@ -34,7 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({UnderlabelValidator.class, MockValidationHolderHelper.class})
+@PrepareForTest(UnderlabelValidator.class)
 public class UnderlabelValidatorTest extends TestCase {
 
     private UnderlabelValidator mSpiedUnderlabelValidator;
