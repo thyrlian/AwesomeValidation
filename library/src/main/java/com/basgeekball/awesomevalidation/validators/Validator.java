@@ -15,7 +15,6 @@ public abstract class Validator {
 
     ArrayList<ValidationHolder> mValidationHolderList;
     private boolean mHasFailed = false;
-    private boolean mValidationResult = true;
 
     Validator() {
         mValidationHolderList = new ArrayList<ValidationHolder>();
@@ -68,28 +67,30 @@ public abstract class Validator {
     }
 
     boolean checkFields(ValidationCallback callback) {
+        boolean result = true;
         mHasFailed = false;
-        mValidationResult = true;
         for (ValidationHolder validationHolder : mValidationHolderList) {
             if (validationHolder.isRegexType()) {
-                checkRegexTypeField(validationHolder, callback);
+                result = checkRegexTypeField(validationHolder, callback) && result;
             } else if (validationHolder.isRangeType()) {
-                checkRangeTypeField(validationHolder, callback);
+                result = checkRangeTypeField(validationHolder, callback) && result;
             } else if (validationHolder.isConfirmationType()) {
-                checkConfirmationTypeField(validationHolder, callback);
+                result = checkConfirmationTypeField(validationHolder, callback) && result;
             }
         }
-        return mValidationResult;
+        return result;
     }
 
-    private void checkRegexTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
+    private boolean checkRegexTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         Matcher matcher = validationHolder.getPattern().matcher(validationHolder.getText());
         if (!matcher.matches()) {
             executeCallBack(callback, validationHolder, matcher);
+            return false;
         }
+        return true;
     }
 
-    private void checkRangeTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
+    private boolean checkRangeTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         Matcher matcher;
         boolean valid;
         try {
@@ -100,20 +101,23 @@ public abstract class Validator {
         if (!valid) {
             matcher = Pattern.compile("±*").matcher(validationHolder.getText());
             executeCallBack(callback, validationHolder, matcher);
+            return false;
         }
+        return true;
     }
 
-    private void checkConfirmationTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
+    private boolean checkConfirmationTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
         boolean valid = validationHolder.getText().equals(validationHolder.getConfirmationText());
         if (!valid) {
             executeCallBack(callback, validationHolder, null);
+            return false;
         }
+        return true;
     }
 
     private void executeCallBack(ValidationCallback callback, ValidationHolder validationHolder, Matcher matcher) {
         callback.execute(validationHolder, matcher);
         requestFocus(validationHolder);
-        mValidationResult = false;
     }
 
     private void requestFocus(ValidationHolder validationHolder) {
