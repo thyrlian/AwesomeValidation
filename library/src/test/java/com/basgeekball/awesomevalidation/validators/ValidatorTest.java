@@ -71,64 +71,40 @@ public class ValidatorTest extends TestCase {
         }
     }
 
-    private void mockCheckRegexTypeField(boolean returnValue) {
+    private void mockCheckSomeCertainTypeField(String methodName, List<Boolean> returnValues) {
         try {
-            PowerMockito.doReturn(returnValue).when(mSpiedValidator, "checkRegexTypeField", any(ValidationHolder.class), any(ValidationCallback.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void mockCheckRangeTypeField(boolean returnValue) {
-        try {
-            PowerMockito.doReturn(returnValue).when(mSpiedValidator, "checkRangeTypeField", any(ValidationHolder.class), any(ValidationCallback.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void mockCheckConfirmationTypeField(boolean returnValue) {
-        try {
-            PowerMockito.doReturn(returnValue).when(mSpiedValidator, "checkConfirmationTypeField", any(ValidationHolder.class), any(ValidationCallback.class));
+            PowerMockitoStubber stubber = PowerMockito.doReturn(returnValues.get(0));
+            for (int i = 1; i < returnValues.size(); i++) {
+                stubber = (PowerMockitoStubber) stubber.doReturn(returnValues.get(i));
+            }
+            stubber.when(mSpiedValidator, methodName, any(ValidationHolder.class), any(ValidationCallback.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void mockCheckRegexTypeField(List<Boolean> returnValues) {
-        try {
-            PowerMockitoStubber stubber = PowerMockito.doReturn(returnValues.get(0));
-            for (int i = 1; i < returnValues.size(); i++) {
-                stubber = (PowerMockitoStubber) stubber.doReturn(returnValues.get(i));
-            }
-            stubber.when(mSpiedValidator, "checkRegexTypeField", any(ValidationHolder.class), any(ValidationCallback.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mockCheckSomeCertainTypeField("checkRegexTypeField", returnValues);
     }
 
     private void mockCheckRangeTypeField(List<Boolean> returnValues) {
-        try {
-            PowerMockitoStubber stubber = PowerMockito.doReturn(returnValues.get(0));
-            for (int i = 1; i < returnValues.size(); i++) {
-                stubber = (PowerMockitoStubber) stubber.doReturn(returnValues.get(i));
-            }
-            stubber.when(mSpiedValidator, "checkRangeTypeField", any(ValidationHolder.class), any(ValidationCallback.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mockCheckSomeCertainTypeField("checkRangeTypeField", returnValues);
     }
 
     private void mockCheckConfirmationTypeField(List<Boolean> returnValues) {
-        try {
-            PowerMockitoStubber stubber = PowerMockito.doReturn(returnValues.get(0));
-            for (int i = 1; i < returnValues.size(); i++) {
-                stubber = (PowerMockitoStubber) stubber.doReturn(returnValues.get(i));
-            }
-            stubber.when(mSpiedValidator, "checkConfirmationTypeField", any(ValidationHolder.class), any(ValidationCallback.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mockCheckSomeCertainTypeField("checkConfirmationTypeField", returnValues);
+    }
+
+    private void mockCheckRegexTypeField(boolean returnValue) {
+        mockCheckRegexTypeField(Arrays.asList(returnValue));
+    }
+
+    private void mockCheckRangeTypeField(boolean returnValue) {
+        mockCheckRangeTypeField(Arrays.asList(returnValue));
+    }
+
+    private void mockCheckConfirmationTypeField(boolean returnValue) {
+        mockCheckConfirmationTypeField(Arrays.asList(returnValue));
     }
 
     public void testValidator() {
