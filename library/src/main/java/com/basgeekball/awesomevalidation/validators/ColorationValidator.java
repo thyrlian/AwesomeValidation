@@ -19,25 +19,27 @@ public class ColorationValidator extends Validator {
         mColor = color;
     }
 
+    private ValidationCallback mValidationCallback = new ValidationCallback() {
+        @Override
+        public void execute(ValidationHolder validationHolder, Matcher matcher) {
+            ArrayList<int[]> listOfMatching = new ArrayList<int[]>();
+            if (matcher != null) {
+                while (matcher.find()) {
+                    listOfMatching.add(new int[]{matcher.start(), matcher.end() - 1});
+                }
+            }
+            EditText editText = validationHolder.getEditText();
+            ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching,
+                    editText.getText().length());
+            SpanHelper.setColor(editText, mColor, listOfNotMatching);
+            editText.setError(validationHolder.getErrMsg());
+        }
+    };
+
     @Override
     public boolean trigger() {
         halt();
-        return checkFields(new ValidationCallback() {
-            @Override
-            public void execute(ValidationHolder validationHolder, Matcher matcher) {
-                ArrayList<int[]> listOfMatching = new ArrayList<int[]>();
-                if (matcher != null) {
-                    while (matcher.find()) {
-                        listOfMatching.add(new int[]{matcher.start(), matcher.end() - 1});
-                    }
-                }
-                EditText editText = validationHolder.getEditText();
-                ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching,
-                        editText.getText().length());
-                SpanHelper.setColor(editText, mColor, listOfNotMatching);
-                editText.setError(validationHolder.getErrMsg());
-            }
-        });
+        return checkFields(mValidationCallback);
     }
 
     @Override
