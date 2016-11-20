@@ -10,6 +10,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -33,4 +34,5 @@ dependencies {
     compile project(':library')
     compile "com.android.support:appcompat-v7:${rootProject.ext.androidSupportLibVersion}"
     compile "com.android.support:support-v4:${rootProject.ext.androidSupportLibVersion}"
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 }
