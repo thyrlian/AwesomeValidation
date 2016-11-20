@@ -21,6 +21,20 @@ public class UnderlabelValidator extends Validator {
     private ArrayList<ViewsInfo> mViewsInfos = new ArrayList<>();
     private int mColor;
     private boolean mHasFailed = false;
+    private ValidationCallback mValidationCallback = new ValidationCallback() {
+        @Override
+        public void execute(ValidationHolder validationHolder, Matcher matcher) {
+            TextView textView = replaceView(validationHolder);
+            if (!mHasFailed) {
+                textView.setFocusable(true);
+                textView.setFocusableInTouchMode(true);
+                textView.setClickable(true);
+                textView.requestFocus();
+                mHasFailed = true;
+            }
+            validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
+        }
+    };
 
     public void setContext(Context context) {
         mContext = context;
@@ -30,20 +44,7 @@ public class UnderlabelValidator extends Validator {
     public boolean trigger() {
         halt();
         mColor = mContext.getResources().getColor(android.R.color.holo_red_light);
-        return checkFields(new ValidationCallback() {
-            @Override
-            public void execute(ValidationHolder validationHolder, Matcher matcher) {
-                TextView textView = replaceView(validationHolder);
-                if (!mHasFailed) {
-                    textView.setFocusable(true);
-                    textView.setFocusableInTouchMode(true);
-                    textView.setClickable(true);
-                    textView.requestFocus();
-                    mHasFailed = true;
-                }
-                validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
-            }
-        });
+        return checkFields(mValidationCallback);
     }
 
     @Override
