@@ -1,6 +1,5 @@
 package com.basgeekball.awesomevalidation.validators;
 
-import android.content.Context;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
@@ -15,7 +14,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
 
-import static org.mockito.Mockito.RETURNS_MOCKS;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -25,14 +23,12 @@ public class UnderlabelValidatorTest extends TestCase {
 
     private UnderlabelValidator mSpiedUnderlabelValidator;
     private ValidationHolder mMockedValidationHolder;
-    private Context mMockedContext;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mSpiedUnderlabelValidator = PowerMockito.spy(new UnderlabelValidator());
         mMockedValidationHolder = mock(ValidationHolder.class);
-        mMockedContext = mock(Context.class, RETURNS_MOCKS);
         mSpiedUnderlabelValidator.mValidationHolderList.add(mMockedValidationHolder);
     }
 
