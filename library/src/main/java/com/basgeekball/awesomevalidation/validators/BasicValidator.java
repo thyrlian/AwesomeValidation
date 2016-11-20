@@ -7,14 +7,16 @@ import java.util.regex.Matcher;
 
 public class BasicValidator extends Validator {
 
+    private ValidationCallback mValidationCallback = new ValidationCallback() {
+        @Override
+        public void execute(ValidationHolder validationHolder, Matcher matcher) {
+            validationHolder.getEditText().setError(validationHolder.getErrMsg());
+        }
+    };
+
     @Override
     public boolean trigger() {
-        return checkFields(new ValidationCallback() {
-            @Override
-            public void execute(ValidationHolder validationHolder, Matcher matcher) {
-                validationHolder.getEditText().setError(validationHolder.getErrMsg());
-            }
-        });
+        return checkFields(mValidationCallback);
     }
 
     @Override
