@@ -25,7 +25,7 @@ android:
     - sys-img-$ANDROID_ABI-$ANDROID_TARGET
 
 before_install:
-  - echo yes | android update sdk --all --filter build-tools-$ANDROID_BUILD_TOOLS_VERSION --no-ui --force
+  - echo yes | android update sdk --all --filter tools,platform-tools,build-tools-$ANDROID_BUILD_TOOLS_VERSION,$ANDROID_TARGET --no-ui --force
 
 before_script:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
