@@ -1,9 +1,12 @@
 package com.basgeekball.awesomevalidation.demo;
 
+import android.app.Activity;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.WindowManager;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +25,20 @@ public class DemoActivityTest {
 
     @Rule
     public ActivityTestRule<DemoActivity> mActivityRule = new ActivityTestRule<>(DemoActivity.class);
+
+    @Before
+    public void unlockScreen() {
+        final Activity activity = mActivityRule.getActivity();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            }
+        });
+    }
 
     @Test
     public void testValidatePass() {
