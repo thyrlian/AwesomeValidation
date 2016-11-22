@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -36,6 +37,7 @@ public class DemoActivityTest {
         enterText(R.id.edt_year, "1982");
         enterText(R.id.edt_height, "1.93");
         clickButton(R.id.btn_done);
+        scrollToTheBottom();
         assertViewIsDisplayed(R.id.container_success);
     }
 
@@ -53,6 +55,10 @@ public class DemoActivityTest {
 
     private void assertViewIsDisplayed(int viewId) {
         findView(viewId).check(matches(isDisplayed()));
+    }
+
+    private void scrollToTheBottom() {
+        findView(R.id.scroll_view).perform(swipeUp());
     }
 
 }
