@@ -1,6 +1,8 @@
 package com.basgeekball.awesomevalidation.validators;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -9,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 import com.basgeekball.awesomevalidation.utility.ViewsInfo;
 
 import junit.framework.TestCase;
@@ -21,9 +24,11 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -41,10 +46,22 @@ public class UnderlabelValidatorTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         mSpiedUnderlabelValidator = PowerMockito.spy(new UnderlabelValidator());
-        mMockedValidationHolder = mock(ValidationHolder.class);
+        mMockedValidationHolder = mock(ValidationHolder.class, RETURNS_DEEP_STUBS);
         mSpiedUnderlabelValidator.mValidationHolderList.add(mMockedValidationHolder);
         mMockedContext = mock(Context.class);
         mSpiedUnderlabelValidator.setContext(mMockedContext);
+    }
+
+    public void testValidationCallbackExecute() throws Exception {
+        ValidationCallback validationCallback = Whitebox.getInternalState(mSpiedUnderlabelValidator, "mValidationCallback");
+        Whitebox.setInternalState(mSpiedUnderlabelValidator, "mHasFailed", false);
+        TextView mockedTextView = mock(TextView.class);
+        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
+        Drawable mockedDrawable = mock(Drawable.class);
+        when(mMockedValidationHolder.getEditText().getBackground()).thenReturn(mockedDrawable);
+        doNothing().when(mockedDrawable).setColorFilter(anyInt(), any(PorterDuff.Mode.class));
+        PowerMockito.doReturn(mockedTextView).when(mSpiedUnderlabelValidator, "replaceView", mMockedValidationHolder);
+        validationCallback.execute(mMockedValidationHolder, mockedMatcher);
     }
 
     public void testHalt() throws IllegalAccessException {

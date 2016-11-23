@@ -21,23 +21,24 @@ public class UnderlabelValidator extends Validator {
     private ArrayList<ViewsInfo> mViewsInfos = new ArrayList<>();
     private int mColor;
     private boolean mHasFailed = false;
-    private ValidationCallback mValidationCallback = new ValidationCallback() {
-        @Override
-        public void execute(ValidationHolder validationHolder, Matcher matcher) {
-            TextView textView = replaceView(validationHolder);
-            if (!mHasFailed) {
-                textView.setFocusable(true);
-                textView.setFocusableInTouchMode(true);
-                textView.setClickable(true);
-                textView.requestFocus();
-                mHasFailed = true;
-            }
-            validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
-        }
-    };
+    private ValidationCallback mValidationCallback;
 
     public void setContext(Context context) {
         mContext = context;
+        mValidationCallback = new ValidationCallback() {
+            @Override
+            public void execute(ValidationHolder validationHolder, Matcher matcher) {
+                TextView textView = replaceView(validationHolder);
+                if (!mHasFailed) {
+                    textView.setFocusable(true);
+                    textView.setFocusableInTouchMode(true);
+                    textView.setClickable(true);
+                    textView.requestFocus();
+                    mHasFailed = true;
+                }
+                validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
+            }
+        };
     }
 
     @Override
