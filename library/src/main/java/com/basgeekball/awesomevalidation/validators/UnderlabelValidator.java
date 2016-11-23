@@ -23,8 +23,7 @@ public class UnderlabelValidator extends Validator {
     private boolean mHasFailed = false;
     private ValidationCallback mValidationCallback;
 
-    public void setContext(Context context) {
-        mContext = context;
+    public void init() {
         mValidationCallback = new ValidationCallback() {
             @Override
             public void execute(ValidationHolder validationHolder, Matcher matcher) {
@@ -39,6 +38,11 @@ public class UnderlabelValidator extends Validator {
                 validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
             }
         };
+    }
+
+    public void setContext(Context context) {
+        mContext = context;
+        init();
     }
 
     @Override
