@@ -38,6 +38,11 @@ mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2
 // or
 mAwesomeValidation.addValidation(editText, "regex", "Error info");
 
+String regexPassword = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}";
+mAwesomeValidation.addValidation(activity, R.id.edt_password, regexPassword, R.string.err_password);
+// to validate a confirmation field (don't validate any rule other than confirmation on confirmation field)
+mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
+
 // Step 3: set a trigger
 findViewById(R.id.btn_done).setOnClickListener(new View.OnClickListener() {
     @Override
