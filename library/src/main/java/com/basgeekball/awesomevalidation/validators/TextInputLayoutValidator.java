@@ -20,6 +20,7 @@ public class TextInputLayoutValidator extends Validator {
 
     @Override
     public boolean trigger() {
+        halt();
         return checkFields(mValidationCallback);
     }
 
