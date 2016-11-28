@@ -1,5 +1,6 @@
 package com.basgeekball.awesomevalidation;
 
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.model.NumericRange;
@@ -10,6 +11,8 @@ public class ValidationHolder {
 
     private EditText mEditText;
     private EditText mConfirmationEditText;
+    private TextInputLayout mTextInputLayout;
+    private TextInputLayout mConfirmationTextInputLayout;
     private Pattern mPattern;
     private NumericRange mNumericRange;
     private String mErrMsg;
@@ -32,6 +35,24 @@ public class ValidationHolder {
         mErrMsg = errMsg;
     }
 
+    public ValidationHolder(TextInputLayout textInputLayout, Pattern pattern, String errMsg) {
+        mTextInputLayout = textInputLayout;
+        mPattern = pattern;
+        mErrMsg = errMsg;
+    }
+
+    public ValidationHolder(TextInputLayout textInputLayout, NumericRange numericRange, String errMsg) {
+        mTextInputLayout = textInputLayout;
+        mNumericRange = numericRange;
+        mErrMsg = errMsg;
+    }
+
+    public ValidationHolder(TextInputLayout confirmationTextInputLayout, TextInputLayout textInputLayout, String errMsg) {
+        mConfirmationTextInputLayout = confirmationTextInputLayout;
+        mTextInputLayout = textInputLayout;
+        mErrMsg = errMsg;
+    }
+
     public boolean isRegexType() {
         return mPattern != null;
     }
@@ -41,11 +62,15 @@ public class ValidationHolder {
     }
 
     public boolean isConfirmationType() {
-        return mConfirmationEditText != null;
+        return mConfirmationEditText != null || mConfirmationTextInputLayout != null;
     }
 
-    public EditText getEditText() {
-        return isConfirmationType() ? mConfirmationEditText : mEditText;
+    public boolean isEditTextStyle() {
+        return mEditText != null;
+    }
+
+    public boolean isTextInputLayoutStyle() {
+        return mTextInputLayout != null;
     }
 
     public Pattern getPattern() {
@@ -61,10 +86,31 @@ public class ValidationHolder {
     }
 
     public String getText() {
-        return mEditText.getText().toString();
+        if (mEditText != null) {
+            return mEditText.getText().toString();
+        } else {
+            return mTextInputLayout.getEditText().getText().toString();
+        }
     }
 
     public String getConfirmationText() {
-        return mConfirmationEditText.getText().toString();
+        if (mConfirmationEditText != null) {
+            return mConfirmationEditText.getText().toString();
+        } else {
+            return mConfirmationTextInputLayout.getEditText().getText().toString();
+        }
     }
+
+    public EditText getEditText() {
+        if (isEditTextStyle()) {
+            return isConfirmationType() ? mConfirmationEditText : mEditText;
+        } else {
+            return isConfirmationType() ? mConfirmationTextInputLayout.getEditText() : mTextInputLayout.getEditText();
+        }
+    }
+
+    public TextInputLayout getTextInputLayout() {
+        return isConfirmationType() ? mConfirmationTextInputLayout : mTextInputLayout;
+    }
+
 }

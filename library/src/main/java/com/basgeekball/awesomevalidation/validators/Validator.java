@@ -1,6 +1,8 @@
 package com.basgeekball.awesomevalidation.validators;
 
 import android.app.Activity;
+import android.support.design.widget.TextInputLayout;
+import android.view.View;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
@@ -26,10 +28,20 @@ public abstract class Validator {
         mValidationHolderList.add(validationHolder);
     }
 
+    public void set(TextInputLayout textInputLayout, String regex, String errMsg) {
+        Pattern pattern = Pattern.compile(regex);
+        ValidationHolder validationHolder = new ValidationHolder(textInputLayout, pattern, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
     public void set(Activity activity, int viewId, String regex, int errMsgId) {
-        EditText editText = (EditText) activity.findViewById(viewId);
+        View view = activity.findViewById(viewId);
         String errMsg = activity.getResources().getString(errMsgId);
-        set(editText, regex, errMsg);
+        if (view instanceof EditText) {
+            set((EditText) view, regex, errMsg);
+        } else if (view instanceof TextInputLayout) {
+            set((TextInputLayout) view, regex, errMsg);
+        }
     }
 
     public void set(EditText editText, Pattern pattern, String errMsg) {
@@ -37,10 +49,19 @@ public abstract class Validator {
         mValidationHolderList.add(validationHolder);
     }
 
+    public void set(TextInputLayout textInputLayout, Pattern pattern, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(textInputLayout, pattern, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
     public void set(Activity activity, int viewId, Pattern pattern, int errMsgId) {
-        EditText editText = (EditText) activity.findViewById(viewId);
+        View view = activity.findViewById(viewId);
         String errMsg = activity.getResources().getString(errMsgId);
-        set(editText, pattern, errMsg);
+        if (view instanceof EditText) {
+            set((EditText) view, pattern, errMsg);
+        } else if (view instanceof TextInputLayout) {
+            set((TextInputLayout) view, pattern, errMsg);
+        }
     }
 
     public void set(EditText editText, NumericRange numericRange, String errMsg) {
@@ -48,10 +69,19 @@ public abstract class Validator {
         mValidationHolderList.add(validationHolder);
     }
 
+    public void set(TextInputLayout textInputLayout, NumericRange numericRange, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(textInputLayout, numericRange, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
     public void set(Activity activity, int viewId, NumericRange numericRange, int errMsgId) {
-        EditText editText = (EditText) activity.findViewById(viewId);
+        View view = activity.findViewById(viewId);
         String errMsg = activity.getResources().getString(errMsgId);
-        set(editText, numericRange, errMsg);
+        if (view instanceof EditText) {
+            set((EditText) view, numericRange, errMsg);
+        } else if (view instanceof TextInputLayout) {
+            set((TextInputLayout) view, numericRange, errMsg);
+        }
     }
 
     public void set(EditText confirmationEditText, EditText editText, String errMsg) {
@@ -59,11 +89,20 @@ public abstract class Validator {
         mValidationHolderList.add(validationHolder);
     }
 
+    public void set(TextInputLayout confirmationTextInputLayout, TextInputLayout textInputLayout, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(confirmationTextInputLayout, textInputLayout, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
     public void set(Activity activity, int confirmationViewId, int viewId, int errMsgId) {
-        EditText confirmationEditText = (EditText) activity.findViewById(confirmationViewId);
-        EditText editText = (EditText) activity.findViewById(viewId);
+        View confirmationView = activity.findViewById(confirmationViewId);
+        View view = activity.findViewById(viewId);
         String errMsg = activity.getResources().getString(errMsgId);
-        set(confirmationEditText, editText, errMsg);
+        if (view instanceof EditText) {
+            set((EditText) confirmationView, (EditText) view, errMsg);
+        } else if (view instanceof TextInputLayout) {
+            set((TextInputLayout) confirmationView, (TextInputLayout) view, errMsg);
+        }
     }
 
     boolean checkFields(ValidationCallback callback) {

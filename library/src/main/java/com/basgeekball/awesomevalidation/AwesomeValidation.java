@@ -2,14 +2,16 @@ package com.basgeekball.awesomevalidation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
-import com.google.common.collect.Range;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.validators.BasicValidator;
 import com.basgeekball.awesomevalidation.validators.ColorationValidator;
+import com.basgeekball.awesomevalidation.validators.TextInputLayoutValidator;
 import com.basgeekball.awesomevalidation.validators.UnderlabelValidator;
 import com.basgeekball.awesomevalidation.validators.Validator;
+import com.google.common.collect.Range;
 
 import java.util.regex.Pattern;
 
@@ -32,6 +34,11 @@ public class AwesomeValidation {
             case UNDERLABEL:
                 if (mValidator == null || !(mValidator instanceof UnderlabelValidator)) {
                     mValidator = new UnderlabelValidator();
+                }
+                return;
+            case TEXT_INPUT_LAYOUT:
+                if (mValidator == null || !(mValidator instanceof TextInputLayoutValidator)) {
+                    mValidator = new TextInputLayoutValidator();
                 }
                 return;
             default:
@@ -58,12 +65,20 @@ public class AwesomeValidation {
         mValidator.set(editText, regex, errMsg);
     }
 
+    public void addValidation(TextInputLayout textInputLayout, String regex, String errMsg) {
+        mValidator.set(textInputLayout, regex, errMsg);
+    }
+
     public void addValidation(Activity activity, int viewId, String regex, int errMsgId) {
         mValidator.set(activity, viewId, regex, errMsgId);
     }
 
     public void addValidation(EditText editText, Pattern pattern, String errMsg) {
         mValidator.set(editText, pattern, errMsg);
+    }
+
+    public void addValidation(TextInputLayout textInputLayout, Pattern pattern, String errMsg) {
+        mValidator.set(textInputLayout, pattern, errMsg);
     }
 
     public void addValidation(Activity activity, int viewId, Pattern pattern, int errMsgId) {
@@ -74,12 +89,20 @@ public class AwesomeValidation {
         mValidator.set(editText, new NumericRange(range), errMsg);
     }
 
+    public void addValidation(TextInputLayout textInputLayout, Range range, String errMsg) {
+        mValidator.set(textInputLayout, new NumericRange(range), errMsg);
+    }
+
     public void addValidation(Activity activity, int viewId, Range range, int errMsgId) {
         mValidator.set(activity, viewId, new NumericRange(range), errMsgId);
     }
 
     public void addValidation(EditText confirmationEditText, EditText editText, String errMsg) {
         mValidator.set(confirmationEditText, editText, errMsg);
+    }
+
+    public void addValidation(TextInputLayout confirmationTextInputLayout, TextInputLayout textInputLayout, String errMsg) {
+        mValidator.set(confirmationTextInputLayout, textInputLayout, errMsg);
     }
 
     public void addValidation(Activity activity, int confirmationViewId, int viewId, int errMsgId) {
