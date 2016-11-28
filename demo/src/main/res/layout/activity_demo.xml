@@ -143,6 +143,7 @@
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="textPassword"
                                 android:maxLines="1"
                                 android:hint="@string/edt_password" />
 
@@ -156,6 +157,7 @@
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="textPassword"
                                 android:maxLines="1"
                                 android:hint="@string/edt_password_confirmation" />
 
