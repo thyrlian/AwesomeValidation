@@ -88,29 +88,39 @@ public class ValidationHolder {
     public String getText() {
         if (mEditText != null) {
             return mEditText.getText().toString();
-        } else {
+        } else if (mTextInputLayout != null) {
             return mTextInputLayout.getEditText().getText().toString();
+        } else {
+            return null;
         }
     }
 
     public String getConfirmationText() {
         if (mConfirmationEditText != null) {
             return mConfirmationEditText.getText().toString();
-        } else {
+        } else if (mConfirmationTextInputLayout != null) {
             return mConfirmationTextInputLayout.getEditText().getText().toString();
+        } else {
+            return null;
         }
     }
 
     public EditText getEditText() {
         if (isEditTextStyle()) {
             return isConfirmationType() ? mConfirmationEditText : mEditText;
-        } else {
+        } else if (isTextInputLayoutStyle()) {
             return isConfirmationType() ? mConfirmationTextInputLayout.getEditText() : mTextInputLayout.getEditText();
+        } else {
+            return null;
         }
     }
 
     public TextInputLayout getTextInputLayout() {
-        return isConfirmationType() ? mConfirmationTextInputLayout : mTextInputLayout;
+        if (isTextInputLayoutStyle()) {
+            return isConfirmationType() ? mConfirmationTextInputLayout : mTextInputLayout;
+        } else {
+            return null;
+        }
     }
 
 }
