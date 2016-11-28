@@ -115,18 +115,13 @@ public class DemoActivity extends AppCompatActivity {
             String style = mStyles[mPosition];
             setTitle(style);
             mDrawerLayout.closeDrawer(mDrawerList);
-
+            mViewContainerEditText.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.VISIBLE : View.GONE);
+            mViewContainerTextInputLayout.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.GONE : View.VISIBLE);
+            clearValidation();
+            initValidation(style);
             if (position < TEXT_INPUT_LAYOUT.value()) {
-                mViewContainerTextInputLayout.setVisibility(View.GONE);
-                mViewContainerEditText.setVisibility(View.VISIBLE);
-                clearValidation();
-                initValidation(style);
                 addValidationForEditText(DemoActivity.this);
             } else if (position == TEXT_INPUT_LAYOUT.value()) {
-                mViewContainerEditText.setVisibility(View.GONE);
-                mViewContainerTextInputLayout.setVisibility(View.VISIBLE);
-                clearValidation();
-                initValidation(style);
                 addValidationForTextInputLayout(DemoActivity.this);
             }
         }
