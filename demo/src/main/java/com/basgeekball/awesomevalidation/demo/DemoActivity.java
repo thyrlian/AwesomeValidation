@@ -116,13 +116,13 @@ public class DemoActivity extends AppCompatActivity {
             setTitle(style);
             mDrawerLayout.closeDrawer(mDrawerList);
 
-            if (position < 3) {
+            if (position < TEXT_INPUT_LAYOUT.value()) {
                 mViewContainerTextInputLayout.setVisibility(View.GONE);
                 mViewContainerEditText.setVisibility(View.VISIBLE);
                 clearValidation();
                 initValidation(style);
                 addValidationForEditText(DemoActivity.this);
-            } else if (position == 3) {
+            } else if (position == TEXT_INPUT_LAYOUT.value()) {
                 mViewContainerEditText.setVisibility(View.GONE);
                 mViewContainerTextInputLayout.setVisibility(View.VISIBLE);
                 clearValidation();
