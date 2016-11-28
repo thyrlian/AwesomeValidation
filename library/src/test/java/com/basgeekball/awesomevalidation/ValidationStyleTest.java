@@ -21,9 +21,13 @@ public class ValidationStyleTest extends TestCase {
         assertEquals(ValidationStyle.UNDERLABEL, ValidationStyle.fromValue(2));
     }
 
+    public void testFromValueToTextInputLayout() {
+        assertEquals(ValidationStyle.TEXT_INPUT_LAYOUT, ValidationStyle.fromValue(3));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testFromValueThrowException() {
-        ValidationStyle.fromValue(3);
+        ValidationStyle.fromValue(4);
     }
 
 }
