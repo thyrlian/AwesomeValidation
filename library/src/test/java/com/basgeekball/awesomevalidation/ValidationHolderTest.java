@@ -1,5 +1,6 @@
 package com.basgeekball.awesomevalidation;
 
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.widget.EditText;
 
@@ -21,68 +22,168 @@ import static org.mockito.Mockito.when;
 @PrepareForTest(ValidationHolder.class)
 public class ValidationHolderTest extends TestCase {
 
-    private EditText mMockedEditText;
-    private EditText mMockedConfirmationEditText;
-    private ValidationHolder mValidationHolderRegexType;
-    private ValidationHolder mValidationHolderRangeType;
-    private ValidationHolder mValidationHolderConfirmationType;
+    private EditText mMockEditText;
+    private EditText mMockConfirmationEditText;
+    private TextInputLayout mMockTextInputLayout;
+    private TextInputLayout mMockConfirmationTextInputLayout;
+    private ValidationHolder mValidationHolderRegexTypeWithEditText;
+    private ValidationHolder mValidationHolderRangeTypeWithEditText;
+    private ValidationHolder mValidationHolderConfirmationTypeWithEditText;
+    private ValidationHolder mValidationHolderRegexTypeWithTextInputLayout;
+    private ValidationHolder mValidationHolderRangeTypeWithTextInputLayout;
+    private ValidationHolder mValidationHolderConfirmationTypeWithTextInputLayout;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mMockedEditText = mock(EditText.class);
-        mMockedConfirmationEditText = mock(EditText.class);
-        Pattern mockedPattern = PowerMock.createMock(Pattern.class);
-        NumericRange mockedNumericRange = mock(NumericRange.class);
-        String mockedErrMsg = PowerMock.createMock(String.class);
-        mValidationHolderRegexType = new ValidationHolder(mMockedEditText, mockedPattern, mockedErrMsg);
-        mValidationHolderRangeType = new ValidationHolder(mMockedEditText, mockedNumericRange, mockedErrMsg);
-        mValidationHolderConfirmationType = new ValidationHolder(mMockedConfirmationEditText, mMockedEditText, mockedErrMsg);
+        mMockEditText = mock(EditText.class);
+        mMockConfirmationEditText = mock(EditText.class);
+        mMockTextInputLayout = mock(TextInputLayout.class);
+        mMockConfirmationTextInputLayout = mock(TextInputLayout.class);
+        Pattern mockPattern = PowerMock.createMock(Pattern.class);
+        NumericRange mockNumericRange = mock(NumericRange.class);
+        String mockErrMsg = PowerMock.createMock(String.class);
+        mValidationHolderRegexTypeWithEditText = new ValidationHolder(mMockEditText, mockPattern, mockErrMsg);
+        mValidationHolderRangeTypeWithEditText = new ValidationHolder(mMockEditText, mockNumericRange, mockErrMsg);
+        mValidationHolderConfirmationTypeWithEditText = new ValidationHolder(mMockConfirmationEditText, mMockEditText, mockErrMsg);
+        mValidationHolderRegexTypeWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockPattern, mockErrMsg);
+        mValidationHolderRangeTypeWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockNumericRange, mockErrMsg);
+        mValidationHolderConfirmationTypeWithTextInputLayout = new ValidationHolder(mMockConfirmationTextInputLayout, mMockTextInputLayout, mockErrMsg);
     }
 
     public void testIsRegexTypeTrue() {
-        assertTrue(mValidationHolderRegexType.isRegexType());
+        assertTrue(mValidationHolderRegexTypeWithEditText.isRegexType());
+        assertTrue(mValidationHolderRegexTypeWithTextInputLayout.isRegexType());
     }
 
     public void testIsRegexTypeFalse() {
-        assertFalse(mValidationHolderRangeType.isRegexType());
-        assertFalse(mValidationHolderConfirmationType.isRegexType());
+        assertFalse(mValidationHolderRangeTypeWithEditText.isRegexType());
+        assertFalse(mValidationHolderConfirmationTypeWithEditText.isRegexType());
+        assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isRegexType());
+        assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isRegexType());
     }
 
     public void testIsRangeTypeTrue() {
-        assertTrue(mValidationHolderRangeType.isRangeType());
+        assertTrue(mValidationHolderRangeTypeWithEditText.isRangeType());
+        assertTrue(mValidationHolderRangeTypeWithTextInputLayout.isRangeType());
     }
 
     public void testIsRangeTypeFalse() {
-        assertFalse(mValidationHolderRegexType.isRangeType());
-        assertFalse(mValidationHolderConfirmationType.isRangeType());
+        assertFalse(mValidationHolderRegexTypeWithEditText.isRangeType());
+        assertFalse(mValidationHolderConfirmationTypeWithEditText.isRangeType());
+        assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isRangeType());
+        assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isRangeType());
     }
 
     public void testIsConfirmationTypeTrue() {
-        assertTrue(mValidationHolderConfirmationType.isConfirmationType());
+        assertTrue(mValidationHolderConfirmationTypeWithEditText.isConfirmationType());
+        assertTrue(mValidationHolderConfirmationTypeWithTextInputLayout.isConfirmationType());
     }
 
     public void testIsConfirmationTypeFalse() {
-        assertFalse(mValidationHolderRangeType.isConfirmationType());
-        assertFalse(mValidationHolderRegexType.isConfirmationType());
+        assertFalse(mValidationHolderRegexTypeWithEditText.isConfirmationType());
+        assertFalse(mValidationHolderRangeTypeWithEditText.isConfirmationType());
+        assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isConfirmationType());
+        assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isConfirmationType());
     }
 
-    public void testGetText() {
-        String text = "OK";
-        Editable mockedEditable = mock(Editable.class);
-        when(mMockedEditText.getText()).thenReturn(mockedEditable);
-        when(mockedEditable.toString()).thenReturn(text);
-        assertEquals(text, mValidationHolderRegexType.getText());
-        assertEquals(text, mValidationHolderRangeType.getText());
-        assertEquals(text, mValidationHolderConfirmationType.getText());
+    public void testIsEditTextStyleTrue() {
+        assertTrue(mValidationHolderRegexTypeWithEditText.isEditTextStyle());
+        assertTrue(mValidationHolderRangeTypeWithEditText.isEditTextStyle());
+        assertTrue(mValidationHolderConfirmationTypeWithEditText.isEditTextStyle());
     }
 
-    public void testGetConfirmationText() {
+    public void testIsEditTextStyleFalse() {
+        assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isEditTextStyle());
+        assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isEditTextStyle());
+        assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isEditTextStyle());
+    }
+
+    public void testIsTextInputLayoutStyleTrue() {
+        assertTrue(mValidationHolderRegexTypeWithTextInputLayout.isTextInputLayoutStyle());
+        assertTrue(mValidationHolderRangeTypeWithTextInputLayout.isTextInputLayoutStyle());
+        assertTrue(mValidationHolderConfirmationTypeWithTextInputLayout.isTextInputLayoutStyle());
+    }
+
+    public void testIsTextInputLayoutStyleFalse() {
+        assertFalse(mValidationHolderRegexTypeWithEditText.isTextInputLayoutStyle());
+        assertFalse(mValidationHolderRangeTypeWithEditText.isTextInputLayoutStyle());
+        assertFalse(mValidationHolderConfirmationTypeWithEditText.isTextInputLayoutStyle());
+    }
+
+    public void testGetTextFromEditText() {
         String text = "OK";
-        Editable mockedEditable = mock(Editable.class);
-        when(mMockedConfirmationEditText.getText()).thenReturn(mockedEditable);
-        when(mockedEditable.toString()).thenReturn(text);
-        assertEquals(text, mValidationHolderConfirmationType.getConfirmationText());
+        Editable mockEditable = mock(Editable.class);
+        when(mMockEditText.getText()).thenReturn(mockEditable);
+        when(mockEditable.toString()).thenReturn(text);
+        assertEquals(text, mValidationHolderRegexTypeWithEditText.getText());
+        assertEquals(text, mValidationHolderRangeTypeWithEditText.getText());
+        assertEquals(text, mValidationHolderConfirmationTypeWithEditText.getText());
+    }
+
+    public void testGetTextFromTextInputLayout() {
+        String text = "OK";
+        EditText mockEditText = mock(EditText.class);
+        Editable mockEditable = mock(Editable.class);
+        when(mMockTextInputLayout.getEditText()).thenReturn(mockEditText);
+        when(mockEditText.getText()).thenReturn(mockEditable);
+        when(mockEditable.toString()).thenReturn(text);
+        assertEquals(text, mValidationHolderRegexTypeWithTextInputLayout.getText());
+        assertEquals(text, mValidationHolderRangeTypeWithTextInputLayout.getText());
+        assertEquals(text, mValidationHolderConfirmationTypeWithTextInputLayout.getText());
+    }
+
+    public void testGetConfirmationTextFromEditText() {
+        String text = "OK";
+        Editable mockEditable = mock(Editable.class);
+        when(mMockConfirmationEditText.getText()).thenReturn(mockEditable);
+        when(mockEditable.toString()).thenReturn(text);
+        assertEquals(text, mValidationHolderConfirmationTypeWithEditText.getConfirmationText());
+    }
+
+    public void testGetConfirmationTextFromTextInputLayout() {
+        String text = "OK";
+        EditText mockEditText = mock(EditText.class);
+        Editable mockEditable = mock(Editable.class);
+        when(mMockConfirmationTextInputLayout.getEditText()).thenReturn(mockEditText);
+        when(mockEditText.getText()).thenReturn(mockEditable);
+        when(mockEditable.toString()).thenReturn(text);
+        assertEquals(text, mValidationHolderConfirmationTypeWithTextInputLayout.getConfirmationText());
+    }
+
+    public void testGetConfirmationTextReturnsNull() {
+        assertNull(mValidationHolderRegexTypeWithEditText.getConfirmationText());
+        assertNull(mValidationHolderRangeTypeWithEditText.getConfirmationText());
+        assertNull(mValidationHolderRegexTypeWithTextInputLayout.getConfirmationText());
+        assertNull(mValidationHolderRangeTypeWithTextInputLayout.getConfirmationText());
+    }
+
+    public void testGetEditTextFromEditText() {
+        assertEquals(mMockEditText, mValidationHolderRegexTypeWithEditText.getEditText());
+        assertEquals(mMockEditText, mValidationHolderRangeTypeWithEditText.getEditText());
+        assertEquals(mMockConfirmationEditText, mValidationHolderConfirmationTypeWithEditText.getEditText());
+    }
+
+    public void testGetEditTextFromTextInputLayout() {
+        EditText mockEditText = mock(EditText.class);
+        EditText mockConfirmationEditText = mock(EditText.class);
+        when(mMockTextInputLayout.getEditText()).thenReturn(mockEditText);
+        when(mMockConfirmationTextInputLayout.getEditText()).thenReturn(mockConfirmationEditText);
+        assertEquals(mockEditText, mValidationHolderRegexTypeWithTextInputLayout.getEditText());
+        assertEquals(mockEditText, mValidationHolderRangeTypeWithTextInputLayout.getEditText());
+        assertEquals(mockConfirmationEditText, mValidationHolderConfirmationTypeWithTextInputLayout.getEditText());
+    }
+
+    public void testGetTextInputLayout() {
+        assertEquals(mMockTextInputLayout, mValidationHolderRegexTypeWithTextInputLayout.getTextInputLayout());
+        assertEquals(mMockTextInputLayout, mValidationHolderRangeTypeWithTextInputLayout.getTextInputLayout());
+        assertEquals(mMockConfirmationTextInputLayout, mValidationHolderConfirmationTypeWithTextInputLayout.getTextInputLayout());
+    }
+
+    public void testGetTextInputLayoutReturnsNull() {
+        assertNull(mValidationHolderRegexTypeWithEditText.getTextInputLayout());
+        assertNull(mValidationHolderRangeTypeWithEditText.getTextInputLayout());
+        assertNull(mValidationHolderConfirmationTypeWithEditText.getTextInputLayout());
     }
 
 }

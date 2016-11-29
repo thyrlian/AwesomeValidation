@@ -15,26 +15,26 @@ import static org.mockito.Mockito.mock;
 public class ViewsInfoTest extends TestCase {
 
     private int mIndex = 128;
-    private ViewGroup mMockedParent;
-    private LinearLayout mMockedNewContainer;
-    private EditText mMockedEditText;
+    private ViewGroup mMockParent;
+    private LinearLayout mMockNewContainer;
+    private EditText mMockEditText;
     private ViewsInfo mViewsInfo;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mMockedParent = mock(ViewGroup.class);
-        mMockedNewContainer = mock(LinearLayout.class);
-        mMockedEditText = mock(EditText.class, RETURNS_DEEP_STUBS);
-        mViewsInfo = new ViewsInfo(mIndex, mMockedParent, mMockedNewContainer, mMockedEditText);
+        mMockParent = mock(ViewGroup.class);
+        mMockNewContainer = mock(LinearLayout.class);
+        mMockEditText = mock(EditText.class, RETURNS_DEEP_STUBS);
+        mViewsInfo = new ViewsInfo(mIndex, mMockParent, mMockNewContainer, mMockEditText);
     }
 
     public void testRestoreViews() {
         mViewsInfo.restoreViews();
-        InOrder order = inOrder(mMockedNewContainer, mMockedParent);
-        order.verify(mMockedNewContainer).removeView(mMockedEditText);
-        order.verify(mMockedParent).removeView(mMockedNewContainer);
-        order.verify(mMockedParent).addView(mMockedEditText, mIndex);
+        InOrder order = inOrder(mMockNewContainer, mMockParent);
+        order.verify(mMockNewContainer).removeView(mMockEditText);
+        order.verify(mMockParent).removeView(mMockNewContainer);
+        order.verify(mMockParent).addView(mMockEditText, mIndex);
     }
 
 }

@@ -4,7 +4,8 @@ public enum ValidationStyle {
 
     BASIC(0),
     COLORATION(1),
-    UNDERLABEL(2);
+    UNDERLABEL(2),
+    TEXT_INPUT_LAYOUT(3);
 
     private int mValue;
 
@@ -24,6 +25,8 @@ public enum ValidationStyle {
                 return ValidationStyle.COLORATION;
             case 2:
                 return ValidationStyle.UNDERLABEL;
+            case 3:
+                return ValidationStyle.TEXT_INPUT_LAYOUT;
             default:
                 throw new IllegalArgumentException("Unknown ValidationStyle value.");
         }

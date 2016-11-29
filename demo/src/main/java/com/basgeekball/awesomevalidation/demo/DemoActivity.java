@@ -28,6 +28,7 @@ import java.util.Calendar;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 import static com.basgeekball.awesomevalidation.ValidationStyle.COLORATION;
+import static com.basgeekball.awesomevalidation.ValidationStyle.TEXT_INPUT_LAYOUT;
 import static com.basgeekball.awesomevalidation.ValidationStyle.UNDERLABEL;
 
 public class DemoActivity extends AppCompatActivity {
@@ -41,11 +42,17 @@ public class DemoActivity extends AppCompatActivity {
     private AwesomeValidation mAwesomeValidation;
     private LinearLayout mViewSuccess;
     private ScrollView mScrollView;
+    private View mViewContainerEditText;
+    private View mViewContainerTextInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+        mViewSuccess = (LinearLayout) findViewById(R.id.container_success);
+        mScrollView = (ScrollView) findViewById(R.id.scroll_view);
+        mViewContainerEditText = findViewById(R.id.container_edit_text);
+        mViewContainerTextInputLayout = findViewById(R.id.container_text_input_layout);
         mStyles = getResources().getStringArray(R.array.styles);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,8 +66,6 @@ public class DemoActivity extends AppCompatActivity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mStyles));
         mDrawerList.setOnItemClickListener(mDrawerItemClickListener);
         mDrawerItemClickListener.selectItem(mPosition);
-        mViewSuccess = (LinearLayout) findViewById(R.id.container_success);
-        mScrollView = (ScrollView) findViewById(R.id.scroll_view);
     }
 
     @Override
@@ -110,10 +115,15 @@ public class DemoActivity extends AppCompatActivity {
             String style = mStyles[mPosition];
             setTitle(style);
             mDrawerLayout.closeDrawer(mDrawerList);
-
+            mViewContainerEditText.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.VISIBLE : View.GONE);
+            mViewContainerTextInputLayout.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.GONE : View.VISIBLE);
             clearValidation();
             initValidation(style);
-            addValidation(DemoActivity.this);
+            if (position < TEXT_INPUT_LAYOUT.value()) {
+                addValidationForEditText(DemoActivity.this);
+            } else if (position == TEXT_INPUT_LAYOUT.value()) {
+                addValidationForTextInputLayout(DemoActivity.this);
+            }
         }
     }
 
@@ -137,10 +147,13 @@ public class DemoActivity extends AppCompatActivity {
                 mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
                 mAwesomeValidation.setContext(this);
                 break;
+            case TEXT_INPUT_LAYOUT:
+                mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+                break;
         }
     }
 
-    private void addValidation(final Activity activity) {
+    private void addValidationForEditText(Activity activity) {
         mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
         mAwesomeValidation.addValidation(activity, R.id.edt_password, "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}", R.string.err_password);
         mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
@@ -152,7 +165,18 @@ public class DemoActivity extends AppCompatActivity {
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
         mAwesomeValidation.addValidation(activity, R.id.edt_year, Range.closed(1900, Calendar.getInstance().get(Calendar.YEAR)), R.string.err_year);
         mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2.72f), R.string.err_height);
+        setValidationButtons();
+    }
 
+    private void addValidationForTextInputLayout(Activity activity) {
+        mAwesomeValidation.addValidation(activity, R.id.til_email, Patterns.EMAIL_ADDRESS, R.string.err_email);
+        mAwesomeValidation.addValidation(activity, R.id.til_password, "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}", R.string.err_password);
+        mAwesomeValidation.addValidation(activity, R.id.til_password_confirmation, R.id.til_password, R.string.err_password_confirmation);
+        mAwesomeValidation.addValidation(activity, R.id.til_year, Range.closed(1900, Calendar.getInstance().get(Calendar.YEAR)), R.string.err_year);
+        setValidationButtons();
+    }
+
+    private void setValidationButtons() {
         Button btnDone = (Button) findViewById(R.id.btn_done);
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override

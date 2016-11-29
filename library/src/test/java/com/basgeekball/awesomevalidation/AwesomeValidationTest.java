@@ -2,16 +2,19 @@ package com.basgeekball.awesomevalidation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.validators.BasicValidator;
 import com.basgeekball.awesomevalidation.validators.ColorationValidator;
+import com.basgeekball.awesomevalidation.validators.TextInputLayoutValidator;
 import com.basgeekball.awesomevalidation.validators.UnderlabelValidator;
 import com.google.common.collect.Range;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.api.support.membermodification.MemberModifier;
@@ -26,6 +29,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -35,10 +39,12 @@ public class AwesomeValidationTest extends TestCase {
     private BasicValidator mSpiedBasicValidator;
     private ColorationValidator mSpiedColorationValidator;
     private UnderlabelValidator mSpiedUnderlabelValidator;
+    private TextInputLayoutValidator mSpiedTextInputLayoutValidator;
     private AwesomeValidation mSpiedAwesomeValidationBasicStyle;
     private AwesomeValidation mSpiedAwesomeValidationColorationStyle;
     private AwesomeValidation mSpiedAwesomeValidationUnderlabelStyle;
-    private Context mMockedContext;
+    private AwesomeValidation mSpiedAwesomeValidationTextInputLayoutStyle;
+    private Context mMockContext;
     private int mColor = 256;
 
     @Override
@@ -47,42 +53,82 @@ public class AwesomeValidationTest extends TestCase {
         mSpiedBasicValidator = spy(BasicValidator.class);
         mSpiedColorationValidator = spy(ColorationValidator.class);
         mSpiedUnderlabelValidator = spy(UnderlabelValidator.class);
+        mSpiedTextInputLayoutValidator = spy(TextInputLayoutValidator.class);
         mSpiedAwesomeValidationBasicStyle = spy(new AwesomeValidation(ValidationStyle.BASIC));
         mSpiedAwesomeValidationColorationStyle = spy(new AwesomeValidation(ValidationStyle.COLORATION));
         mSpiedAwesomeValidationUnderlabelStyle = spy(new AwesomeValidation(ValidationStyle.UNDERLABEL));
+        mSpiedAwesomeValidationTextInputLayoutStyle = spy(new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT));
         MemberModifier.field(AwesomeValidation.class, "mValidator").set(mSpiedAwesomeValidationBasicStyle, mSpiedBasicValidator);
         MemberModifier.field(AwesomeValidation.class, "mValidator").set(mSpiedAwesomeValidationColorationStyle, mSpiedColorationValidator);
         MemberModifier.field(AwesomeValidation.class, "mValidator").set(mSpiedAwesomeValidationUnderlabelStyle, mSpiedUnderlabelValidator);
-        mMockedContext = mock(Context.class);
+        MemberModifier.field(AwesomeValidation.class, "mValidator").set(mSpiedAwesomeValidationTextInputLayoutStyle, mSpiedTextInputLayoutValidator);
+        mMockContext = mock(Context.class);
     }
 
     public void testAwesomeValidationConstructBasicStyle() {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-        assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof BasicValidator);
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationBasicStyle, "mValidator") instanceof BasicValidator);
     }
 
     public void testAwesomeValidationConstructColorationStyle() {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
-        assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof ColorationValidator);
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationColorationStyle, "mValidator") instanceof ColorationValidator);
     }
 
     public void testAwesomeValidationConstructUnderlabelValidatorStyle() {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
-        assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof UnderlabelValidator);
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationUnderlabelStyle, "mValidator") instanceof UnderlabelValidator);
+    }
+
+    public void testAwesomeValidationConstructTextInputLayoutValidatorStyle() {
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationTextInputLayoutStyle, "mValidator") instanceof TextInputLayoutValidator);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsColorationValidatorThrowsException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationBasicStyle, "checkIsColorationValidator");
+    }
+
+    public void testCheckIsColorationValidatorWithoutException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationColorationStyle, "checkIsColorationValidator");
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsUnderlabelValidatorThrowsException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationTextInputLayoutStyle, "checkIsUnderlabelValidator");
+    }
+
+    public void testCheckIsUnderlabelValidatorWithoutException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationUnderlabelStyle, "checkIsUnderlabelValidator");
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsTextInputLayoutValidatorThrowsException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationUnderlabelStyle, "checkIsTextInputLayoutValidator");
+    }
+
+    public void testCheckIsTextInputLayoutValidatorWithoutException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationTextInputLayoutStyle, "checkIsTextInputLayoutValidator");
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsNotTextInputLayoutValidatorThrowsException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationTextInputLayoutStyle, "checkIsNotTextInputLayoutValidator");
+    }
+
+    public void testCheckIsNotTextInputLayoutValidatorWithoutException() throws Exception {
+        Whitebox.invokeMethod(mSpiedAwesomeValidationColorationStyle, "checkIsNotTextInputLayoutValidator");
     }
 
     public void testSetContextForUnderlabelStyle() throws Exception {
-        mSpiedAwesomeValidationUnderlabelStyle.setContext(mMockedContext);
-        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("setContext", mMockedContext);
+        mSpiedAwesomeValidationUnderlabelStyle.setContext(mMockContext);
+        verify(mSpiedUnderlabelValidator, times(1)).setContext(mMockContext);
     }
 
     public void testSetContextForNonUnderlabelStyle() throws Exception {
-        doThrow(UnsupportedOperationException.class).when(mSpiedAwesomeValidationBasicStyle).setContext(mMockedContext);
+        doThrow(UnsupportedOperationException.class).when(mSpiedAwesomeValidationBasicStyle).setContext(mMockContext);
     }
 
     public void testSetColorForColorationStyle() throws Exception {
         mSpiedAwesomeValidationColorationStyle.setColor(mColor);
-        PowerMockito.verifyPrivate(mSpiedColorationValidator, times(1)).invoke("setColor", mColor);
+        verify(mSpiedColorationValidator, times(1)).setColor(mColor);
     }
 
     public void testSetColorForNonColorationStyle() throws Exception {
@@ -90,55 +136,109 @@ public class AwesomeValidationTest extends TestCase {
     }
 
     public void testAddValidation() throws Exception {
-        Activity mockedActivity = mock(Activity.class, RETURNS_MOCKS);
-        EditText mockedEditText = mock(EditText.class, RETURNS_MOCKS);
-        EditText mockedConfirmationEditText = mock(EditText.class, RETURNS_MOCKS);
-        Pattern mockedPattern = PowerMockito.mock(Pattern.class, RETURNS_MOCKS);
-        Range mockedRange = PowerMockito.mock(Range.class, RETURNS_MOCKS);
-        String mockedRegex = PowerMockito.mock(String.class);
-        String mockedErrMsg = PowerMockito.mock(String.class);
-        NumericRange mockedNumericRange = mock(NumericRange.class);
+        Activity mockActivity = mock(Activity.class, RETURNS_MOCKS);
+        EditText mockEditText = mock(EditText.class, RETURNS_MOCKS);
+        EditText mockConfirmationEditText = mock(EditText.class, RETURNS_MOCKS);
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class, RETURNS_MOCKS);
+        TextInputLayout mockConfirmationTextInputLayout = mock(TextInputLayout.class, RETURNS_MOCKS);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class, RETURNS_MOCKS);
+        Range mockRange = PowerMockito.mock(Range.class, RETURNS_MOCKS);
+        String mockRegex = PowerMockito.mock(String.class);
+        String mockErrMsg = PowerMockito.mock(String.class);
+        NumericRange mockNumericRange = mock(NumericRange.class);
         int viewId = 65535;
         int confirmationViewId = 65536;
         int errMsgId = 32768;
-        when(mockedActivity.findViewById(viewId)).thenReturn(mockedEditText);
-        when(mockedActivity.findViewById(confirmationViewId)).thenReturn(mockedConfirmationEditText);
-        PowerMockito.whenNew(NumericRange.class).withArguments(mockedRange).thenReturn(mockedNumericRange);
+        when(mockActivity.findViewById(viewId)).thenReturn(mockEditText);
+        when(mockActivity.findViewById(confirmationViewId)).thenReturn(mockConfirmationEditText);
+        PowerMockito.whenNew(NumericRange.class).withArguments(mockRange).thenReturn(mockNumericRange);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRegex, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, mockedRegex, mockedErrMsg);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockEditText, mockRegex, mockErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockEditText, mockRegex, mockErrMsg);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedRegex, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedRegex, errMsgId);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockActivity, viewId, mockRegex, errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockActivity, viewId, mockRegex, errMsgId);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedPattern, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, mockedPattern, mockedErrMsg);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockEditText, mockPattern, mockErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockEditText, mockPattern, mockErrMsg);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedPattern, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedPattern, errMsgId);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockActivity, viewId, mockPattern, errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockActivity, viewId, mockPattern, errMsgId);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRange, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, new NumericRange(mockedRange), mockedErrMsg);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockEditText, mockRange, mockErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockEditText, new NumericRange(mockRange), mockErrMsg);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedRange, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, new NumericRange(mockedRange), errMsgId);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockActivity, viewId, mockRange, errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockActivity, viewId, new NumericRange(mockRange), errMsgId);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedConfirmationEditText, mockedEditText, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedConfirmationEditText, mockedEditText, mockedErrMsg);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockConfirmationEditText, mockEditText, mockErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockConfirmationEditText, mockEditText, mockErrMsg);
 
-        mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, confirmationViewId, viewId, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, confirmationViewId, viewId, errMsgId);
+        mSpiedAwesomeValidationBasicStyle.addValidation(mockActivity, confirmationViewId, viewId, errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockActivity, confirmationViewId, viewId, errMsgId);
+
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockTextInputLayout, mockRegex, mockErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockTextInputLayout, mockRegex, mockErrMsg);
+
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockTextInputLayout, mockPattern, mockErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockTextInputLayout, mockPattern, mockErrMsg);
+
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockTextInputLayout, mockRange, mockErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockTextInputLayout, new NumericRange(mockRange), mockErrMsg);
+
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockConfirmationTextInputLayout, mockTextInputLayout, mockErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockConfirmationTextInputLayout, mockTextInputLayout, mockErrMsg);
     }
 
-    public void testValidate() throws Exception {
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndRegexThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), PowerMockito.mock(String.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndPatternThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), PowerMockito.mock(Pattern.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndRangeThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), PowerMockito.mock(Range.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndConfirmationThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), mock(EditText.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndRegexThrowsException() {
+        mSpiedAwesomeValidationBasicStyle.addValidation(mock(TextInputLayout.class), PowerMockito.mock(String.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndPatternThrowsException() {
+        mSpiedAwesomeValidationColorationStyle.addValidation(mock(TextInputLayout.class), PowerMockito.mock(Pattern.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndRangeThrowsException() {
+        mSpiedAwesomeValidationUnderlabelStyle.addValidation(mock(TextInputLayout.class), PowerMockito.mock(Range.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndConfirmationThrowsException() {
+        mSpiedAwesomeValidationBasicStyle.addValidation(mock(TextInputLayout.class), mock(TextInputLayout.class), PowerMockito.mock(String.class));
+    }
+
+    public void testValidate() {
         mSpiedAwesomeValidationBasicStyle.validate();
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("trigger");
-        assertEquals(Whitebox.invokeMethod(mSpiedBasicValidator, "trigger"), mSpiedAwesomeValidationBasicStyle.validate());
+        verify(mSpiedBasicValidator, times(1)).trigger();
+        assertEquals(mSpiedBasicValidator.trigger(), mSpiedAwesomeValidationBasicStyle.validate());
     }
 
     public void testClear() throws Exception {
         mSpiedAwesomeValidationBasicStyle.clear();
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("halt");
+        verify(mSpiedBasicValidator, times(1)).halt();
     }
 
 }

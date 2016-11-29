@@ -36,109 +36,179 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/edt_userid"
+                    <LinearLayout
+                        android:id="@+id/container_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_userid"/>
+                        android:orientation="vertical">
 
-                    <fragment
-                        android:name="com.basgeekball.awesomevalidation.demo.PasswordFragment"
-                        android:id="@+id/password_fragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <EditText
+                            android:id="@+id/edt_userid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_userid"/>
 
-                    <fragment
-                        android:name="com.basgeekball.awesomevalidation.demo.NameFragment"
-                        android:id="@+id/name_fragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <fragment
+                            android:name="com.basgeekball.awesomevalidation.demo.PasswordFragment"
+                            android:id="@+id/password_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <EditText
-                        android:id="@+id/edt_email"
-                        android:inputType="textEmailAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_email"/>
+                        <fragment
+                            android:name="com.basgeekball.awesomevalidation.demo.NameFragment"
+                            android:id="@+id/name_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <EditText
-                        android:id="@+id/edt_ip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_ip"/>
+                        <EditText
+                            android:id="@+id/edt_email"
+                            android:inputType="textEmailAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_email"/>
 
-                    <EditText
-                        android:id="@+id/edt_tel"
-                        android:inputType="phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_tel"/>
+                        <EditText
+                            android:id="@+id/edt_ip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_ip"/>
 
-                    <EditText
-                        android:id="@+id/edt_zipcode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_zipcode"/>
+                        <EditText
+                            android:id="@+id/edt_tel"
+                            android:inputType="phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_tel"/>
 
-                    <EditText
-                        android:id="@+id/edt_year"
-                        android:inputType="number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_year"/>
+                        <EditText
+                            android:id="@+id/edt_zipcode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_zipcode"/>
 
-                    <EditText
-                        android:id="@+id/edt_height"
-                        android:inputType="numberDecimal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:hint="@string/edt_height"/>
+                        <EditText
+                            android:id="@+id/edt_year"
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_year"/>
+
+                        <EditText
+                            android:id="@+id/edt_height"
+                            android:inputType="numberDecimal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:hint="@string/edt_height"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/container_success"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/container_text_input_layout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:src="@android:drawable/presence_online"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/img_success" />
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:src="@android:drawable/presence_online"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/img_success" />
+                            <android.support.design.widget.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:hint="@string/edt_email" />
 
-                        <ImageView
-                            android:src="@android:drawable/presence_online"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/img_success" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:hint="@string/edt_password" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_password_confirmation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:hint="@string/edt_password_confirmation" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:hint="@string/edt_year" />
+
+                        </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
             </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/container_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:visibility="gone">
+
+                <ImageView
+                    android:src="@android:drawable/presence_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/img_success" />
+
+                <ImageView
+                    android:src="@android:drawable/presence_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/img_success" />
+
+                <ImageView
+                    android:src="@android:drawable/presence_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/img_success" />
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

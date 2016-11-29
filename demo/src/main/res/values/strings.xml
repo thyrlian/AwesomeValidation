@@ -30,6 +30,7 @@
         <item>BASIC</item>
         <item>COLORATION</item>
         <item>UNDERLABEL</item>
+        <item>TEXT_INPUT_LAYOUT</item>
     </string-array>
 
 </resources>

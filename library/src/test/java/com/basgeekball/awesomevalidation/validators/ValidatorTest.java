@@ -1,5 +1,7 @@
 package com.basgeekball.awesomevalidation.validators;
 
+import android.app.Activity;
+import android.support.design.widget.TextInputLayout;
 import android.text.SpannableStringBuilder;
 import android.widget.EditText;
 
@@ -28,6 +30,8 @@ import static com.basgeekball.awesomevalidation.validators.MockValidationHolderH
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -107,6 +111,114 @@ public class ValidatorTest extends TestCase {
 
     public void testValidator() {
         assertTrue(mSpiedValidator.mValidationHolderList.isEmpty());
+    }
+
+    public void testSetEditTextWithActivityAndRegex() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        String regex = "OK";
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockEditText = mock(EditText.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, viewId, regex, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockEditText, regex, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndRegex() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        String regex = "OK";
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, viewId, regex, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockTextInputLayout, regex, errMsg);
+    }
+
+    public void testSetEditTextWithActivityAndPattern() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockEditText = mock(EditText.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, viewId, mockPattern, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockEditText, mockPattern, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndPattern() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, viewId, mockPattern, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockTextInputLayout, mockPattern, errMsg);
+    }
+
+    public void testSetEditTextWithActivityAndNumericRange() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        NumericRange mockNumericRange = mock(NumericRange.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockEditText = mock(EditText.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, viewId, mockNumericRange, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockEditText, mockNumericRange, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndNumericRange() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        NumericRange mockNumericRange = mock(NumericRange.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, viewId, mockNumericRange, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockTextInputLayout, mockNumericRange, errMsg);
+    }
+
+    public void testSetEditTextWithActivityAndConfirmation() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int confirmationViewId = 0;
+        int viewId = 1;
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockConfirmationEditText = mock(EditText.class);
+        EditText mockEditText = mock(EditText.class);
+        when(mockActivity.findViewById(eq(confirmationViewId))).thenReturn(mockConfirmationEditText);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, confirmationViewId, viewId, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockConfirmationEditText, mockEditText, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndConfirmation() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int confirmationViewId = 0;
+        int viewId = 1;
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockConfirmationTextInputLayout = mock(TextInputLayout.class);
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        when(mockActivity.findViewById(eq(confirmationViewId))).thenReturn(mockConfirmationTextInputLayout);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockActivity, confirmationViewId, viewId, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockConfirmationTextInputLayout, mockTextInputLayout, errMsg);
     }
 
     public void testCheckFieldsPassWithOnlyOneRegexValidationHolder() {
@@ -225,120 +337,120 @@ public class ValidatorTest extends TestCase {
     }
 
     public void testCheckRegexTypeFieldPass() throws Exception {
-        ValidationHolder mockedValidationHolder = generate(REGEX);
-        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
-        String mockedString = PowerMockito.mock(String.class);
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        when(mockedValidationHolder.getPattern()).thenReturn(mockedPattern);
-        when(mockedValidationHolder.getText()).thenReturn(mockedString);
-        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
-        when(mockedMatcher.matches()).thenReturn(true);
-        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRegexTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        ValidationHolder mockValidationHolder = generate(REGEX);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        String mockString = PowerMockito.mock(String.class);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        when(mockValidationHolder.getPattern()).thenReturn(mockPattern);
+        when(mockValidationHolder.getText()).thenReturn(mockString);
+        when(mockPattern.matcher(mockString)).thenReturn(mockMatcher);
+        when(mockMatcher.matches()).thenReturn(true);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRegexTypeField", mockValidationHolder, mEmptyValidationCallback));
         verifyPrivate(mSpiedValidator, never()).invoke("executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
     }
 
     public void testCheckRegexTypeFieldFail() throws Exception {
-        ValidationHolder mockedValidationHolder = generate(REGEX);
-        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
-        String mockedString = PowerMockito.mock(String.class);
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        when(mockedValidationHolder.getPattern()).thenReturn(mockedPattern);
-        when(mockedValidationHolder.getText()).thenReturn(mockedString);
-        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
-        when(mockedMatcher.matches()).thenReturn(false);
+        ValidationHolder mockValidationHolder = generate(REGEX);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        String mockString = PowerMockito.mock(String.class);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        when(mockValidationHolder.getPattern()).thenReturn(mockPattern);
+        when(mockValidationHolder.getText()).thenReturn(mockString);
+        when(mockPattern.matcher(mockString)).thenReturn(mockMatcher);
+        when(mockMatcher.matches()).thenReturn(false);
         PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
-        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRegexTypeField", mockedValidationHolder, mEmptyValidationCallback));
-        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, mockedMatcher);
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRegexTypeField", mockValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, mockMatcher);
     }
 
     public void testCheckRangeTypeFieldPass() throws Exception {
-        ValidationHolder mockedValidationHolder = generate(RANGE);
-        NumericRange mockedNumericRange = mock(NumericRange.class);
-        String mockedString = PowerMockito.mock(String.class);
-        when(mockedValidationHolder.getText()).thenReturn(mockedString);
-        when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
-        when(mockedNumericRange.isValid(mockedString)).thenReturn(true);
-        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        ValidationHolder mockValidationHolder = generate(RANGE);
+        NumericRange mockNumericRange = mock(NumericRange.class);
+        String mockString = PowerMockito.mock(String.class);
+        when(mockValidationHolder.getText()).thenReturn(mockString);
+        when(mockValidationHolder.getNumericRange()).thenReturn(mockNumericRange);
+        when(mockNumericRange.isValid(mockString)).thenReturn(true);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockValidationHolder, mEmptyValidationCallback));
         verifyPrivate(mSpiedValidator, never()).invoke("executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
     }
 
     public void testCheckRangeTypeFieldFail() throws Exception {
-        ValidationHolder mockedValidationHolder = generate(RANGE);
-        NumericRange mockedNumericRange = mock(NumericRange.class);
-        String mockedString = PowerMockito.mock(String.class);
-        when(mockedValidationHolder.getText()).thenReturn(mockedString);
-        when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
-        when(mockedNumericRange.isValid(mockedString)).thenReturn(false);
+        ValidationHolder mockValidationHolder = generate(RANGE);
+        NumericRange mockNumericRange = mock(NumericRange.class);
+        String mockString = PowerMockito.mock(String.class);
+        when(mockValidationHolder.getText()).thenReturn(mockString);
+        when(mockValidationHolder.getNumericRange()).thenReturn(mockNumericRange);
+        when(mockNumericRange.isValid(mockString)).thenReturn(false);
         PowerMockito.mockStatic(Pattern.class);
-        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        when(Pattern.compile(anyString())).thenReturn(mockedPattern);
-        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        when(Pattern.compile(anyString())).thenReturn(mockPattern);
+        when(mockPattern.matcher(mockString)).thenReturn(mockMatcher);
         PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
-        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockedValidationHolder, mEmptyValidationCallback));
-        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, mockedMatcher);
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, mockMatcher);
     }
 
     public void testCheckRangeTypeFieldFailDueToException() throws Exception {
-        ValidationHolder mockedValidationHolder = generate(RANGE);
-        NumericRange mockedNumericRange = mock(NumericRange.class);
-        String mockedString = PowerMockito.mock(String.class);
-        when(mockedValidationHolder.getText()).thenReturn(mockedString);
-        when(mockedValidationHolder.getNumericRange()).thenReturn(mockedNumericRange);
-        doThrow(NumberFormatException.class).when(mockedNumericRange).isValid(mockedString);
+        ValidationHolder mockValidationHolder = generate(RANGE);
+        NumericRange mockNumericRange = mock(NumericRange.class);
+        String mockString = PowerMockito.mock(String.class);
+        when(mockValidationHolder.getText()).thenReturn(mockString);
+        when(mockValidationHolder.getNumericRange()).thenReturn(mockNumericRange);
+        doThrow(NumberFormatException.class).when(mockNumericRange).isValid(mockString);
         PowerMockito.mockStatic(Pattern.class);
-        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        when(Pattern.compile(anyString())).thenReturn(mockedPattern);
-        when(mockedPattern.matcher(mockedString)).thenReturn(mockedMatcher);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        when(Pattern.compile(anyString())).thenReturn(mockPattern);
+        when(mockPattern.matcher(mockString)).thenReturn(mockMatcher);
         PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
-        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockedValidationHolder, mEmptyValidationCallback));
-        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, mockedMatcher);
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, mockMatcher);
     }
 
     public void testCheckConfirmationTypeFieldPass() throws Exception {
-        ValidationHolder mockedValidationHolder = generate(CONFIRMATION);
-        String mockedStringA = "aaa";
-        String mockedStringB = "aaa";
-        when(mockedValidationHolder.getText()).thenReturn(mockedStringA);
-        when(mockedValidationHolder.getConfirmationText()).thenReturn(mockedStringB);
-        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkConfirmationTypeField", mockedValidationHolder, mEmptyValidationCallback));
+        ValidationHolder mockValidationHolder = generate(CONFIRMATION);
+        String mockStringA = "aaa";
+        String mockStringB = "aaa";
+        when(mockValidationHolder.getText()).thenReturn(mockStringA);
+        when(mockValidationHolder.getConfirmationText()).thenReturn(mockStringB);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkConfirmationTypeField", mockValidationHolder, mEmptyValidationCallback));
         verifyPrivate(mSpiedValidator, never()).invoke("executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
     }
 
     public void testCheckConfirmationTypeFieldFail() throws Exception {
-        ValidationHolder mockedValidationHolder = generate(CONFIRMATION);
-        String mockedStringA = "aaa";
-        String mockedStringB = "bbb";
-        when(mockedValidationHolder.getText()).thenReturn(mockedStringA);
-        when(mockedValidationHolder.getConfirmationText()).thenReturn(mockedStringB);
+        ValidationHolder mockValidationHolder = generate(CONFIRMATION);
+        String mockStringA = "aaa";
+        String mockStringB = "bbb";
+        when(mockValidationHolder.getText()).thenReturn(mockStringA);
+        when(mockValidationHolder.getConfirmationText()).thenReturn(mockStringB);
         PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
-        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkConfirmationTypeField", mockedValidationHolder, mEmptyValidationCallback));
-        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockedValidationHolder, null);
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkConfirmationTypeField", mockValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, null);
     }
 
     public void testExecuteCallback() throws Exception {
-        ValidationHolder mockedValidationHolder = mock(ValidationHolder.class);
-        ValidationCallback mockedValidationCallback = mock(ValidationCallback.class);
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        doNothing().when(mockedValidationCallback).execute(any(ValidationHolder.class), any(Matcher.class));
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
+        ValidationCallback mockValidationCallback = mock(ValidationCallback.class);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        doNothing().when(mockValidationCallback).execute(any(ValidationHolder.class), any(Matcher.class));
         PowerMockito.doNothing().when(mSpiedValidator, "requestFocus", any(ValidationHolder.class));
-        Whitebox.invokeMethod(mSpiedValidator, "executeCallback", mockedValidationCallback, mockedValidationHolder, mockedMatcher);
-        verify(mockedValidationCallback).execute(mockedValidationHolder, mockedMatcher);
-        verifyPrivate(mSpiedValidator, times(1)).invoke("requestFocus", mockedValidationHolder);
+        Whitebox.invokeMethod(mSpiedValidator, "executeCallback", mockValidationCallback, mockValidationHolder, mockMatcher);
+        verify(mockValidationCallback).execute(mockValidationHolder, mockMatcher);
+        verifyPrivate(mSpiedValidator, times(1)).invoke("requestFocus", mockValidationHolder);
     }
 
     public void testRequestFocus() throws Exception {
-        ValidationHolder mockedValidationHolder = mock(ValidationHolder.class);
-        EditText mockedEditText = mock(EditText.class);
-        SpannableStringBuilder mockedEditable = PowerMockito.mock(SpannableStringBuilder.class);
-        when(mockedValidationHolder.getEditText()).thenReturn(mockedEditText);
-        when(mockedEditText.getText()).thenReturn(mockedEditable);
-        when(mockedEditable.length()).thenReturn(PowerMockito.mock(Integer.class));
-        when(mockedEditText.requestFocus()).thenReturn(true);
-        doNothing().when(mockedEditText).setSelection(anyInt());
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
+        EditText mockEditText = mock(EditText.class);
+        SpannableStringBuilder mockEditable = PowerMockito.mock(SpannableStringBuilder.class);
+        when(mockValidationHolder.getEditText()).thenReturn(mockEditText);
+        when(mockEditText.getText()).thenReturn(mockEditable);
+        when(mockEditable.length()).thenReturn(PowerMockito.mock(Integer.class));
+        when(mockEditText.requestFocus()).thenReturn(true);
+        doNothing().when(mockEditText).setSelection(anyInt());
         Whitebox.setInternalState(mSpiedValidator, "mHasFailed", false);
-        Whitebox.invokeMethod(mSpiedValidator, "requestFocus", mockedValidationHolder);
+        Whitebox.invokeMethod(mSpiedValidator, "requestFocus", mockValidationHolder);
         assertTrue((Boolean) Whitebox.getInternalState(mSpiedValidator, "mHasFailed"));
     }
 
