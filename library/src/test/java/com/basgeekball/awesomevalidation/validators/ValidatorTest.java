@@ -1,5 +1,7 @@
 package com.basgeekball.awesomevalidation.validators;
 
+import android.app.Activity;
+import android.support.design.widget.TextInputLayout;
 import android.text.SpannableStringBuilder;
 import android.widget.EditText;
 
@@ -28,6 +30,8 @@ import static com.basgeekball.awesomevalidation.validators.MockValidationHolderH
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -107,6 +111,114 @@ public class ValidatorTest extends TestCase {
 
     public void testValidator() {
         assertTrue(mSpiedValidator.mValidationHolderList.isEmpty());
+    }
+
+    public void testSetEditTextWithActivityAndRegex() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        String regex = "OK";
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockedEditText = mock(EditText.class);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedEditText);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, viewId, regex, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedEditText, regex, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndRegex() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        String regex = "OK";
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockedTextInputLayout = mock(TextInputLayout.class);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedTextInputLayout);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, viewId, regex, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedTextInputLayout, regex, errMsg);
+    }
+
+    public void testSetEditTextWithActivityAndPattern() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockedEditText = mock(EditText.class);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedEditText);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, viewId, mockedPattern, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedEditText, mockedPattern, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndPattern() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        Pattern mockedPattern = PowerMockito.mock(Pattern.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockedTextInputLayout = mock(TextInputLayout.class);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedTextInputLayout);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, viewId, mockedPattern, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedTextInputLayout, mockedPattern, errMsg);
+    }
+
+    public void testSetEditTextWithActivityAndNumericRange() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        NumericRange mockedNumericRange = mock(NumericRange.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockedEditText = mock(EditText.class);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedEditText);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, viewId, mockedNumericRange, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedEditText, mockedNumericRange, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndNumericRange() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        NumericRange mockedNumericRange = mock(NumericRange.class);
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockedTextInputLayout = mock(TextInputLayout.class);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedTextInputLayout);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, viewId, mockedNumericRange, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedTextInputLayout, mockedNumericRange, errMsg);
+    }
+
+    public void testSetEditTextWithActivityAndConfirmation() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int confirmationViewId = 0;
+        int viewId = 1;
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockedConfirmationEditText = mock(EditText.class);
+        EditText mockedEditText = mock(EditText.class);
+        when(mockedActivity.findViewById(eq(confirmationViewId))).thenReturn(mockedConfirmationEditText);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedEditText);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, confirmationViewId, viewId, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedConfirmationEditText, mockedEditText, errMsg);
+    }
+
+    public void testSetTextInputLayoutWithActivityAndConfirmation() {
+        Activity mockedActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int confirmationViewId = 0;
+        int viewId = 1;
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockedConfirmationTextInputLayout = mock(TextInputLayout.class);
+        TextInputLayout mockedTextInputLayout = mock(TextInputLayout.class);
+        when(mockedActivity.findViewById(eq(confirmationViewId))).thenReturn(mockedConfirmationTextInputLayout);
+        when(mockedActivity.findViewById(eq(viewId))).thenReturn(mockedTextInputLayout);
+        when(mockedActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        mSpiedValidator.set(mockedActivity, confirmationViewId, viewId, errMsgId);
+        verify(mSpiedValidator, times(1)).set(mockedConfirmationTextInputLayout, mockedTextInputLayout, errMsg);
     }
 
     public void testCheckFieldsPassWithOnlyOneRegexValidationHolder() {
