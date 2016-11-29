@@ -166,40 +166,40 @@ public class AwesomeValidationTest extends TestCase {
         PowerMockito.whenNew(NumericRange.class).withArguments(mockedRange).thenReturn(mockedNumericRange);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRegex, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, mockedRegex, mockedErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockedEditText, mockedRegex, mockedErrMsg);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedRegex, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedRegex, errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockedActivity, viewId, mockedRegex, errMsgId);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedPattern, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, mockedPattern, mockedErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockedEditText, mockedPattern, mockedErrMsg);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedPattern, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, mockedPattern, errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockedActivity, viewId, mockedPattern, errMsgId);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedEditText, mockedRange, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedEditText, new NumericRange(mockedRange), mockedErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockedEditText, new NumericRange(mockedRange), mockedErrMsg);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, viewId, mockedRange, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, viewId, new NumericRange(mockedRange), errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockedActivity, viewId, new NumericRange(mockedRange), errMsgId);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedConfirmationEditText, mockedEditText, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedConfirmationEditText, mockedEditText, mockedErrMsg);
+        verify(mSpiedBasicValidator, times(1)).set(mockedConfirmationEditText, mockedEditText, mockedErrMsg);
 
         mSpiedAwesomeValidationBasicStyle.addValidation(mockedActivity, confirmationViewId, viewId, errMsgId);
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("set", mockedActivity, confirmationViewId, viewId, errMsgId);
+        verify(mSpiedBasicValidator, times(1)).set(mockedActivity, confirmationViewId, viewId, errMsgId);
 
         mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockedTextInputLayout, mockedRegex, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedTextInputLayoutValidator, times(1)).invoke("set", mockedTextInputLayout, mockedRegex, mockedErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockedTextInputLayout, mockedRegex, mockedErrMsg);
 
         mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockedTextInputLayout, mockedPattern, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedTextInputLayoutValidator, times(1)).invoke("set", mockedTextInputLayout, mockedPattern, mockedErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockedTextInputLayout, mockedPattern, mockedErrMsg);
 
         mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockedTextInputLayout, mockedRange, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedTextInputLayoutValidator, times(1)).invoke("set", mockedTextInputLayout, new NumericRange(mockedRange), mockedErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockedTextInputLayout, new NumericRange(mockedRange), mockedErrMsg);
 
         mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mockedConfirmationTextInputLayout, mockedTextInputLayout, mockedErrMsg);
-        PowerMockito.verifyPrivate(mSpiedTextInputLayoutValidator, times(1)).invoke("set", mockedConfirmationTextInputLayout, mockedTextInputLayout, mockedErrMsg);
+        verify(mSpiedTextInputLayoutValidator, times(1)).set(mockedConfirmationTextInputLayout, mockedTextInputLayout, mockedErrMsg);
     }
 
     public void testValidate() {
