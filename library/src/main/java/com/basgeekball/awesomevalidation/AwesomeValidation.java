@@ -45,27 +45,47 @@ public class AwesomeValidation {
         }
     }
 
-    public void setContext(Context context) {
-        if (mValidator instanceof UnderlabelValidator) {
-            ((UnderlabelValidator) mValidator).setContext(context);
-        } else {
-            throw new UnsupportedOperationException("Only UnderlabelValidator supports setting context.");
+    private void checkIsUnderlabelValidator() {
+        if (!(mValidator instanceof UnderlabelValidator)) {
+            throw new UnsupportedOperationException("Only supported by UnderlabelValidator.");
         }
+    }
+
+    private void checkIsColorationValidator() {
+        if (!(mValidator instanceof ColorationValidator)) {
+            throw new UnsupportedOperationException("Only supported by ColorationValidator.");
+        }
+    }
+
+    private void checkIsTextInputLayoutValidator() {
+        if (!(mValidator instanceof TextInputLayoutValidator)) {
+            throw new UnsupportedOperationException("Only supported by TextInputLayoutValidator.");
+        }
+    }
+
+    private void checkIsNotTextInputLayoutValidator() {
+        if (mValidator instanceof TextInputLayoutValidator) {
+            throw new UnsupportedOperationException("Not supported by TextInputLayoutValidator.");
+        }
+    }
+
+    public void setContext(Context context) {
+        checkIsUnderlabelValidator();
+        ((UnderlabelValidator) mValidator).setContext(context);
     }
 
     public void setColor(int color) {
-        if (mValidator instanceof ColorationValidator) {
-            ((ColorationValidator) mValidator).setColor(color);
-        } else {
-            throw new UnsupportedOperationException("Only ColorationValidator supports setting color.");
-        }
+        checkIsColorationValidator();
+        ((ColorationValidator) mValidator).setColor(color);
     }
 
     public void addValidation(EditText editText, String regex, String errMsg) {
+        checkIsNotTextInputLayoutValidator();
         mValidator.set(editText, regex, errMsg);
     }
 
     public void addValidation(TextInputLayout textInputLayout, String regex, String errMsg) {
+        checkIsTextInputLayoutValidator();
         mValidator.set(textInputLayout, regex, errMsg);
     }
 
@@ -74,10 +94,12 @@ public class AwesomeValidation {
     }
 
     public void addValidation(EditText editText, Pattern pattern, String errMsg) {
+        checkIsNotTextInputLayoutValidator();
         mValidator.set(editText, pattern, errMsg);
     }
 
     public void addValidation(TextInputLayout textInputLayout, Pattern pattern, String errMsg) {
+        checkIsTextInputLayoutValidator();
         mValidator.set(textInputLayout, pattern, errMsg);
     }
 
@@ -86,10 +108,12 @@ public class AwesomeValidation {
     }
 
     public void addValidation(EditText editText, Range range, String errMsg) {
+        checkIsNotTextInputLayoutValidator();
         mValidator.set(editText, new NumericRange(range), errMsg);
     }
 
     public void addValidation(TextInputLayout textInputLayout, Range range, String errMsg) {
+        checkIsTextInputLayoutValidator();
         mValidator.set(textInputLayout, new NumericRange(range), errMsg);
     }
 
@@ -98,10 +122,12 @@ public class AwesomeValidation {
     }
 
     public void addValidation(EditText confirmationEditText, EditText editText, String errMsg) {
+        checkIsNotTextInputLayoutValidator();
         mValidator.set(confirmationEditText, editText, errMsg);
     }
 
     public void addValidation(TextInputLayout confirmationTextInputLayout, TextInputLayout textInputLayout, String errMsg) {
+        checkIsTextInputLayoutValidator();
         mValidator.set(confirmationTextInputLayout, textInputLayout, errMsg);
     }
 
