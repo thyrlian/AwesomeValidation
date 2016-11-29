@@ -131,7 +131,7 @@ public class AwesomeValidationTest extends TestCase {
 
     public void testSetContextForUnderlabelStyle() throws Exception {
         mSpiedAwesomeValidationUnderlabelStyle.setContext(mMockedContext);
-        PowerMockito.verifyPrivate(mSpiedUnderlabelValidator, times(1)).invoke("setContext", mMockedContext);
+        verify(mSpiedUnderlabelValidator, times(1)).setContext(mMockedContext);
     }
 
     public void testSetContextForNonUnderlabelStyle() throws Exception {
@@ -140,7 +140,7 @@ public class AwesomeValidationTest extends TestCase {
 
     public void testSetColorForColorationStyle() throws Exception {
         mSpiedAwesomeValidationColorationStyle.setColor(mColor);
-        PowerMockito.verifyPrivate(mSpiedColorationValidator, times(1)).invoke("setColor", mColor);
+        verify(mSpiedColorationValidator, times(1)).setColor(mColor);
     }
 
     public void testSetColorForNonColorationStyle() throws Exception {
