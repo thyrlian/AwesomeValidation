@@ -27,38 +27,38 @@ import static org.mockito.Mockito.when;
 public class ColorationValidatorTest extends TestCase {
 
     private ColorationValidator mSpiedColorationValidator;
-    private ValidationHolder mMockedValidationHolder;
+    private ValidationHolder mMockValidationHolder;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mSpiedColorationValidator = spy(ColorationValidator.class);
-        mMockedValidationHolder = mock(ValidationHolder.class);
-        mSpiedColorationValidator.mValidationHolderList.add(mMockedValidationHolder);
+        mMockValidationHolder = mock(ValidationHolder.class);
+        mSpiedColorationValidator.mValidationHolderList.add(mMockValidationHolder);
     }
 
     public void testValidationCallbackExecute() {
         ValidationCallback validationCallback = Whitebox.getInternalState(mSpiedColorationValidator, "mValidationCallback");
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        EditText mockedEditText = mock(EditText.class);
-        String mockedErrMsg = PowerMockito.mock(String.class);
-        SpannableStringBuilder mockedEditable = PowerMockito.mock(SpannableStringBuilder.class);
-        when(mMockedValidationHolder.getEditText()).thenReturn(mockedEditText);
-        when(mMockedValidationHolder.getErrMsg()).thenReturn(mockedErrMsg);
-        when(mockedEditText.getText()).thenReturn(mockedEditable);
-        when(mockedEditable.length()).thenReturn(PowerMockito.mock(Integer.class));
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        EditText mockEditText = mock(EditText.class);
+        String mockErrMsg = PowerMockito.mock(String.class);
+        SpannableStringBuilder mockEditable = PowerMockito.mock(SpannableStringBuilder.class);
+        when(mMockValidationHolder.getEditText()).thenReturn(mockEditText);
+        when(mMockValidationHolder.getErrMsg()).thenReturn(mockErrMsg);
+        when(mockEditText.getText()).thenReturn(mockEditable);
+        when(mockEditable.length()).thenReturn(PowerMockito.mock(Integer.class));
         PowerMockito.mockStatic(SpanHelper.class);
-        validationCallback.execute(mMockedValidationHolder, mockedMatcher);
-        verify(mockedEditText).setError(mockedErrMsg);
+        validationCallback.execute(mMockValidationHolder, mockMatcher);
+        verify(mockEditText).setError(mockErrMsg);
         PowerMockito.verifyStatic();
     }
 
     public void testHalt() {
-        EditText mockedEditText = mock(EditText.class);
-        when(mMockedValidationHolder.getEditText()).thenReturn(mockedEditText);
+        EditText mockEditText = mock(EditText.class);
+        when(mMockValidationHolder.getEditText()).thenReturn(mockEditText);
         PowerMockito.mockStatic(SpanHelper.class);
         mSpiedColorationValidator.halt();
-        verify(mockedEditText).setError(null);
+        verify(mockEditText).setError(null);
         PowerMockito.verifyStatic();
     }
 

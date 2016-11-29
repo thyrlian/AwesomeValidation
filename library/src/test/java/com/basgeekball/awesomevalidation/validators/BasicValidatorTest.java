@@ -24,33 +24,33 @@ import static org.mockito.Mockito.when;
 public class BasicValidatorTest extends TestCase {
 
     private BasicValidator mSpiedBasicValidator;
-    private ValidationHolder mMockedValidationHolder;
+    private ValidationHolder mMockValidationHolder;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mSpiedBasicValidator = spy(BasicValidator.class);
-        mMockedValidationHolder = mock(ValidationHolder.class);
-        mSpiedBasicValidator.mValidationHolderList.add(mMockedValidationHolder);
+        mMockValidationHolder = mock(ValidationHolder.class);
+        mSpiedBasicValidator.mValidationHolderList.add(mMockValidationHolder);
     }
 
     public void testValidationCallbackExecute() {
         ValidationCallback validationCallback = Whitebox.getInternalState(mSpiedBasicValidator, "mValidationCallback");
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        EditText mockedEditText = mock(EditText.class);
-        String mockedErrMsg = PowerMockito.mock(String.class);
-        when(mMockedValidationHolder.getEditText()).thenReturn(mockedEditText);
-        when(mMockedValidationHolder.getErrMsg()).thenReturn(mockedErrMsg);
-        doNothing().when(mockedEditText).setError(mockedErrMsg);
-        validationCallback.execute(mMockedValidationHolder, mockedMatcher);
-        verify(mockedEditText).setError(mockedErrMsg);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        EditText mockEditText = mock(EditText.class);
+        String mockErrMsg = PowerMockito.mock(String.class);
+        when(mMockValidationHolder.getEditText()).thenReturn(mockEditText);
+        when(mMockValidationHolder.getErrMsg()).thenReturn(mockErrMsg);
+        doNothing().when(mockEditText).setError(mockErrMsg);
+        validationCallback.execute(mMockValidationHolder, mockMatcher);
+        verify(mockEditText).setError(mockErrMsg);
     }
 
     public void testHalt() {
-        EditText mockedEditText = mock(EditText.class);
-        when(mMockedValidationHolder.getEditText()).thenReturn(mockedEditText);
+        EditText mockEditText = mock(EditText.class);
+        when(mMockValidationHolder.getEditText()).thenReturn(mockEditText);
         mSpiedBasicValidator.halt();
-        verify(mockedEditText).setError(null);
+        verify(mockEditText).setError(null);
     }
 
 }

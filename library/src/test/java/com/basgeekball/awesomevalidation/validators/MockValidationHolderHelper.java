@@ -18,21 +18,21 @@ public class MockValidationHolderHelper {
     }
 
     public static ValidationHolder generate(ValidationHolderType type) {
-        ValidationHolder mockedValidationHolder = mock(ValidationHolder.class);
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
         if (type == ValidationHolderType.REGEX) {
-            when(mockedValidationHolder.isRegexType()).thenReturn(true);
-            when(mockedValidationHolder.isRangeType()).thenReturn(false);
-            when(mockedValidationHolder.isConfirmationType()).thenReturn(false);
+            when(mockValidationHolder.isRegexType()).thenReturn(true);
+            when(mockValidationHolder.isRangeType()).thenReturn(false);
+            when(mockValidationHolder.isConfirmationType()).thenReturn(false);
         } else if (type == ValidationHolderType.RANGE) {
-            when(mockedValidationHolder.isRegexType()).thenReturn(false);
-            when(mockedValidationHolder.isRangeType()).thenReturn(true);
-            when(mockedValidationHolder.isConfirmationType()).thenReturn(false);
+            when(mockValidationHolder.isRegexType()).thenReturn(false);
+            when(mockValidationHolder.isRangeType()).thenReturn(true);
+            when(mockValidationHolder.isConfirmationType()).thenReturn(false);
         } else if (type == ValidationHolderType.CONFIRMATION) {
-            when(mockedValidationHolder.isRegexType()).thenReturn(false);
-            when(mockedValidationHolder.isRangeType()).thenReturn(false);
-            when(mockedValidationHolder.isConfirmationType()).thenReturn(true);
+            when(mockValidationHolder.isRegexType()).thenReturn(false);
+            when(mockValidationHolder.isRangeType()).thenReturn(false);
+            when(mockValidationHolder.isConfirmationType()).thenReturn(true);
         }
-        return mockedValidationHolder;
+        return mockValidationHolder;
     }
 
 }

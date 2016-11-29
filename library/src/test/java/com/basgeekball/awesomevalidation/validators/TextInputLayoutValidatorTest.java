@@ -20,33 +20,33 @@ import static org.mockito.Mockito.when;
 public class TextInputLayoutValidatorTest extends TestCase {
 
     private TextInputLayoutValidator mSpiedTextInputLayoutValidator;
-    private ValidationHolder mMockedValidationHolder;
+    private ValidationHolder mMockValidationHolder;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mSpiedTextInputLayoutValidator = spy(TextInputLayoutValidator.class);
-        mMockedValidationHolder = mock(ValidationHolder.class);
-        mSpiedTextInputLayoutValidator.mValidationHolderList.add(mMockedValidationHolder);
+        mMockValidationHolder = mock(ValidationHolder.class);
+        mSpiedTextInputLayoutValidator.mValidationHolderList.add(mMockValidationHolder);
     }
 
     public void testValidationCallbackExecute() {
         ValidationCallback validationCallback = Whitebox.getInternalState(mSpiedTextInputLayoutValidator, "mValidationCallback");
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        TextInputLayout mockedTextInputLayout = mock(TextInputLayout.class);
-        String mockedErrMsg = PowerMockito.mock(String.class);
-        when(mMockedValidationHolder.getTextInputLayout()).thenReturn(mockedTextInputLayout);
-        when(mMockedValidationHolder.getErrMsg()).thenReturn(mockedErrMsg);
-        validationCallback.execute(mMockedValidationHolder, mockedMatcher);
-        verify(mockedTextInputLayout).setErrorEnabled(true);
-        verify(mockedTextInputLayout).setError(mockedErrMsg);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        String mockErrMsg = PowerMockito.mock(String.class);
+        when(mMockValidationHolder.getTextInputLayout()).thenReturn(mockTextInputLayout);
+        when(mMockValidationHolder.getErrMsg()).thenReturn(mockErrMsg);
+        validationCallback.execute(mMockValidationHolder, mockMatcher);
+        verify(mockTextInputLayout).setErrorEnabled(true);
+        verify(mockTextInputLayout).setError(mockErrMsg);
     }
 
     public void testHalt() {
-        TextInputLayout mockedTextInputLayout = mock(TextInputLayout.class);
-        when(mMockedValidationHolder.getTextInputLayout()).thenReturn(mockedTextInputLayout);
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        when(mMockValidationHolder.getTextInputLayout()).thenReturn(mockTextInputLayout);
         mSpiedTextInputLayoutValidator.halt();
-        verify(mockedTextInputLayout).setError(null);
+        verify(mockTextInputLayout).setError(null);
     }
 
 }

@@ -39,62 +39,62 @@ import static org.mockito.Mockito.when;
 public class UnderlabelValidatorTest extends TestCase {
 
     private UnderlabelValidator mSpiedUnderlabelValidator;
-    private ValidationHolder mMockedValidationHolder;
-    private Context mMockedContext;
+    private ValidationHolder mMockValidationHolder;
+    private Context mMockContext;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         mSpiedUnderlabelValidator = PowerMockito.spy(new UnderlabelValidator());
-        mMockedValidationHolder = mock(ValidationHolder.class, RETURNS_DEEP_STUBS);
-        mSpiedUnderlabelValidator.mValidationHolderList.add(mMockedValidationHolder);
-        mMockedContext = mock(Context.class);
-        mSpiedUnderlabelValidator.setContext(mMockedContext);
+        mMockValidationHolder = mock(ValidationHolder.class, RETURNS_DEEP_STUBS);
+        mSpiedUnderlabelValidator.mValidationHolderList.add(mMockValidationHolder);
+        mMockContext = mock(Context.class);
+        mSpiedUnderlabelValidator.setContext(mMockContext);
     }
 
     public void testValidationCallbackExecute() throws Exception {
         ValidationCallback validationCallback = Whitebox.getInternalState(mSpiedUnderlabelValidator, "mValidationCallback");
         Whitebox.setInternalState(mSpiedUnderlabelValidator, "mHasFailed", false);
-        TextView mockedTextView = mock(TextView.class);
-        Matcher mockedMatcher = PowerMockito.mock(Matcher.class);
-        Drawable mockedDrawable = mock(Drawable.class);
-        when(mMockedValidationHolder.getEditText().getBackground()).thenReturn(mockedDrawable);
-        doNothing().when(mockedDrawable).setColorFilter(anyInt(), any(PorterDuff.Mode.class));
-        PowerMockito.doReturn(mockedTextView).when(mSpiedUnderlabelValidator, "replaceView", mMockedValidationHolder);
-        validationCallback.execute(mMockedValidationHolder, mockedMatcher);
+        TextView mockTextView = mock(TextView.class);
+        Matcher mockMatcher = PowerMockito.mock(Matcher.class);
+        Drawable mockDrawable = mock(Drawable.class);
+        when(mMockValidationHolder.getEditText().getBackground()).thenReturn(mockDrawable);
+        doNothing().when(mockDrawable).setColorFilter(anyInt(), any(PorterDuff.Mode.class));
+        PowerMockito.doReturn(mockTextView).when(mSpiedUnderlabelValidator, "replaceView", mMockValidationHolder);
+        validationCallback.execute(mMockValidationHolder, mockMatcher);
     }
 
     public void testHalt() throws IllegalAccessException {
-        ViewsInfo mockedViewsInfo = mock(ViewsInfo.class);
+        ViewsInfo mockViewsInfo = mock(ViewsInfo.class);
         ArrayList<ViewsInfo> viewsInfos = new ArrayList<>();
-        viewsInfos.add(mockedViewsInfo);
-        EditText mockedEditText = mock(EditText.class);
+        viewsInfos.add(mockViewsInfo);
+        EditText mockEditText = mock(EditText.class);
         MemberModifier.field(UnderlabelValidator.class, "mViewsInfos").set(mSpiedUnderlabelValidator, viewsInfos);
-        doNothing().when(mockedViewsInfo).restoreViews();
-        when(mMockedValidationHolder.getEditText()).thenReturn(mockedEditText);
-        when(mockedEditText.requestFocus()).thenReturn(true);
+        doNothing().when(mockViewsInfo).restoreViews();
+        when(mMockValidationHolder.getEditText()).thenReturn(mockEditText);
+        when(mockEditText.requestFocus()).thenReturn(true);
         mSpiedUnderlabelValidator.halt();
         assertTrue(viewsInfos.isEmpty());
     }
 
     public void testReplaceView() throws Exception {
-        EditText mockedEditText = mock(EditText.class);
-        ViewGroup mockedViewGroup = mock(ViewGroup.class);
-        LinearLayout mockedNewContainer = mock(LinearLayout.class);
-        int mockedInt = PowerMockito.mock(Integer.class);
-        TextView mockedTextView = mock(TextView.class);
+        EditText mockEditText = mock(EditText.class);
+        ViewGroup mockViewGroup = mock(ViewGroup.class);
+        LinearLayout mockNewContainer = mock(LinearLayout.class);
+        int mockInt = PowerMockito.mock(Integer.class);
+        TextView mockTextView = mock(TextView.class);
         PowerMockito.mockStatic(AnimationUtils.class);
-        when(mMockedValidationHolder.getEditText()).thenReturn(mockedEditText);
-        when(mMockedValidationHolder.getErrMsg()).thenReturn(PowerMockito.mock(String.class));
-        when(mockedEditText.getParent()).thenReturn(mockedViewGroup);
-        when(mockedViewGroup.indexOfChild(mockedEditText)).thenReturn(mockedInt);
-        when(mockedEditText.getPaddingLeft()).thenReturn(PowerMockito.mock(Integer.class));
-        when(mockedEditText.getPaddingRight()).thenReturn(PowerMockito.mock(Integer.class));
-        PowerMockito.whenNew(LinearLayout.class).withArguments(mMockedContext).thenReturn(mockedNewContainer);
-        PowerMockito.whenNew(TextView.class).withArguments(mMockedContext).thenReturn(mockedTextView);
+        when(mMockValidationHolder.getEditText()).thenReturn(mockEditText);
+        when(mMockValidationHolder.getErrMsg()).thenReturn(PowerMockito.mock(String.class));
+        when(mockEditText.getParent()).thenReturn(mockViewGroup);
+        when(mockViewGroup.indexOfChild(mockEditText)).thenReturn(mockInt);
+        when(mockEditText.getPaddingLeft()).thenReturn(PowerMockito.mock(Integer.class));
+        when(mockEditText.getPaddingRight()).thenReturn(PowerMockito.mock(Integer.class));
+        PowerMockito.whenNew(LinearLayout.class).withArguments(mMockContext).thenReturn(mockNewContainer);
+        PowerMockito.whenNew(TextView.class).withArguments(mMockContext).thenReturn(mockTextView);
         PowerMockito.when(AnimationUtils.loadAnimation(any(Context.class), anyInt())).thenReturn(mock(Animation.class));
-        assertEquals(mockedTextView, Whitebox.invokeMethod(mSpiedUnderlabelValidator, "replaceView", mMockedValidationHolder));
-        verify(mockedViewGroup).addView(mockedNewContainer, mockedInt);
+        assertEquals(mockTextView, Whitebox.invokeMethod(mSpiedUnderlabelValidator, "replaceView", mMockValidationHolder));
+        verify(mockViewGroup).addView(mockNewContainer, mockInt);
     }
 
 }
