@@ -66,67 +66,55 @@ public class AwesomeValidationTest extends TestCase {
     }
 
     public void testAwesomeValidationConstructBasicStyle() {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-        assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof BasicValidator);
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationBasicStyle, "mValidator") instanceof BasicValidator);
     }
 
     public void testAwesomeValidationConstructColorationStyle() {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
-        assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof ColorationValidator);
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationColorationStyle, "mValidator") instanceof ColorationValidator);
     }
 
     public void testAwesomeValidationConstructUnderlabelValidatorStyle() {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
-        assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof UnderlabelValidator);
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationUnderlabelStyle, "mValidator") instanceof UnderlabelValidator);
     }
 
     public void testAwesomeValidationConstructTextInputLayoutValidatorStyle() {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-        assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof TextInputLayoutValidator);
+        assertTrue(Whitebox.getInternalState(mSpiedAwesomeValidationTextInputLayoutStyle, "mValidator") instanceof TextInputLayoutValidator);
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testCheckIsColorationValidatorThrowsException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsColorationValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationBasicStyle, "checkIsColorationValidator");
     }
 
     public void testCheckIsColorationValidatorWithoutException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsColorationValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationColorationStyle, "checkIsColorationValidator");
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testCheckIsUnderlabelValidatorThrowsException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsUnderlabelValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationTextInputLayoutStyle, "checkIsUnderlabelValidator");
     }
 
     public void testCheckIsUnderlabelValidatorWithoutException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsUnderlabelValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationUnderlabelStyle, "checkIsUnderlabelValidator");
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testCheckIsTextInputLayoutValidatorThrowsException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsTextInputLayoutValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationUnderlabelStyle, "checkIsTextInputLayoutValidator");
     }
 
     public void testCheckIsTextInputLayoutValidatorWithoutException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsTextInputLayoutValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationTextInputLayoutStyle, "checkIsTextInputLayoutValidator");
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testCheckIsNotTextInputLayoutValidatorThrowsException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsNotTextInputLayoutValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationTextInputLayoutStyle, "checkIsNotTextInputLayoutValidator");
     }
 
     public void testCheckIsNotTextInputLayoutValidatorWithoutException() throws Exception {
-        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
-        Whitebox.invokeMethod(awesomeValidation, "checkIsNotTextInputLayoutValidator");
+        Whitebox.invokeMethod(mSpiedAwesomeValidationColorationStyle, "checkIsNotTextInputLayoutValidator");
     }
 
     public void testSetContextForUnderlabelStyle() throws Exception {
