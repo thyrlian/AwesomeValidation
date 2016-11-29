@@ -190,6 +190,46 @@ public class AwesomeValidationTest extends TestCase {
         verify(mSpiedTextInputLayoutValidator, times(1)).set(mockedConfirmationTextInputLayout, mockedTextInputLayout, mockedErrMsg);
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndRegexThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), PowerMockito.mock(String.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndPatternThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), PowerMockito.mock(Pattern.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndRangeThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), PowerMockito.mock(Range.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForTextInputLayoutValidatorWithEditTextAndConfirmationThrowsException() {
+        mSpiedAwesomeValidationTextInputLayoutStyle.addValidation(mock(EditText.class), mock(EditText.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndRegexThrowsException() {
+        mSpiedAwesomeValidationBasicStyle.addValidation(mock(TextInputLayout.class), PowerMockito.mock(String.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndPatternThrowsException() {
+        mSpiedAwesomeValidationColorationStyle.addValidation(mock(TextInputLayout.class), PowerMockito.mock(Pattern.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndRangeThrowsException() {
+        mSpiedAwesomeValidationUnderlabelStyle.addValidation(mock(TextInputLayout.class), PowerMockito.mock(Range.class), PowerMockito.mock(String.class));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAddValidationForNonTextInputLayoutValidatorWithTextInputLayoutAndConfirmationThrowsException() {
+        mSpiedAwesomeValidationBasicStyle.addValidation(mock(TextInputLayout.class), mock(TextInputLayout.class), PowerMockito.mock(String.class));
+    }
+
     public void testValidate() {
         mSpiedAwesomeValidationBasicStyle.validate();
         verify(mSpiedBasicValidator, times(1)).trigger();
