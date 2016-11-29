@@ -45,15 +45,15 @@ public class AwesomeValidation {
         }
     }
 
-    private void checkIsUnderlabelValidator() {
-        if (!(mValidator instanceof UnderlabelValidator)) {
-            throw new UnsupportedOperationException("Only supported by UnderlabelValidator.");
-        }
-    }
-
     private void checkIsColorationValidator() {
         if (!(mValidator instanceof ColorationValidator)) {
             throw new UnsupportedOperationException("Only supported by ColorationValidator.");
+        }
+    }
+
+    private void checkIsUnderlabelValidator() {
+        if (!(mValidator instanceof UnderlabelValidator)) {
+            throw new UnsupportedOperationException("Only supported by UnderlabelValidator.");
         }
     }
 
@@ -69,14 +69,14 @@ public class AwesomeValidation {
         }
     }
 
-    public void setContext(Context context) {
-        checkIsUnderlabelValidator();
-        ((UnderlabelValidator) mValidator).setContext(context);
-    }
-
     public void setColor(int color) {
         checkIsColorationValidator();
         ((ColorationValidator) mValidator).setColor(color);
+    }
+
+    public void setContext(Context context) {
+        checkIsUnderlabelValidator();
+        ((UnderlabelValidator) mValidator).setContext(context);
     }
 
     public void addValidation(EditText editText, String regex, String errMsg) {

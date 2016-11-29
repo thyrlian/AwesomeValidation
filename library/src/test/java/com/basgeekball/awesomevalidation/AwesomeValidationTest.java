@@ -14,6 +14,7 @@ import com.google.common.collect.Range;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.api.support.membermodification.MemberModifier;
@@ -28,6 +29,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -81,6 +83,50 @@ public class AwesomeValidationTest extends TestCase {
     public void testAwesomeValidationConstructTextInputLayoutValidatorStyle() {
         AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
         assertTrue(Whitebox.getInternalState(awesomeValidation, "mValidator") instanceof TextInputLayoutValidator);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsColorationValidatorThrowsException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsColorationValidator");
+    }
+
+    public void testCheckIsColorationValidatorWithoutException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsColorationValidator");
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsUnderlabelValidatorThrowsException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsUnderlabelValidator");
+    }
+
+    public void testCheckIsUnderlabelValidatorWithoutException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsUnderlabelValidator");
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsTextInputLayoutValidatorThrowsException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsTextInputLayoutValidator");
+    }
+
+    public void testCheckIsTextInputLayoutValidatorWithoutException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsTextInputLayoutValidator");
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCheckIsNotTextInputLayoutValidatorThrowsException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsNotTextInputLayoutValidator");
+    }
+
+    public void testCheckIsNotTextInputLayoutValidatorWithoutException() throws Exception {
+        AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.COLORATION);
+        Whitebox.invokeMethod(awesomeValidation, "checkIsNotTextInputLayoutValidator");
     }
 
     public void testSetContextForUnderlabelStyle() throws Exception {
@@ -156,15 +202,15 @@ public class AwesomeValidationTest extends TestCase {
         PowerMockito.verifyPrivate(mSpiedTextInputLayoutValidator, times(1)).invoke("set", mockedConfirmationTextInputLayout, mockedTextInputLayout, mockedErrMsg);
     }
 
-    public void testValidate() throws Exception {
+    public void testValidate() {
         mSpiedAwesomeValidationBasicStyle.validate();
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("trigger");
-        assertEquals(Whitebox.invokeMethod(mSpiedBasicValidator, "trigger"), mSpiedAwesomeValidationBasicStyle.validate());
+        verify(mSpiedBasicValidator, times(1)).trigger();
+        assertEquals(mSpiedBasicValidator.trigger(), mSpiedAwesomeValidationBasicStyle.validate());
     }
 
     public void testClear() throws Exception {
         mSpiedAwesomeValidationBasicStyle.clear();
-        PowerMockito.verifyPrivate(mSpiedBasicValidator, times(1)).invoke("halt");
+        verify(mSpiedBasicValidator, times(1)).halt();
     }
 
 }
