@@ -23,7 +23,7 @@ public class UnderlabelValidator extends Validator {
     private boolean mHasFailed = false;
     private ValidationCallback mValidationCallback;
 
-    public void init() {
+    private void init() {
         mValidationCallback = new ValidationCallback() {
             @Override
             public void execute(ValidationHolder validationHolder, Matcher matcher) {

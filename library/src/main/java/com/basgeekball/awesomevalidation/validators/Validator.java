@@ -19,7 +19,7 @@ public abstract class Validator {
     private boolean mHasFailed = false;
 
     Validator() {
-        mValidationHolderList = new ArrayList<ValidationHolder>();
+        mValidationHolderList = new ArrayList<>();
     }
 
     public void set(EditText editText, String regex, String errMsg) {

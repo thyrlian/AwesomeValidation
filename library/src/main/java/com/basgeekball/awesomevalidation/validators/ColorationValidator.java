@@ -22,7 +22,7 @@ public class ColorationValidator extends Validator {
     private ValidationCallback mValidationCallback = new ValidationCallback() {
         @Override
         public void execute(ValidationHolder validationHolder, Matcher matcher) {
-            ArrayList<int[]> listOfMatching = new ArrayList<int[]>();
+            ArrayList<int[]> listOfMatching = new ArrayList<>();
             if (matcher != null) {
                 while (matcher.find()) {
                     listOfMatching.add(new int[]{matcher.start(), matcher.end() - 1});

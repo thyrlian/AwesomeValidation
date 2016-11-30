@@ -9,7 +9,7 @@ public class RangeHelper {
     }
 
     public static ArrayList<int[]> inverse(ArrayList<int[]> ranges, int lengthOfText) {
-        ArrayList<int[]> inverseRanges = new ArrayList<int[]>();
+        ArrayList<int[]> inverseRanges = new ArrayList<>();
         if (ranges.size() == 0) {
             if (lengthOfText == 0) {
                 return inverseRanges;

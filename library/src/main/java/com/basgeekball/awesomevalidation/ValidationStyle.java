@@ -9,7 +9,7 @@ public enum ValidationStyle {
 
     private int mValue;
 
-    private ValidationStyle(int value) {
+    ValidationStyle(int value) {
         mValue = value;
     }
 
