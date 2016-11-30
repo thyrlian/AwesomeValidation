@@ -89,7 +89,11 @@ public class ValidationHolder {
         if (mEditText != null) {
             return mEditText.getText().toString();
         } else if (mTextInputLayout != null) {
-            return mTextInputLayout.getEditText().getText().toString();
+            EditText editText = mTextInputLayout.getEditText();
+            if (editText != null) {
+                return editText.getText().toString();
+            }
+            throw new RuntimeException("EditText must be present inside TextInputLayout.");
         } else {
             return null;
         }
@@ -99,7 +103,11 @@ public class ValidationHolder {
         if (mConfirmationEditText != null) {
             return mConfirmationEditText.getText().toString();
         } else if (mConfirmationTextInputLayout != null) {
-            return mConfirmationTextInputLayout.getEditText().getText().toString();
+            EditText editText = mConfirmationTextInputLayout.getEditText();
+            if (editText != null) {
+                return editText.getText().toString();
+            }
+            throw new RuntimeException("EditText must be present inside TextInputLayout.");
         } else {
             return null;
         }

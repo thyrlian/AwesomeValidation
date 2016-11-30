@@ -8,6 +8,7 @@ import com.basgeekball.awesomevalidation.model.NumericRange;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.easymock.PowerMock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -133,6 +134,23 @@ public class ValidationHolderTest extends TestCase {
         assertEquals(text, mValidationHolderConfirmationTypeWithTextInputLayout.getText());
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testGetTextFromTextInputLayoutThrowsException() {
+        when(mMockTextInputLayout.getEditText()).thenReturn(null);
+        mValidationHolderRegexTypeWithTextInputLayout.getText();
+    }
+
+    public void testGetTextReturnsNull() {
+        EditText mockEditText = null;
+        TextInputLayout mockTextInputLayout = null;
+        Pattern mockPattern = PowerMock.createMock(Pattern.class);
+        String mockErrMsg = PowerMock.createMock(String.class);
+        mValidationHolderRegexTypeWithEditText = new ValidationHolder(mockEditText, mockPattern, mockErrMsg);
+        mValidationHolderRegexTypeWithTextInputLayout = new ValidationHolder(mockTextInputLayout, mockPattern, mockErrMsg);
+        assertNull(mValidationHolderRegexTypeWithEditText.getText());
+        assertNull(mValidationHolderRegexTypeWithTextInputLayout.getText());
+    }
+
     public void testGetConfirmationTextFromEditText() {
         String text = "OK";
         Editable mockEditable = mock(Editable.class);
@@ -149,6 +167,12 @@ public class ValidationHolderTest extends TestCase {
         when(mockEditText.getText()).thenReturn(mockEditable);
         when(mockEditable.toString()).thenReturn(text);
         assertEquals(text, mValidationHolderConfirmationTypeWithTextInputLayout.getConfirmationText());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testGetConfirmationTextFromTextInputLayoutThrowsException() {
+        when(mMockConfirmationTextInputLayout.getEditText()).thenReturn(null);
+        mValidationHolderConfirmationTypeWithTextInputLayout.getConfirmationText();
     }
 
     public void testGetConfirmationTextReturnsNull() {
