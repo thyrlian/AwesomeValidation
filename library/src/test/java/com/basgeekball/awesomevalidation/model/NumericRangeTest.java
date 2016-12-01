@@ -4,37 +4,39 @@ import com.google.common.collect.Range;
 
 import junit.framework.TestCase;
 
+import org.powermock.reflect.Whitebox;
+
 import java.util.Calendar;
 
 public class NumericRangeTest extends TestCase {
 
-    public void testIsNumberFormatPositive() {
-        assertTrue(NumericRange.isNumberFormat("0"));
-        assertTrue(NumericRange.isNumberFormat("0.0"));
-        assertTrue(NumericRange.isNumberFormat("0.123"));
-        assertTrue(NumericRange.isNumberFormat("1.23"));
-        assertTrue(NumericRange.isNumberFormat("10.23"));
-        assertTrue(NumericRange.isNumberFormat("12.34"));
-        assertTrue(NumericRange.isNumberFormat("100.234"));
-        assertTrue(NumericRange.isNumberFormat("100.023"));
-        assertTrue(NumericRange.isNumberFormat("123.456"));
-        assertTrue(NumericRange.isNumberFormat("123"));
-        assertTrue(NumericRange.isNumberFormat("-12"));
-        assertTrue(NumericRange.isNumberFormat("-0.1"));
-        assertTrue(NumericRange.isNumberFormat("-1.2"));
-        assertTrue(NumericRange.isNumberFormat("-12.34"));
-        assertTrue(NumericRange.isNumberFormat("-10.23"));
-        assertTrue(NumericRange.isNumberFormat("-100.234"));
-        assertTrue(NumericRange.isNumberFormat("-123.456"));
+    public void testIsNumberFormatPositive() throws Exception {
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "0"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "0.0"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "0.123"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "1.23"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "10.23"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "12.34"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "100.234"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "100.023"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "123.456"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "123"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "-12"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "-0.1"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "-1.2"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "-12.34"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "-10.23"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "-100.234"));
+        assertTrue(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "-123.456"));
     }
 
-    public void testIsNumberFormatNegative() {
-        assertFalse(NumericRange.isNumberFormat("00.123"));
-        assertFalse(NumericRange.isNumberFormat("01.23"));
-        assertFalse(NumericRange.isNumberFormat("10."));
-        assertFalse(NumericRange.isNumberFormat("--10"));
-        assertFalse(NumericRange.isNumberFormat("02012"));
-        assertFalse(NumericRange.isNumberFormat("a1000"));
+    public void testIsNumberFormatNegative() throws Exception {
+        assertFalse(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "00.123"));
+        assertFalse(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "01.23"));
+        assertFalse(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "10."));
+        assertFalse(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "--10"));
+        assertFalse(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "02012"));
+        assertFalse(Whitebox.<Boolean> invokeMethod(NumericRange.class, "isNumberFormat", "a1000"));
     }
 
     public void testInvalidNumbers() {

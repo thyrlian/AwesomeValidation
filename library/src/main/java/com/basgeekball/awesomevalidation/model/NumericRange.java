@@ -13,7 +13,7 @@ public class NumericRange {
         mRange = range;
     }
 
-    static boolean isNumberFormat(String text) {
+    private static boolean isNumberFormat(String text) {
         return Pattern.compile("^-?(([1-9]\\d*(\\.\\d+)?)||(0\\.\\d+)||0)$").matcher(text).find();
     }
 
