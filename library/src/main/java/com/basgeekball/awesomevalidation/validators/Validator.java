@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public abstract class Validator {
 
-    ArrayList<ValidationHolder> mValidationHolderList;
+    protected ArrayList<ValidationHolder> mValidationHolderList;
     private boolean mHasFailed = false;
 
     Validator() {
@@ -105,7 +105,7 @@ public abstract class Validator {
         }
     }
 
-    boolean checkFields(ValidationCallback callback) {
+    protected boolean checkFields(ValidationCallback callback) {
         boolean result = true;
         mHasFailed = false;
         for (ValidationHolder validationHolder : mValidationHolderList) {
