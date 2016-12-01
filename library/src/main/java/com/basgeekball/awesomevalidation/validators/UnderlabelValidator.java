@@ -2,6 +2,7 @@ package com.basgeekball.awesomevalidation.validators;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ public class UnderlabelValidator extends Validator {
     @Override
     public boolean trigger() {
         halt();
-        mColor = mContext.getResources().getColor(android.R.color.holo_red_light);
+        mColor = ContextCompat.getColor(mContext, android.R.color.holo_red_light);
         return checkFields(mValidationCallback);
     }
 
