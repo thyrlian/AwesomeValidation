@@ -4,6 +4,7 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.widget.EditText;
 
+import com.basgeekball.awesomevalidation.exception.BadLayoutException;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 
 import junit.framework.TestCase;
@@ -134,7 +135,7 @@ public class ValidationHolderTest extends TestCase {
         assertEquals(text, mValidationHolderConfirmationTypeWithTextInputLayout.getText());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BadLayoutException.class)
     public void testGetTextFromTextInputLayoutThrowsException() {
         when(mMockTextInputLayout.getEditText()).thenReturn(null);
         mValidationHolderRegexTypeWithTextInputLayout.getText();
@@ -169,7 +170,7 @@ public class ValidationHolderTest extends TestCase {
         assertEquals(text, mValidationHolderConfirmationTypeWithTextInputLayout.getConfirmationText());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BadLayoutException.class)
     public void testGetConfirmationTextFromTextInputLayoutThrowsException() {
         when(mMockConfirmationTextInputLayout.getEditText()).thenReturn(null);
         mValidationHolderConfirmationTypeWithTextInputLayout.getConfirmationText();

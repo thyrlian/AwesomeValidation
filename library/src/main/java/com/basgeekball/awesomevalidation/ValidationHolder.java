@@ -3,6 +3,7 @@ package com.basgeekball.awesomevalidation;
 import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
+import com.basgeekball.awesomevalidation.exception.BadLayoutException;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 
 import java.util.regex.Pattern;
@@ -93,7 +94,7 @@ public class ValidationHolder {
             if (editText != null) {
                 return editText.getText().toString();
             }
-            throw new RuntimeException("EditText must be present inside TextInputLayout.");
+            throw new BadLayoutException("EditText must be present inside TextInputLayout.");
         } else {
             return null;
         }
@@ -107,7 +108,7 @@ public class ValidationHolder {
             if (editText != null) {
                 return editText.getText().toString();
             }
-            throw new RuntimeException("EditText must be present inside TextInputLayout.");
+            throw new BadLayoutException("EditText must be present inside TextInputLayout.");
         } else {
             return null;
         }
