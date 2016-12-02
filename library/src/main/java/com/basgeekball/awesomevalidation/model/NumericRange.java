@@ -1,5 +1,7 @@
 package com.basgeekball.awesomevalidation.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.common.collect.Range;
 
 import java.math.BigDecimal;
@@ -18,9 +20,7 @@ public class NumericRange {
     }
 
     public boolean isValid(String valueText) {
-        if (!isNumberFormat(valueText)) {
-            return false;
-        }
+        if (!isNumberFormat(valueText)) return false;
 
         BigDecimal value;
         try {
@@ -29,6 +29,16 @@ public class NumericRange {
             return false;
         }
 
+        Boolean validityAsInteger = isInteger(value);
+        if (validityAsInteger != null) return validityAsInteger;
+        Boolean validityAsDecimal = isDecimal(value);
+        if (validityAsDecimal != null) return validityAsDecimal;
+
+        return false;
+    }
+
+    @Nullable
+    private Boolean isInteger(BigDecimal value) {
         if (value.scale() == 0) {
             try {
                 return mRange.contains(value.intValueExact());
@@ -39,6 +49,11 @@ public class NumericRange {
             } catch (Exception e) {
             }
         }
+        return null;
+    }
+
+    @Nullable
+    private Boolean isDecimal(BigDecimal value) {
         try {
             return mRange.contains(value.floatValue());
         } catch (Exception e) {
@@ -47,8 +62,7 @@ public class NumericRange {
             return mRange.contains(value.doubleValue());
         } catch (Exception e) {
         }
-
-        return false;
+        return null;
     }
 
 }
