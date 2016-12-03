@@ -38,6 +38,11 @@ mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2
 // or
 mAwesomeValidation.addValidation(editText, "regex", "Error info");
 
+// to validate TextInputLayout
+AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+mAwesomeValidation.addValidation(activity, R.id.til_email, Patterns.EMAIL_ADDRESS, R.string.err_email);
+
+// to validate the confirmation of another field
 String regexPassword = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}";
 mAwesomeValidation.addValidation(activity, R.id.edt_password, regexPassword, R.string.err_password);
 // to validate a confirmation field (don't validate any rule other than confirmation on confirmation field)
