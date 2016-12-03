@@ -1,9 +1,13 @@
 package com.basgeekball.awesomevalidation.demo;
 
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
 
+import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +19,12 @@ import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.basgeekball.awesomevalidation.demo.ViewMatcher.hasAncestorAndSelfMatcher;
+import static org.hamcrest.CoreMatchers.containsString;
 
 @RunWith(AndroidJUnit4.class)
 public class DemoActivityTest {
@@ -41,12 +50,30 @@ public class DemoActivityTest {
         assertViewIsDisplayed(R.id.container_success);
     }
 
+    @Test
+    public void testValidateTextInputLayoutPass() {
+        navigateToMenuItem(3);
+        enterTextToTextInputLayout(R.id.til_email, "jean_claude_van_damme@jcvdworld.com");
+        enterTextToTextInputLayout(R.id.til_password, "Muscles4Brussels!");
+        enterTextToTextInputLayout(R.id.til_password_confirmation, "Muscles4Brussels!");
+        enterTextToTextInputLayout(R.id.til_year, "1960");
+        clickButton(R.id.btn_done);
+        scrollToTheBottom();
+        assertViewIsDisplayed(R.id.container_success);
+    }
+
     private ViewInteraction findView(int viewId) {
         return onView(withId(viewId));
     }
 
     private void enterText(int viewId, String text) {
         findView(viewId).perform(typeText(text), closeSoftKeyboard());
+    }
+
+    private void enterTextToTextInputLayout(int viewIdOfTextInputLayout, String text) {
+        Matcher<View> ancestorMatcher = withId(viewIdOfTextInputLayout);
+        Matcher<View> selfMatcher = withClassName(containsString("TextInputEditText"));
+        onView(hasAncestorAndSelfMatcher(ancestorMatcher, selfMatcher)).perform(typeText(text));
     }
 
     private void clickButton(int viewId) {
@@ -59,6 +86,15 @@ public class DemoActivityTest {
 
     private void scrollToTheBottom() {
         findView(R.id.scroll_view).perform(swipeUp());
+    }
+
+    private void navigateToMenuItem(int menuItemIdx) {
+        onView(withContentDescription(R.string.app_name)).perform(click());
+        Context context = InstrumentationRegistry.getTargetContext();
+        if (context != null) {
+            String menuItem = context.getResources().getStringArray(R.array.styles)[menuItemIdx];
+            onView(withText(menuItem)).perform(click());
+        }
     }
 
 }
