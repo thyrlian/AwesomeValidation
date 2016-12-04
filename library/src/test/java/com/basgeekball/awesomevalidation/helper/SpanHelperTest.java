@@ -3,7 +3,6 @@ package com.basgeekball.awesomevalidation.helper;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
-import android.text.style.CharacterStyle;
 import android.widget.EditText;
 
 import junit.framework.TestCase;
@@ -18,7 +17,6 @@ import java.util.Arrays;
 
 import static org.mockito.Mockito.RETURNS_MOCKS;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,7 +28,6 @@ public class SpanHelperTest extends TestCase {
     private EditText mMockEditText;
     private Editable mMockEditable;
     private SpannableString mMockSpannableString;
-    private BackgroundColorSpan mMockBackgroundColorSpan;
     private int mColor = 256;
 
     @Override
@@ -39,11 +36,10 @@ public class SpanHelperTest extends TestCase {
         mMockEditText = mock(EditText.class, RETURNS_MOCKS);
         mMockEditable = mock(Editable.class);
         mMockSpannableString = mock(SpannableString.class);
-        mMockBackgroundColorSpan = mock(BackgroundColorSpan.class);
         when(mMockEditText.getText()).thenReturn(mMockEditable);
         when(mMockEditText.getText().toString()).thenReturn(PowerMockito.mock(String.class));
         PowerMockito.whenNew(SpannableString.class).withArguments(PowerMockito.mock(String.class)).thenReturn(mMockSpannableString);
-        PowerMockito.whenNew(BackgroundColorSpan.class).withArguments(mColor).thenReturn(mMockBackgroundColorSpan);
+        PowerMockito.whenNew(BackgroundColorSpan.class).withArguments(mColor).thenReturn(mock(BackgroundColorSpan.class));
     }
 
     public void testSetColor() throws Exception {
@@ -57,15 +53,8 @@ public class SpanHelperTest extends TestCase {
     }
 
     public void testReset() {
-        CharacterStyle mockSpan1 = mock(CharacterStyle.class);
-        Object mockSpan2 = mock(Object.class);
-        CharacterStyle mockSpan3 = mock(CharacterStyle.class);
-        Object[] mockSpans = new Object[]{mockSpan1, mockSpan2, mockSpan3};
-        when(mMockEditable.getSpans(0, mMockEditText.length(), Object.class)).thenReturn(mockSpans);
         SpanHelper.reset(mMockEditText);
-        verify(mMockEditable, times(1)).removeSpan(mockSpan1);
-        verify(mMockEditable, never()).removeSpan(mockSpan2);
-        verify(mMockEditable, times(1)).removeSpan(mockSpan3);
+        verify(mMockEditable, times(1)).clearSpans();
     }
 
 }

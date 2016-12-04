@@ -1,8 +1,8 @@
 package com.basgeekball.awesomevalidation.helper;
 
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
-import android.text.style.CharacterStyle;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -25,11 +25,9 @@ public class SpanHelper {
     }
 
     public static void reset(EditText editText) {
-        Object[] spans = editText.getText().getSpans(0, editText.length(), Object.class);
-        for (Object span : spans) {
-            if (span instanceof CharacterStyle) {
-                editText.getText().removeSpan(span);
-            }
+        Editable editable = editText.getText();
+        if (editable != null) {
+            editable.clearSpans();
         }
     }
 
