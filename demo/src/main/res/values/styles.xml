@@ -6,7 +6,7 @@
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@color/primary_material_dark</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
 </resources>
