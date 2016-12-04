@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -67,13 +68,13 @@ public class DemoActivityTest {
     }
 
     private void enterText(int viewId, String text) {
-        findView(viewId).perform(typeText(text), closeSoftKeyboard());
+        findView(viewId).perform(scrollTo(), typeText(text), closeSoftKeyboard());
     }
 
     private void enterTextToTextInputLayout(int viewIdOfTextInputLayout, String text) {
         Matcher<View> ancestorMatcher = withId(viewIdOfTextInputLayout);
         Matcher<View> selfMatcher = withClassName(containsString("TextInputEditText"));
-        onView(hasAncestorAndSelfMatcher(ancestorMatcher, selfMatcher)).perform(typeText(text));
+        onView(hasAncestorAndSelfMatcher(ancestorMatcher, selfMatcher)).perform(scrollTo(), typeText(text), closeSoftKeyboard());
     }
 
     private void clickButton(int viewId) {
