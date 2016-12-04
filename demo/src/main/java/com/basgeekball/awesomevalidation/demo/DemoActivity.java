@@ -101,7 +101,6 @@ public class DemoActivity extends AppCompatActivity {
         }
         if (mPosition > 0) {
             mDrawerItemClickListener.selectItem(0);
-            return;
         } else {
             super.onBackPressed();
         }
