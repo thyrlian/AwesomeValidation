@@ -83,8 +83,8 @@ dependencies {
 
 ##Release guide
 * Update version number in *build.gradle*, *gradle.properties* and *README*
-* Run `gradle clean build generateRelease` to generate release zip file
-* Run `gradle bintrayUpload` to create a new version in bintray
+* Run `./gradlew clean build generateRelease` to generate release zip file
+* Run `./gradlew bintrayUpload` to create a new version in bintray
 * Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
 
 ##License
