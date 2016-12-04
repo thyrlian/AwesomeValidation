@@ -54,7 +54,7 @@ public class DemoActivityTest {
     @Test
     public void testValidateTextInputLayoutPass() {
         navigateToMenuItem(3);
-        enterTextToTextInputLayout(R.id.til_email, "jean_claude_van_damme@jcvdworld.com");
+        enterTextToTextInputLayout(R.id.til_email, "Jean-ClaudeVanDamme@jcvdworld.com");
         enterTextToTextInputLayout(R.id.til_password, "Muscles4Brussels!");
         enterTextToTextInputLayout(R.id.til_password_confirmation, "Muscles4Brussels!");
         enterTextToTextInputLayout(R.id.til_year, "1960");
