@@ -74,10 +74,12 @@ dependencies {
 ```
 
 ##Screenshots
-<a href="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310455/4d3c90c6-b957-11e4-8075-8fb7b63ea669.png" height="600"></a>
-<a href="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310452/4d38f40c-b957-11e4-820e-b3b5cfd54837.png" height="600"></a>
-<a href="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6310454/4d3a83d0-b957-11e4-911a-a62e76b8024c.png" height="600"></a>
-<a href="https://cloud.githubusercontent.com/assets/352956/6311996/999f2fcc-b96c-11e4-948a-1e142f9bc04a.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/352956/6311996/999f2fcc-b96c-11e4-948a-1e142f9bc04a.png" height="600"></a>
+<a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_0.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_0.png" height="600"></a>
+
+<a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_1.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_1.png" height="600"></a>
+<a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_2.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_2.png" height="600"></a>
+<a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_3.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_3.png" height="600"></a>
+<a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" height="600"></a>
 
 ##Release guide
 * Update version number in *build.gradle*, *gradle.properties* and *README*
