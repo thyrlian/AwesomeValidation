@@ -1,12 +1,13 @@
 package com.basgeekball.awesomevalidation.helper;
 
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+
+import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
 public class SpanHelper {
 
@@ -17,9 +18,8 @@ public class SpanHelper {
     public static void setColor(EditText editText, int color, ArrayList<int[]> ranges) {
         String text = editText.getText().toString();
         SpannableString spanText = new SpannableString(text);
-        BackgroundColorSpan markup = new BackgroundColorSpan(color);
         for (int[] range : ranges) {
-            spanText.setSpan(markup, range[0], range[1] + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            spanText.setSpan(new BackgroundColorSpan(color), range[0], range[1] + 1, SPAN_INCLUSIVE_INCLUSIVE);
         }
         editText.setText(spanText);
     }
