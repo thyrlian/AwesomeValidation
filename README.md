@@ -69,7 +69,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 For Gradle it's so easy: just add below compile line to your module's build.gradle (it's available on JCenter).
 ```java
 dependencies {
-    compile 'com.basgeekball:awesome-validation:1.3'
+    compile 'com.basgeekball:awesome-validation:2.0'
 }
 ```
 
