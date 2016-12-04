@@ -82,7 +82,7 @@ dependencies {
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" height="600"></a>
 
 ##Release guide
-* Update version number in *build.gradle*, *gradle.properties* and *README*
+* Update version number in ***build.gradle***, ***gradle.properties*** and ***README***
 * Run `./gradlew clean build generateRelease` to generate release zip file
 * Run `./gradlew bintrayUpload` to create a new version in bintray
 * Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
