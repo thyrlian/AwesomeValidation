@@ -6,7 +6,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
-        classpath 'org.jacoco:org.jacoco.core:0.7.7.201606060606'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.1'
     }
 }
