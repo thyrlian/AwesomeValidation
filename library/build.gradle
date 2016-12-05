@@ -10,6 +10,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        defaultPublishConfig 'release'
+        publishNonDefault true
         consumerProguardFiles 'proguard-rules.pro'
     }
     buildTypes {

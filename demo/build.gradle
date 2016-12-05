@@ -31,8 +31,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library')
+    debugCompile project(path: ':library', configuration: "debug")
+    releaseCompile project(path: ':library', configuration: "release")
     compile "com.android.support:appcompat-v7:${rootProject.ext.androidSupportLibVersion}"
     compile "com.android.support:support-v4:${rootProject.ext.androidSupportLibVersion}"
     compile "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
