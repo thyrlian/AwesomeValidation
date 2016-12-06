@@ -26,6 +26,8 @@ mAwesomeValidation.setColor(Color.YELLOW);  // optional, default color is RED if
 // or
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
 mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
+// or
+AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
 
 // Step 2: add validations
 // support regex string, java.util.regex.Pattern and Guava#Range
@@ -38,7 +40,7 @@ mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2
 // or
 mAwesomeValidation.addValidation(editText, "regex", "Error info");
 
-// to validate TextInputLayout
+// to validate TextInputLayout, pass the TextInputLayout, not the embedded EditText
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
 mAwesomeValidation.addValidation(activity, R.id.til_email, Patterns.EMAIL_ADDRESS, R.string.err_email);
 
