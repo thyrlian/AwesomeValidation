@@ -6,17 +6,17 @@
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23142-brightgreen.svg)](http://androidweekly.net/issues/issue-142)
 [![Stories in Ready](https://badge.waffle.io/thyrlian/AwesomeValidation.png?label=ready&title=Ready)](https://waffle.io/thyrlian/AwesomeValidation)
 
-#AwesomeValidation
+# AwesomeValidation
 
-##Introduction
+## Introduction
 Implement validation for Android within only 3 steps.  Developers should focus on their awesome code, and let the library do the boilerplate.  And what's more, this could help keep your layout file clean.
 
-##Steps
+## Steps
 1. Declare validation style;
 2. Add validations;
 3. Set a point when to trigger validation.
 
-##Sample code
+## Sample code
 ```java
 // Step 1: designate a style
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
@@ -67,7 +67,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-##Import as dependency
+## Import as dependency
 For Gradle it's so easy: just add below compile line to your module's build.gradle (it's available on JCenter).
 ```java
 dependencies {
@@ -75,7 +75,7 @@ dependencies {
 }
 ```
 
-##Screenshots
+## Screenshots
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_0.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_0.png" height="600"></a>
 
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_1.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_1.png" height="600"></a>
@@ -83,11 +83,11 @@ dependencies {
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_3.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_3.png" height="600"></a>
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" height="600"></a>
 
-##Release guide
+## Release guide
 * Update version number in ***build.gradle***, ***gradle.properties*** and ***README***
 * Run `./gradlew clean build generateRelease` to generate release zip file
 * Run `./gradlew bintrayUpload` to create a new version in bintray
 * Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
 
-##License
+## License
 Copyright (c) 2014-2016 Jing Li. See the [LICENSE](https://github.com/thyrlian/AwesomeValidation/blob/master/LICENSE) file for license rights and limitations (MIT).
