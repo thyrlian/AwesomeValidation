@@ -36,5 +36,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:${rootProject.ext.androidSupportLibVersion}"
     compile "com.android.support:support-v4:${rootProject.ext.androidSupportLibVersion}"
     compile "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
+        exclude module: 'support-annotations'
+    }
 }
