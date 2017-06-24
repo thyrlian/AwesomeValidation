@@ -6,5 +6,10 @@ dependencies:
   pre:
     - echo y | android update sdk --no-ui --all --filter $ANDROID_TARGET,build-tools-$ANDROID_BUILD_TOOLS_VERSION,extra-android-support,extra-google-google_play_services,extra
 test:
+  pre:
+    - emulator -avd circleci-android22 -no-window:
+        background: true
+        parallel: true
+    - circle-android wait-for-boot
   override:
     - ./gradlew testDebugUnitTest
