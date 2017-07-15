@@ -31,7 +31,7 @@ def runUnitTestAndPublishResults() {
     } catch(err) {
         failure = true
     } finally {
-        String results = "library/build/test-results/debug/*.xml"
+        String results = "library/build/test-results/testDebugUnitTest/*.xml"
         step([$class: 'JUnitResultArchiver', testResults: results])
     }
     if (failure) {
