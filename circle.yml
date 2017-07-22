@@ -13,16 +13,13 @@ jobs:
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
-      - run:
-          name: Setup Emulator
-          command: sdkmanager "system-images;android-26;default;armeabi-v7a" && (echo "no" | avdmanager create avd -n test -k "system-images;android-26;default;armeabi-v7a") &
       - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Run Tests
-          command: ./gradlew check :demo:connectedAndroidTest
+          command: ./gradlew check
       - store_artifacts:
           path: library/build/reports
           destination: reports
