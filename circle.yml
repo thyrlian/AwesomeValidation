@@ -1,15 +1,27 @@
-machine:
-  environment:
-    ANDROID_TARGET: android-26
-    ANDROID_BUILD_TOOLS_VERSION: 26.0.0
-dependencies:
-  pre:
-    - echo y | android update sdk --no-ui --all --filter $ANDROID_TARGET,build-tools-$ANDROID_BUILD_TOOLS_VERSION,extra-android-support,extra-google-google_play_services,extra
-test:
-  pre:
-    - emulator -avd circleci-android22 -no-window:
-        background: true
-        parallel: true
-    - circle-android wait-for-boot
-  override:
-    - ./gradlew clean check :demo:connectedAndroidTest
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-26-alpha
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Run Tests
+          command: ./gradlew check
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
