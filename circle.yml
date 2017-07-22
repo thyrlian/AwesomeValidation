@@ -15,7 +15,7 @@ jobs:
           command: ./gradlew androidDependencies
       - run:
           name: Setup Emulator
-          command: sdkmanager "system-images;android-26;default;armeabi-v7a" && (echo "no" | avdmanager create avd -n test -k "system-images;android-26;default;armeabi-v7a") &
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && (echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a") &
       - save_cache:
           paths:
             - ~/.gradle
