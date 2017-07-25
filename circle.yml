@@ -26,7 +26,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Run Tests
-          command: adb devices && ./gradlew check :demo:connectedAndroidTest
+          command: ./gradlew check :demo:connectedAndroidTest
       - store_artifacts:
           path: library/build/reports
           destination: reports
