@@ -11,8 +11,8 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
-          name: Debug
-          command: echo $ANDROID_HOME && which sdkmanager && which avdmanager && sdkmanager --list --verbose
+          name: Setup emulator
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && (echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a") &
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
