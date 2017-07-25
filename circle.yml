@@ -11,6 +11,9 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
+          name: Debug
+          command: echo $ANDROID_HOME && which sdkmanager && which avdmanager && sdkmanager --list --verbose
+      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
