@@ -12,7 +12,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Setup emulator
-          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && (echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a") &
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && avdmanager list avd && (echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a") &
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
@@ -22,7 +22,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Run Tests
-          command: ./gradlew check
+          command: adb devices && ./gradlew check :demo:connectedAndroidTest
       - store_artifacts:
           path: library/build/reports
           destination: reports
