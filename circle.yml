@@ -15,7 +15,8 @@ jobs:
           command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a" && export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64/qt/lib
       - run:
           name: Launch emulator
-          command: avdmanager list avd && adb devices
+          command: emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
+          background: true
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
