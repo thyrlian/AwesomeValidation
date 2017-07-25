@@ -12,7 +12,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Setup emulator
-          command: printenv && ls /opt/android/sdk/emulator/lib64/qt/lib && sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a" && avdmanager list avd && (/opt/android/sdk/emulator/emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on)
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a" && export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64/qt/lib && (emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on)
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
