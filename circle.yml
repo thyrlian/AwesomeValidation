@@ -12,7 +12,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Setup emulator
-          command: ls /opt/android/sdk/emulator && sdkmanager "system-images;android-22;default;armeabi-v7a" && sdkmanager --list --verbose
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a" && avdmanager list avd
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
