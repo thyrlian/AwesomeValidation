@@ -19,7 +19,7 @@ ext {
     targetSdk = 26
     compileSdkVersion = 26
     buildToolsVersion = '26.0.1'
-    androidSupportLibVersion = '25.3.1'
+    androidSupportLibVersion = '26.0.1'
     versionCode = 5
     versionName = "2.0"
 }
@@ -49,5 +49,8 @@ bintray {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
