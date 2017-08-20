@@ -50,7 +50,7 @@ public class ColorationValidatorTest extends TestCase {
         PowerMockito.mockStatic(SpanHelper.class);
         validationCallback.execute(mMockValidationHolder, mockMatcher);
         verify(mockEditText).setError(mockErrMsg);
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(SpanHelper.class);
     }
 
     public void testHalt() {
@@ -59,7 +59,7 @@ public class ColorationValidatorTest extends TestCase {
         PowerMockito.mockStatic(SpanHelper.class);
         mSpiedColorationValidator.halt();
         verify(mockEditText).setError(null);
-        PowerMockito.verifyStatic();
+        PowerMockito.verifyStatic(SpanHelper.class);
     }
 
 }
