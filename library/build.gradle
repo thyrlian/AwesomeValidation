@@ -48,7 +48,7 @@ ext {
     junitVersion = "4.12"
     mockitoVersion = "2.0.2-beta"
     easymockVersion = "3.4"
-    powermockVersion = "1.6.6"
+    powermockVersion = "1.7.1"
 }
 
 dependencies {
