@@ -1,5 +1,5 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: "com.android.library"
+apply plugin: "com.getkeepsafe.dexcount"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -10,55 +10,55 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        defaultPublishConfig 'release'
+        defaultPublishConfig "release"
         publishNonDefault true
-        consumerProguardFiles 'proguard-rules.pro'
+        consumerProguardFiles "proguard-rules.pro"
     }
     buildTypes {
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     sourceSets {
         main {
-            java.srcDirs = ['src/main/java']
-            resources.srcDirs = ['src/main/res']
+            java.srcDirs = ["src/main/java"]
+            resources.srcDirs = ["src/main/res"]
         }
         test {
-            java.srcDirs = ['src/test/java']
-            resources.srcDirs = ['src/test/res']
+            java.srcDirs = ["src/test/java"]
+            resources.srcDirs = ["src/test/res"]
         }
-        androidTest.setRoot('test')
+        androidTest.setRoot("test")
     }
     testOptions {
         unitTests.returnDefaultValues = true
     }
     lintOptions {
-        disable 'GradleDynamicVersion'
+        disable "GradleDynamicVersion"
         abortOnError false
     }
 }
 
 dependencies {
-    compile 'com.google.guava:guava:20.0'
+    compile "com.google.guava:guava:20.0"
     compile "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-all:2.0.2-beta'
-    testCompile 'org.easymock:easymock:3.4'
-    testCompile 'org.powermock:powermock-module-junit4:1.6.6'
-    testCompile 'org.powermock:powermock-api-mockito:1.6.6'
-    testCompile 'org.powermock:powermock-api-easymock:1.6.6'
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-all:2.0.2-beta"
+    testCompile "org.easymock:easymock:3.4"
+    testCompile "org.powermock:powermock-module-junit4:1.6.6"
+    testCompile "org.powermock:powermock-api-mockito:1.6.6"
+    testCompile "org.powermock:powermock-api-easymock:1.6.6"
 }
 
 configurations.all {
     resolutionStrategy {
-        force 'junit:junit:4.12'
+        force "junit:junit:4.12"
     }
 }
 
-apply from: 'https://raw.githubusercontent.com/thyrlian/AwesomeValidation/master/publish.gradle'
+apply from: "https://raw.githubusercontent.com/thyrlian/AwesomeValidation/master/publish.gradle"

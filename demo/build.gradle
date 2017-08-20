@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: "com.android.application"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -15,28 +15,28 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     lintOptions {
-        disable 'PrivateResource'
-        disable 'UnusedAttribute'
-        disable 'IconMissingDensityFolder'
+        disable "PrivateResource"
+        disable "UnusedAttribute"
+        disable "IconMissingDensityFolder"
         abortOnError false
     }
 }
 
 dependencies {
-    debugCompile project(path: ':library', configuration: "debug")
-    releaseCompile project(path: ':library', configuration: "release")
+    debugCompile project(path: ":library", configuration: "debug")
+    releaseCompile project(path: ":library", configuration: "release")
     compile "com.android.support:appcompat-v7:${rootProject.ext.androidSupportLibVersion}"
     compile "com.android.support:support-v4:${rootProject.ext.androidSupportLibVersion}"
     compile "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
-        exclude module: 'support-annotations'
+    androidTestCompile("com.android.support.test.espresso:espresso-core:2.2.2") {
+        exclude module: "support-annotations"
     }
 }

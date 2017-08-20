@@ -5,8 +5,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
+        classpath "com.android.tools.build:gradle:2.3.3"
+        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3"
     }
 }
 
@@ -18,27 +18,27 @@ ext {
     minSdk = 14
     targetSdk = 26
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.1'
-    androidSupportLibVersion = '26.0.1'
+    buildToolsVersion = "26.0.1"
+    androidSupportLibVersion = "26.0.1"
     versionCode = 5
     versionName = "2.0"
 }
 
 bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
     filesSpec {
-        from 'build/libs'
-        into '/'
+        from "build/libs"
+        into "/"
     }
     pkg {
-        repo = 'android-libraries'
-        name = 'com.basgeekball.awesomevalidation'
-        licenses = ['MIT']
-        websiteUrl = 'https://github.com/thyrlian/AwesomeValidation'
-        issueTrackerUrl = 'https://github.com/thyrlian/AwesomeValidation/issues'
-        vcsUrl = 'https://github.com/thyrlian/AwesomeValidation.git'
-        labels = ['Android', 'UI', 'validation']
+        repo = "android-libraries"
+        name = "com.basgeekball.awesomevalidation"
+        licenses = ["MIT"]
+        websiteUrl = "https://github.com/thyrlian/AwesomeValidation"
+        issueTrackerUrl = "https://github.com/thyrlian/AwesomeValidation/issues"
+        vcsUrl = "https://github.com/thyrlian/AwesomeValidation.git"
+        labels = ["Android", "UI", "validation"]
         version {
             name = project.ext.versionName
             released  = new Date()
