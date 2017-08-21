@@ -70,4 +70,4 @@ configurations.all {
     }
 }
 
-apply from: "https://raw.githubusercontent.com/thyrlian/AwesomeValidation/master/publish.gradle"
+apply from: "$rootProject.projectDir/publish.gradle"
