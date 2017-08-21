@@ -46,7 +46,7 @@ android {
 ext {
     guavaVersion = "23.0-android"
     junitVersion = "4.12"
-    mockitoVersion = "2.0.2-beta"
+    mockitoVersion = "2.8.47"
     easymockVersion = "3.4"
     powermockVersion = "1.7.1"
 }
@@ -57,10 +57,10 @@ dependencies {
         exclude module: "jsr305"
     }
     testCompile "junit:junit:${junitVersion}"
-    testCompile "org.mockito:mockito-all:${mockitoVersion}"
+    testCompile "org.mockito:mockito-core:${mockitoVersion}"
     testCompile "org.easymock:easymock:${easymockVersion}"
     testCompile "org.powermock:powermock-module-junit4:${powermockVersion}"
-    testCompile "org.powermock:powermock-api-mockito:${powermockVersion}"
+    testCompile "org.powermock:powermock-api-mockito2:${powermockVersion}"
     testCompile "org.powermock:powermock-api-easymock:${powermockVersion}"
 }
 

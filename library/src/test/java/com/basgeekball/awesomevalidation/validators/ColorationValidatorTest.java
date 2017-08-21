@@ -1,5 +1,6 @@
 package com.basgeekball.awesomevalidation.validators;
 
+import android.graphics.Color;
 import android.text.SpannableStringBuilder;
 import android.widget.EditText;
 
@@ -10,13 +11,17 @@ import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 import junit.framework.TestCase;
 
 import org.junit.runner.RunWith;
+import org.mockito.internal.verification.VerificationModeFactory;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -35,6 +40,7 @@ public class ColorationValidatorTest extends TestCase {
         mSpiedColorationValidator = spy(ColorationValidator.class);
         mMockValidationHolder = mock(ValidationHolder.class);
         mSpiedColorationValidator.mValidationHolderList.add(mMockValidationHolder);
+        PowerMockito.mockStatic(SpanHelper.class);
     }
 
     public void testValidationCallbackExecute() {
@@ -47,19 +53,19 @@ public class ColorationValidatorTest extends TestCase {
         when(mMockValidationHolder.getErrMsg()).thenReturn(mockErrMsg);
         when(mockEditText.getText()).thenReturn(mockEditable);
         when(mockEditable.length()).thenReturn(PowerMockito.mock(Integer.class));
-        PowerMockito.mockStatic(SpanHelper.class);
         validationCallback.execute(mMockValidationHolder, mockMatcher);
         verify(mockEditText).setError(mockErrMsg);
-        PowerMockito.verifyStatic(SpanHelper.class);
+        PowerMockito.verifyStatic(SpanHelper.class, VerificationModeFactory.times(1));
+        SpanHelper.setColor(eq(mockEditText), eq(Color.RED), any(ArrayList.class));
     }
 
     public void testHalt() {
         EditText mockEditText = mock(EditText.class);
         when(mMockValidationHolder.getEditText()).thenReturn(mockEditText);
-        PowerMockito.mockStatic(SpanHelper.class);
         mSpiedColorationValidator.halt();
         verify(mockEditText).setError(null);
-        PowerMockito.verifyStatic(SpanHelper.class);
+        PowerMockito.verifyStatic(SpanHelper.class, VerificationModeFactory.times(1));
+        SpanHelper.reset(eq(mockEditText));
     }
 
 }

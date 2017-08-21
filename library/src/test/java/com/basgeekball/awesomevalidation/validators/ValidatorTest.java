@@ -419,6 +419,7 @@ public class ValidatorTest extends TestCase {
     }
 
     public void testCheckConfirmationTypeFieldFail() throws Exception {
+        mockPrivateMethods();
         ValidationHolder mockValidationHolder = generate(CONFIRMATION);
         String mockStringA = "aaa";
         String mockStringB = "bbb";
