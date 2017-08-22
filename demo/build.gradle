@@ -39,4 +39,5 @@ dependencies {
     androidTestCompile("com.android.support.test.espresso:espresso-core:2.2.2") {
         exclude module: "support-annotations"
     }
+    androidTestCompile fileTree(dir: "${project.projectDir}/../library/build/intermediates/jacoco", include: ["jacocoagent.jar"])
 }
