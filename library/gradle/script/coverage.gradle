@@ -1,0 +1,46 @@
+apply plugin: 'jacoco'
+
+project.afterEvaluate {
+    def buildTypes = android.buildTypes.collect { type -> type.name }
+    def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
+    if (!productFlavors) productFlavors.add('')
+    productFlavors.each { productFlavor ->
+        buildTypes.each { buildType ->
+            def buildVariantName, buildVariantPath, taskName
+            if (!productFlavor) {
+                buildVariantName = buildType.capitalize()
+                buildVariantPath = buildType
+            } else {
+                buildVariantName = "${productFlavor.capitalize()}${buildType.capitalize()}"
+                buildVariantPath = "${productFlavor}/${buildType}"
+            }
+            taskName = "test${buildVariantName}UnitTest"
+
+            task "${taskName}JacocoTestReport"(type: JacocoReport, dependsOn: taskName) {
+                group = "Reporting"
+                description = "Generates code coverage report for the test task ${taskName}."
+                sourceDirectories = files([
+                        "${project.projectDir}/src/main/java",
+                        "${project.projectDir}/src/${productFlavor}/java",
+                        "${project.projectDir}/src/${buildType}/java"
+                ])
+                classDirectories = files([fileTree(
+                        dir: "${project.buildDir}/intermediates/classes/${buildVariantPath}",
+                        excludes: ['android/**/*.*',
+                                   '**/BuildConfig.*',
+                                   '**/Manifest*.*',
+                                   '**/R.class',
+                                   '**/R$*.class',
+                                   '**/*Test*.*',
+                                   '**/*$ViewBinder*.*',
+                                   '**/*$ViewInjector*.*']
+                )])
+                executionData = files("${project.buildDir}/jacoco/${taskName}.exec")
+                reports {
+                    xml.enabled = true
+                    html.enabled = true
+                }
+            }
+        }
+    }
+}
