@@ -26,8 +26,11 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
-          name: Run Tests
-          command: ./gradlew check :demo:connectedAndroidTest
+          name: Run all checks
+          command: ./gradlew check
+      - run:
+          name: Run UI Tests
+          command: ./gradlew :demo:connectedAndroidTest
       - store_artifacts:
           path: library/build/reports
           destination: reports
