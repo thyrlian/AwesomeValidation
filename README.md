@@ -68,6 +68,8 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 });
 ```
 
+It works perfectly with **Fragment**, but please pay attention to Fragment's lifecycle.  You should set the `validate()` inside Fragment's `onActivityCreated` instead of `onCreateView` or any other early stage.
+
 ## Import as dependency
 For Gradle it's so easy: just add below compile line to your module's build.gradle (it's available on JCenter).
 ```java
