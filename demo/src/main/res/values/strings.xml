@@ -5,8 +5,9 @@
     <string name="edt_userid">User ID</string>
     <string name="edt_password">Password</string>
     <string name="edt_password_confirmation">Re-enter password</string>
-    <string name="edt_email">Email Address</string>
     <string name="edt_ip">IP Address</string>
+    <string name="edt_url">URL</string>
+    <string name="edt_email">Email Address</string>
     <string name="edt_tel">Telephone number</string>
     <string name="edt_zipcode">Zip Code</string>
     <string name="edt_firstname">First Name</string>
@@ -19,8 +20,9 @@
     <string name="err_password">The password should contain at least 8 characters, including at least one lower case letter, one upper case letter, one number and one punctuation mark</string>
     <string name="err_password_confirmation">Please re-enter the password</string>
     <string name="err_name">Human name please</string>
-    <string name="err_email">Email address please</string>
     <string name="err_ip">IP address please</string>
+    <string name="err_url">URL please</string>
+    <string name="err_email">Email address please</string>
     <string name="err_tel">Telephone Number please</string>
     <string name="err_zipcode">Number only</string>
     <string name="err_year">Year must be between 1900 and this year</string>
