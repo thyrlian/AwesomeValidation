@@ -1,18 +1,23 @@
 node('android') {
-    stage 'Checkout'
-    checkout scm
+    stage('Checkout') {
+        checkout scm
+    }
 
-    stage 'Clean'
-    sh "./gradlew clean"
+    stage('Clean') {
+        sh "./gradlew clean"
+    }
 
-    stage 'Static Analysis'
-    checkLintAndPublishResults()
+    stage('Static Analysis') {
+        checkLintAndPublishResults()
+    }
 
-    stage 'Unit Test'
-    runUnitTestAndPublishResults()
+    stage('Unit Test') {
+        runUnitTestAndPublishResults()
+    }
 
-    stage 'Assemble'
-    generateAndArchiveAPK()
+    stage('Assemble') {
+        generateAndArchiveAPK()
+    }
 }
 
 def checkLintAndPublishResults() {
