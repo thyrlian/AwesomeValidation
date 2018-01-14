@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -109,16 +110,18 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <android.support.constraint.ConstraintLayout
                         android:id="@+id/container_text_input_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_email"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
@@ -130,8 +133,13 @@
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_password"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/til_email"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/til_password_confirmation"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            app:layout_constraintHorizontal_weight="1">
 
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
@@ -144,8 +152,12 @@
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_password_confirmation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="@+id/til_password"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/til_password"
+                            app:layout_constraintHorizontal_weight="1">
 
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
@@ -159,7 +171,10 @@
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_year"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/til_password"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:layout_width="match_parent"
@@ -169,7 +184,7 @@
 
                         </android.support.design.widget.TextInputLayout>
 
-                    </LinearLayout>
+                    </android.support.constraint.ConstraintLayout>
 
                 </LinearLayout>
 

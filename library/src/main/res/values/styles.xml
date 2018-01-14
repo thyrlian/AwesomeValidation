@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="AwesomeValidation.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
+</resources>

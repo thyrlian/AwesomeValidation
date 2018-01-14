@@ -55,6 +55,7 @@ ext {
 
 dependencies {
     compile "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
+    compile "com.android.support.constraint:constraint-layout:1.0.2"
     compile("com.google.guava:guava:${guavaVersion}") {
         exclude module: "jsr305"
     }

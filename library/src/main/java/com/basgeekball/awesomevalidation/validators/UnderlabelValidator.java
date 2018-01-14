@@ -2,6 +2,7 @@ package com.basgeekball.awesomevalidation.validators;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.exception.UnsupportedLayoutException;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 import com.basgeekball.awesomevalidation.utility.ViewsInfo;
 
@@ -68,6 +70,9 @@ public class UnderlabelValidator extends Validator {
     private TextView replaceView(ValidationHolder validationHolder) {
         EditText editText = validationHolder.getEditText();
         ViewGroup parent = (ViewGroup) editText.getParent();
+        if (parent instanceof ConstraintLayout) {
+            throw new UnsupportedLayoutException("UnderlabelValidator doesn't support ConstraintLayout, please use TextInputLayoutValidator or other any other validator.");
+        }
         int index = parent.indexOfChild(editText);
         LinearLayout newContainer = new LinearLayout(mContext);
         newContainer.setLayoutParams(editText.getLayoutParams());

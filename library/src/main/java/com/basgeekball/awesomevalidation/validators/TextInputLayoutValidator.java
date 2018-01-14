@@ -2,6 +2,7 @@ package com.basgeekball.awesomevalidation.validators;
 
 import android.support.design.widget.TextInputLayout;
 
+import com.basgeekball.awesomevalidation.R;
 import com.basgeekball.awesomevalidation.ValidationHolder;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 
@@ -13,6 +14,7 @@ public class TextInputLayoutValidator extends Validator {
         @Override
         public void execute(ValidationHolder validationHolder, Matcher matcher) {
             TextInputLayout textInputLayout = validationHolder.getTextInputLayout();
+            textInputLayout.setErrorTextAppearance(R.style.AwesomeValidation_TextInputLayout);
             textInputLayout.setErrorEnabled(true);
             textInputLayout.setError(validationHolder.getErrMsg());
         }
