@@ -61,11 +61,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
-                        <fragment
-                            android:name="com.basgeekball.awesomevalidation.demo.ConstraintFragment"
-                            android:id="@+id/constraint_fragment"
+                        <EditText
+                            android:id="@+id/edt_email"
+                            android:inputType="textEmailAddress"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:hint="@string/edt_email"/>
+
+                        <EditText
+                            android:id="@+id/edt_ip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:hint="@string/edt_ip"/>
 
                         <EditText
                             android:id="@+id/edt_tel"
