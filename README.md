@@ -68,7 +68,11 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-It works perfectly with **Fragment**, but please pay attention to Fragment's lifecycle.  You should set the `validate()` inside Fragment's `onActivityCreated` instead of `onCreateView` or any other early stage.
+## Attention
+
+* It works perfectly with **Fragment**, but please pay attention to Fragment's lifecycle.  You should set the `validate()` inside Fragment's `onActivityCreated` instead of `onCreateView` or any other early stage.
+
+* `UNDERLABEL` validation style doesn't support `ConstraintLayout` at the moment, please use other validation styles.  There is an open issue [here](https://github.com/thyrlian/AwesomeValidation/issues/33).
 
 ## Import as dependency
 For Gradle it's so easy: just add below compile line to your module's build.gradle (it's available on JCenter).
