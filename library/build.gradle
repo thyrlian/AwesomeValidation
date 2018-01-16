@@ -46,25 +46,25 @@ android {
 }
 
 ext {
-    guavaVersion = "23.0-android"
+    guavaVersion = "23.6-android"
     junitVersion = "4.12"
-    mockitoVersion = "2.8.47"
-    easymockVersion = "3.4"
-    powermockVersion = "1.7.1"
+    mockitoVersion = "2.9.0"
+    easymockVersion = "3.5.1"
+    powermockVersion = "1.7.3"
 }
 
 dependencies {
-    compile "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
-    compile "com.android.support.constraint:constraint-layout:1.0.2"
-    compile("com.google.guava:guava:${guavaVersion}") {
+    implementation "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
+    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+    api("com.google.guava:guava:${guavaVersion}") {
         exclude module: "jsr305"
     }
-    testCompile "junit:junit:${junitVersion}"
-    testCompile "org.mockito:mockito-core:${mockitoVersion}"
-    testCompile "org.easymock:easymock:${easymockVersion}"
-    testCompile "org.powermock:powermock-module-junit4:${powermockVersion}"
-    testCompile "org.powermock:powermock-api-mockito2:${powermockVersion}"
-    testCompile "org.powermock:powermock-api-easymock:${powermockVersion}"
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.easymock:easymock:${easymockVersion}"
+    testImplementation "org.powermock:powermock-module-junit4:${powermockVersion}"
+    testImplementation "org.powermock:powermock-api-mockito2:${powermockVersion}"
+    testImplementation "org.powermock:powermock-api-easymock:${powermockVersion}"
 }
 
 configurations.all {
