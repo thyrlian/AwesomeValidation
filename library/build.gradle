@@ -48,9 +48,9 @@ android {
 ext {
     guavaVersion = "23.6-android"
     junitVersion = "4.12"
-    mockitoVersion = "2.9.0"
+    mockitoVersion = "2.13.0"
     easymockVersion = "3.5.1"
-    powermockVersion = "1.7.3"
+    powermockVersion = "2.0.0-beta.5"
 }
 
 dependencies {

@@ -12,14 +12,14 @@ import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 import junit.framework.TestCase;
 
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.api.mockito.expectation.PowerMockitoStubber;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,40 +73,33 @@ public class ValidatorTest extends TestCase {
         }
     }
 
-    private void mockCheckSomeCertainTypeField(String methodName, List<Boolean> returnValues) {
+    private void mockCheckSomeCertainTypeField(String methodName, Boolean... returnValues) {
         try {
-            PowerMockitoStubber stubber = PowerMockito.doReturn(returnValues.get(0));
-            for (int i = 1; i < returnValues.size(); i++) {
-                stubber = (PowerMockitoStubber) stubber.doReturn(returnValues.get(i));
-            }
-            stubber.when(mSpiedValidator, methodName, any(ValidationHolder.class), any(ValidationCallback.class));
+            ArrayList<Boolean> booleans = new ArrayList<>(Arrays.asList(returnValues));
+            Boolean firstBoolean = booleans.remove(0);
+            Boolean[] otherBooleans = booleans.toArray(new Boolean[booleans.size()]);
+            // WORKAROUND: pass firstBoolean, otherBooleans instead of single returnValues
+            // otherwise it would cause problem with varargs for doReturn(...)
+            // org.mockito.exceptions.misusing.WrongTypeOfReturnValue:
+            // Boolean[] cannot be returned by checkXxxTypeField()
+            // checkXxxTypeField() should return boolean
+            PowerMockito.doReturn(firstBoolean, otherBooleans)
+                    .when(mSpiedValidator, methodName, ArgumentMatchers.any(ValidationHolder.class), ArgumentMatchers.any(ValidationCallback.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void mockCheckRegexTypeField(List<Boolean> returnValues) {
+    private void mockCheckRegexTypeField(Boolean... returnValues) {
         mockCheckSomeCertainTypeField("checkRegexTypeField", returnValues);
     }
 
-    private void mockCheckRangeTypeField(List<Boolean> returnValues) {
+    private void mockCheckRangeTypeField(Boolean... returnValues) {
         mockCheckSomeCertainTypeField("checkRangeTypeField", returnValues);
     }
 
-    private void mockCheckConfirmationTypeField(List<Boolean> returnValues) {
+    private void mockCheckConfirmationTypeField(Boolean... returnValues) {
         mockCheckSomeCertainTypeField("checkConfirmationTypeField", returnValues);
-    }
-
-    private void mockCheckRegexTypeField(boolean returnValue) {
-        mockCheckRegexTypeField(Arrays.asList(returnValue));
-    }
-
-    private void mockCheckRangeTypeField(boolean returnValue) {
-        mockCheckRangeTypeField(Arrays.asList(returnValue));
-    }
-
-    private void mockCheckConfirmationTypeField(boolean returnValue) {
-        mockCheckConfirmationTypeField(Arrays.asList(returnValue));
     }
 
     public void testValidator() {
@@ -265,9 +258,9 @@ public class ValidatorTest extends TestCase {
 
     public void testCheckFieldsPassWithManyDifferentValidationHolders() {
         mockPrivateMethods();
-        mockCheckRegexTypeField(Arrays.asList(true, true));
-        mockCheckRangeTypeField(Arrays.asList(true, true));
-        mockCheckConfirmationTypeField(Arrays.asList(true, true));
+        mockCheckRegexTypeField(true, true);
+        mockCheckRangeTypeField(true, true);
+        mockCheckConfirmationTypeField(true, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
@@ -281,9 +274,9 @@ public class ValidatorTest extends TestCase {
 
     public void testCheckFieldsFailDueToOneRegexFromManyDifferentValidationHolders() {
         mockPrivateMethods();
-        mockCheckRegexTypeField(Arrays.asList(true, false, true));
-        mockCheckRangeTypeField(Arrays.asList(true, true, true));
-        mockCheckConfirmationTypeField(Arrays.asList(true, true, true));
+        mockCheckRegexTypeField(true, false, true);
+        mockCheckRangeTypeField(true, true, true);
+        mockCheckConfirmationTypeField(true, true, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
@@ -300,9 +293,9 @@ public class ValidatorTest extends TestCase {
 
     public void testCheckFieldsFailDueToOneRangeFromManyDifferentValidationHolders() {
         mockPrivateMethods();
-        mockCheckRegexTypeField(Arrays.asList(true, true, true));
-        mockCheckRangeTypeField(Arrays.asList(true, false, true));
-        mockCheckConfirmationTypeField(Arrays.asList(true, true, true));
+        mockCheckRegexTypeField(true, true, true);
+        mockCheckRangeTypeField(true, false, true);
+        mockCheckConfirmationTypeField(true, true, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
@@ -319,9 +312,9 @@ public class ValidatorTest extends TestCase {
 
     public void testCheckFieldsFailDueToOneConfirmationFromManyDifferentValidationHolders() {
         mockPrivateMethods();
-        mockCheckRegexTypeField(Arrays.asList(true, true, true));
-        mockCheckRangeTypeField(Arrays.asList(true, true, true));
-        mockCheckConfirmationTypeField(Arrays.asList(true, false, true));
+        mockCheckRegexTypeField(true, true, true);
+        mockCheckRangeTypeField(true, true, true);
+        mockCheckConfirmationTypeField(true, false, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
