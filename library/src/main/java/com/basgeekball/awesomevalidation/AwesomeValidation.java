@@ -74,6 +74,16 @@ public class AwesomeValidation {
         ((ColorationValidator) mValidator).setColor(color);
     }
 
+    public void setUnderlabelColor(int colorValue) {
+        checkIsUnderlabelValidator();
+        ((UnderlabelValidator) mValidator).setColor(colorValue);
+    }
+
+    public void setUnderlabelColorByResource(int colorResId) {
+        checkIsUnderlabelValidator();
+        ((UnderlabelValidator) mValidator).setColorByResource(colorResId);
+    }
+
     public void setContext(Context context) {
         checkIsUnderlabelValidator();
         ((UnderlabelValidator) mValidator).setContext(context);

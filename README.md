@@ -27,6 +27,9 @@ mAwesomeValidation.setColor(Color.YELLOW);  // optional, default color is RED if
 // or
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(UNDERLABEL);
 mAwesomeValidation.setContext(this);  // mandatory for UNDERLABEL style
+// setUnderlabelColor is optional for UNDERLABEL style, by default it's holo_red_light
+mAwesomeValidation.setUnderlabelColorByResource(android.R.color.holo_orange_light); // optional for UNDERLABEL style
+mAwesomeValidation.setUnderlabelColor(ContextCompat.getColor(this, android.R.color.holo_orange_dark)); // optional for UNDERLABEL style
 // or
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
 

@@ -45,13 +45,25 @@ public class UnderlabelValidator extends Validator {
 
     public void setContext(Context context) {
         mContext = context;
+        setColorByResource(android.R.color.holo_red_light);
         init();
+    }
+
+    public void setColor(int colorValue) {
+        mColor = colorValue;
+    }
+
+    public void setColorByResource(int colorResId) {
+        if (mContext == null) {
+            throw new RuntimeException("Context should be set before setting color for Underlabel style.");
+        } else {
+            mColor = ContextCompat.getColor(mContext, colorResId);
+        }
     }
 
     @Override
     public boolean trigger() {
         halt();
-        mColor = ContextCompat.getColor(mContext, android.R.color.holo_red_light);
         return checkFields(mValidationCallback);
     }
 
