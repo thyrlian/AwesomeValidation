@@ -423,6 +423,36 @@ public class ValidatorTest extends TestCase {
         verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, null);
     }
 
+    public void testCheckFieldsPassWithValidInvisibleField() {
+        mockPrivateMethods();
+        mockCheckRegexTypeField(true);
+        mSpiedValidator.mValidationHolderList.add(generate(REGEX, false));
+        assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsPassWithInValidInvisibleField() {
+        mockPrivateMethods();
+        mockCheckRegexTypeField(false);
+        mSpiedValidator.mValidationHolderList.add(generate(REGEX, false));
+        assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsPassWithMultipleValidAndInValidInvisibleFields() {
+        mockPrivateMethods();
+        mockCheckRegexTypeField(false, true);
+        mockCheckRangeTypeField(true, false);
+        mockCheckConfirmationTypeField(false, true);
+        mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
+                generate(REGEX, false),
+                generate(RANGE, false),
+                generate(CONFIRMATION, false),
+                generate(REGEX, false),
+                generate(RANGE, false),
+                generate(CONFIRMATION, false)
+        ));
+        assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
     public void testExecuteCallback() throws Exception {
         ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
         ValidationCallback mockValidationCallback = mock(ValidationCallback.class);

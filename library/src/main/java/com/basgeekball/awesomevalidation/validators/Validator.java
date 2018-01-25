@@ -109,12 +109,14 @@ public abstract class Validator {
         boolean result = true;
         mHasFailed = false;
         for (ValidationHolder validationHolder : mValidationHolderList) {
-            if (validationHolder.isRegexType()) {
-                result = checkRegexTypeField(validationHolder, callback) && result;
-            } else if (validationHolder.isRangeType()) {
-                result = checkRangeTypeField(validationHolder, callback) && result;
-            } else if (validationHolder.isConfirmationType()) {
-                result = checkConfirmationTypeField(validationHolder, callback) && result;
+            if (validationHolder.isVisible()) {
+                if (validationHolder.isRegexType()) {
+                    result = checkRegexTypeField(validationHolder, callback) && result;
+                } else if (validationHolder.isRangeType()) {
+                    result = checkRangeTypeField(validationHolder, callback) && result;
+                } else if (validationHolder.isConfirmationType()) {
+                    result = checkConfirmationTypeField(validationHolder, callback) && result;
+                }
             }
         }
         return result;

@@ -17,7 +17,7 @@ public class MockValidationHolderHelper {
         throw new UnsupportedOperationException();
     }
 
-    public static ValidationHolder generate(ValidationHolderType type) {
+    public static ValidationHolder generate(ValidationHolderType type, boolean visibility) {
         ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
         if (type == ValidationHolderType.REGEX) {
             when(mockValidationHolder.isRegexType()).thenReturn(true);
@@ -32,7 +32,12 @@ public class MockValidationHolderHelper {
             when(mockValidationHolder.isRangeType()).thenReturn(false);
             when(mockValidationHolder.isConfirmationType()).thenReturn(true);
         }
+        when(mockValidationHolder.isVisible()).thenReturn(visibility);
         return mockValidationHolder;
+    }
+
+    public static ValidationHolder generate(ValidationHolderType type) {
+        return generate(type, true);
     }
 
 }

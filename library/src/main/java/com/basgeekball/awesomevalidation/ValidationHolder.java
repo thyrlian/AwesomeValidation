@@ -1,6 +1,7 @@
 package com.basgeekball.awesomevalidation;
 
 import android.support.design.widget.TextInputLayout;
+import android.view.View;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.exception.BadLayoutException;
@@ -130,6 +131,10 @@ public class ValidationHolder {
         } else {
             return null;
         }
+    }
+
+    public boolean isVisible() {
+        return ((isEditTextStyle() && getEditText().getVisibility() == View.VISIBLE) || (isTextInputLayoutStyle() && getTextInputLayout().getVisibility() == View.VISIBLE));
     }
 
 }
