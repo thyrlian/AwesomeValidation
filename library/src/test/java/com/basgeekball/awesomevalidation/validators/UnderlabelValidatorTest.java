@@ -3,6 +3,7 @@ package com.basgeekball.awesomevalidation.validators;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,6 +27,7 @@ import org.powermock.reflect.Whitebox;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
@@ -35,12 +37,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({UnderlabelValidator.class, AnimationUtils.class})
+@PrepareForTest({UnderlabelValidator.class, AnimationUtils.class, ContextCompat.class})
 public class UnderlabelValidatorTest extends TestCase {
 
     private UnderlabelValidator mSpiedUnderlabelValidator;
     private ValidationHolder mMockValidationHolder;
     private Context mMockContext;
+    private int mColor = 256;
 
     @Override
     protected void setUp() throws Exception {
@@ -49,6 +52,8 @@ public class UnderlabelValidatorTest extends TestCase {
         mMockValidationHolder = mock(ValidationHolder.class, RETURNS_DEEP_STUBS);
         mSpiedUnderlabelValidator.mValidationHolderList.add(mMockValidationHolder);
         mMockContext = mock(Context.class);
+        PowerMockito.mockStatic(ContextCompat.class);
+        PowerMockito.when(ContextCompat.getColor(eq(mMockContext), anyInt())).thenReturn(mColor);
         mSpiedUnderlabelValidator.setContext(mMockContext);
     }
 

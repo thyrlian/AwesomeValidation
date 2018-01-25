@@ -3,6 +3,7 @@ package com.basgeekball.awesomevalidation;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.model.NumericRange;
@@ -24,6 +25,8 @@ import org.powermock.reflect.Whitebox;
 
 import java.util.regex.Pattern;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.RETURNS_MOCKS;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -33,7 +36,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({AwesomeValidation.class, Range.class})
+@PrepareForTest({AwesomeValidation.class, Range.class, ContextCompat.class})
 public class AwesomeValidationTest extends TestCase {
 
     private BasicValidator mSpiedBasicValidator;
@@ -118,6 +121,8 @@ public class AwesomeValidationTest extends TestCase {
     }
 
     public void testSetContextForUnderlabelStyle() throws Exception {
+        PowerMockito.mockStatic(ContextCompat.class);
+        PowerMockito.when(ContextCompat.getColor(eq(mMockContext), anyInt())).thenReturn(mColor);
         mSpiedAwesomeValidationUnderlabelStyle.setContext(mMockContext);
         verify(mSpiedUnderlabelValidator, times(1)).setContext(mMockContext);
     }
