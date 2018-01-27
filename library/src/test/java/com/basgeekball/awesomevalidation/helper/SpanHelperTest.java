@@ -3,6 +3,7 @@ package com.basgeekball.awesomevalidation.helper;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.support.v4.util.Pair;
 import android.widget.EditText;
 
 import junit.framework.TestCase;
@@ -43,8 +44,8 @@ public class SpanHelperTest extends TestCase {
     }
 
     public void testSetColor() throws Exception {
-        ArrayList<int[]> ranges = new ArrayList<>();
-        ranges.addAll(Arrays.asList(new int[]{1, 3}, new int[]{6, 9}, new int[]{48, 50}));
+        ArrayList<Pair<Integer, Integer>> ranges = new ArrayList<>();
+        ranges.addAll(Arrays.asList(Pair.create(1, 3), Pair.create(6, 9), Pair.create(48, 50)));
         SpanHelper.setColor(mMockEditText, mColor, ranges);
 //        verify(mMockSpannableString, times(1)).setSpan(mMockBackgroundColorSpan, 1, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 //        verify(mMockSpannableString, times(1)).setSpan(mMockBackgroundColorSpan, 6, 10, Spannable.SPAN_INCLUSIVE_INCLUSIVE);

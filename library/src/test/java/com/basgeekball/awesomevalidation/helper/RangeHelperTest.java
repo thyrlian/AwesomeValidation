@@ -1,5 +1,7 @@
 package com.basgeekball.awesomevalidation.helper;
 
+import android.support.v4.util.Pair;
+
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -7,88 +9,81 @@ import java.util.Arrays;
 
 public class RangeHelperTest extends TestCase {
 
-    private ArrayList<int[]> expected;
-    private ArrayList<int[]> ranges;
+    private ArrayList<Pair<Integer, Integer>> expected;
+    private ArrayList<Pair<Integer, Integer>> ranges;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        expected = new ArrayList<int[]>();
-        ranges = new ArrayList<int[]>();
+        expected = new ArrayList<>();
+        ranges = new ArrayList<>();
     }
 
     public void testInverse1() {
-        expected.add(new int[]{0, 3});
-        expected.add(new int[]{6, 9});
-        ranges.add(new int[]{4, 5});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        expected.add(Pair.create(0, 3));
+        expected.add(Pair.create(6, 9));
+        ranges.add(Pair.create(4, 5));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
     public void testInverse2() {
-        expected.add(new int[]{0, 0});
-        expected.add(new int[]{9, 9});
-        ranges.add(new int[]{1, 8});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        expected.add(Pair.create(0, 0));
+        expected.add(Pair.create(9, 9));
+        ranges.add(Pair.create(1, 8));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
     public void testInverse3() {
-        expected.add(new int[]{0, 1});
-        expected.add(new int[]{4, 5});
-        expected.add(new int[]{8, 9});
-        ranges.add(new int[]{2, 3});
-        ranges.add(new int[]{6, 7});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        expected.add(Pair.create(0, 1));
+        expected.add(Pair.create(4, 5));
+        expected.add(Pair.create(8, 9));
+        ranges.add(Pair.create(2, 3));
+        ranges.add(Pair.create(6, 7));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
     public void testInverse4() {
-        expected.add(new int[]{0, 1});
-        expected.add(new int[]{6, 6});
-        ranges.add(new int[]{2, 5});
-        ranges.add(new int[]{7, 9});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        expected.add(Pair.create(0, 1));
+        expected.add(Pair.create(6, 6));
+        ranges.add(Pair.create(2, 5));
+        ranges.add(Pair.create(7, 9));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
     public void testInverse5() {
-        ranges.add(new int[]{0, 9});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        ranges.add(Pair.create(0, 9));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
     public void testInverse6() {
-        expected.add(new int[]{0, 9});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        expected.add(Pair.create(0, 9));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
     public void testInverse7() {
-        expected.add(new int[]{0, 3});
-        ranges.add(new int[]{4, 9});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        expected.add(Pair.create(0, 3));
+        ranges.add(Pair.create(4, 9));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
     public void testInverse8() {
-        expected.add(new int[]{7, 9});
-        ranges.add(new int[]{0, 6});
-        ArrayList<int[]> actual = RangeHelper.inverse(ranges, 10);
+        expected.add(Pair.create(7, 9));
+        ranges.add(Pair.create(0, 6));
+        ArrayList<Pair<Integer, Integer>> actual = RangeHelper.inverse(ranges, 10);
         assertTrue(compareRanges(expected, actual));
     }
 
-    private boolean compareRanges(ArrayList<int[]> ranges1, ArrayList<int[]> ranges2) {
-        for (int[] range1 : ranges1) {
-            boolean equality = false;
-            for (int[] range2 : ranges2) {
-                if (Arrays.equals(range1, range2)) {
-                    equality = true;
-                }
-            }
-            if (!equality) {
-                return false;
-            }
+    private boolean compareRanges(ArrayList<Pair<Integer, Integer>> ranges1, ArrayList<Pair<Integer, Integer>> ranges2) {
+        if (ranges1.size() != ranges2.size()) return false;
+        for (int i = 0; i < ranges1.size(); i++) {
+            if (!ranges1.get(i).equals(ranges2.get(i))) return false;
         }
         return true;
     }

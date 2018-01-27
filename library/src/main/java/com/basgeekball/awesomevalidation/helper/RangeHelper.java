@@ -1,5 +1,7 @@
 package com.basgeekball.awesomevalidation.helper;
 
+import android.support.v4.util.Pair;
+
 import java.util.ArrayList;
 
 public class RangeHelper {
@@ -8,26 +10,26 @@ public class RangeHelper {
         throw new UnsupportedOperationException();
     }
 
-    public static ArrayList<int[]> inverse(ArrayList<int[]> ranges, int lengthOfText) {
-        ArrayList<int[]> inverseRanges = new ArrayList<>();
+    public static ArrayList<Pair<Integer, Integer>> inverse(ArrayList<Pair<Integer, Integer>> ranges, int lengthOfText) {
+        ArrayList<Pair<Integer, Integer>> inverseRanges = new ArrayList<>();
         if (ranges.size() == 0) {
             if (lengthOfText == 0) {
                 return inverseRanges;
             } else {
-                inverseRanges.add(new int[]{0, lengthOfText - 1});
+                inverseRanges.add(Pair.create(0, lengthOfText - 1));
                 return inverseRanges;
             }
         }
         for (int i = 0; i <= ranges.size(); i++) {
             if (i == 0) {
-                if (ranges.get(i)[0] > 0) {
-                    inverseRanges.add(new int[]{0, ranges.get(i)[0] - 1});
+                if (ranges.get(i).first > 0) {
+                    inverseRanges.add(Pair.create(0, ranges.get(i).first - 1));
                 }
             } else if (i < ranges.size()) {
-                inverseRanges.add(new int[]{ranges.get(i - 1)[1] + 1, ranges.get(i)[0] - 1});
+                inverseRanges.add(Pair.create(ranges.get(i - 1).second + 1, ranges.get(i).first - 1));
             } else {
-                if (ranges.get(i - 1)[1] < lengthOfText - 1) {
-                    inverseRanges.add(new int[]{ranges.get(i - 1)[1] + 1, lengthOfText - 1});
+                if (ranges.get(i - 1).second < lengthOfText - 1) {
+                    inverseRanges.add(Pair.create(ranges.get(i - 1).second + 1, lengthOfText - 1));
                 }
             }
         }

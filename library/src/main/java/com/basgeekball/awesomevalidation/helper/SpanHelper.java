@@ -3,6 +3,7 @@ package com.basgeekball.awesomevalidation.helper;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.support.v4.util.Pair;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -15,11 +16,11 @@ public class SpanHelper {
         throw new UnsupportedOperationException();
     }
 
-    public static void setColor(EditText editText, int color, ArrayList<int[]> ranges) {
+    public static void setColor(EditText editText, int color, ArrayList<Pair<Integer, Integer>> ranges) {
         String text = editText.getText().toString();
         SpannableString spanText = new SpannableString(text);
-        for (int[] range : ranges) {
-            spanText.setSpan(new BackgroundColorSpan(color), range[0], range[1] + 1, SPAN_INCLUSIVE_INCLUSIVE);
+        for (Pair<Integer, Integer> range : ranges) {
+            spanText.setSpan(new BackgroundColorSpan(color), range.first, range.second + 1, SPAN_INCLUSIVE_INCLUSIVE);
         }
         editText.setText(spanText);
     }

@@ -1,6 +1,7 @@
 package com.basgeekball.awesomevalidation.validators;
 
 import android.graphics.Color;
+import android.support.v4.util.Pair;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
@@ -22,14 +23,14 @@ public class ColorationValidator extends Validator {
     private ValidationCallback mValidationCallback = new ValidationCallback() {
         @Override
         public void execute(ValidationHolder validationHolder, Matcher matcher) {
-            ArrayList<int[]> listOfMatching = new ArrayList<>();
+            ArrayList<Pair<Integer, Integer>> listOfMatching = new ArrayList<>();
             if (matcher != null) {
                 while (matcher.find()) {
-                    listOfMatching.add(new int[]{matcher.start(), matcher.end() - 1});
+                    listOfMatching.add(Pair.create(matcher.start(), matcher.end() - 1));
                 }
             }
             EditText editText = validationHolder.getEditText();
-            ArrayList<int[]> listOfNotMatching = RangeHelper.inverse(listOfMatching, editText.getText().length());
+            ArrayList<Pair<Integer, Integer>> listOfNotMatching = RangeHelper.inverse(listOfMatching, editText.getText().length());
             SpanHelper.setColor(editText, mColor, listOfNotMatching);
             editText.setError(validationHolder.getErrMsg());
         }
