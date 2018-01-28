@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -26,8 +27,9 @@ import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.common.collect.Range;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.regex.Pattern;
+import java.util.Locale;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 import static com.basgeekball.awesomevalidation.ValidationStyle.COLORATION;
@@ -97,7 +99,7 @@ public class DemoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawers();
             return;
         }
@@ -105,30 +107,6 @@ public class DemoActivity extends AppCompatActivity {
             mDrawerItemClickListener.selectItem(0);
         } else {
             super.onBackPressed();
-        }
-    }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-
-        private void selectItem(int position) {
-            mDrawerList.setItemChecked(position, true);
-            mPosition = position;
-            String style = mStyles[mPosition];
-            setTitle(style);
-            mDrawerLayout.closeDrawer(mDrawerList);
-            mViewContainerEditText.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.VISIBLE : View.GONE);
-            mViewContainerTextInputLayout.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.GONE : View.VISIBLE);
-            clearValidation();
-            initValidation(style);
-            if (position < TEXT_INPUT_LAYOUT.value()) {
-                addValidationForEditText(DemoActivity.this);
-            } else if (position == TEXT_INPUT_LAYOUT.value()) {
-                addValidationForTextInputLayout(DemoActivity.this);
-            }
         }
     }
 
@@ -159,7 +137,7 @@ public class DemoActivity extends AppCompatActivity {
     }
 
     private void addValidationForEditText(Activity activity) {
-        //        mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
+        mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
         mAwesomeValidation.addValidation(activity, R.id.edt_userid, new CustomValidation() {
             @Override
             public boolean compare(String input) {
@@ -177,6 +155,24 @@ public class DemoActivity extends AppCompatActivity {
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
         mAwesomeValidation.addValidation(activity, R.id.edt_year, Range.closed(1900, Calendar.getInstance().get(Calendar.YEAR)), R.string.err_year);
         mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2.72f), R.string.err_height);
+        mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation() {
+            @Override
+            public boolean compare(String input) {
+                try {
+                    new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
+                    return true;
+                } catch (Exception e) {
+                }
+                return false;
+            }
+        }, R.string.err_birth);
+
+        mAwesomeValidation.addValidation((EditText) activity.findViewById(R.id.edt_birth), "Eror", new CustomValidation() {
+            @Override
+            public boolean compare(String input) {
+                return false;
+            }
+        });
         setValidationButtons();
     }
 
@@ -210,6 +206,30 @@ public class DemoActivity extends AppCompatActivity {
                 mViewSuccess.setVisibility(View.GONE);
             }
         });
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+
+        private void selectItem(int position) {
+            mDrawerList.setItemChecked(position, true);
+            mPosition = position;
+            String style = mStyles[mPosition];
+            setTitle(style);
+            mDrawerLayout.closeDrawer(mDrawerList);
+            mViewContainerEditText.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.VISIBLE : View.GONE);
+            mViewContainerTextInputLayout.setVisibility(position < TEXT_INPUT_LAYOUT.value() ? View.GONE : View.VISIBLE);
+            clearValidation();
+            initValidation(style);
+            if (position < TEXT_INPUT_LAYOUT.value()) {
+                addValidationForEditText(DemoActivity.this);
+            } else if (position == TEXT_INPUT_LAYOUT.value()) {
+                addValidationForTextInputLayout(DemoActivity.this);
+            }
+        }
     }
 
 }
