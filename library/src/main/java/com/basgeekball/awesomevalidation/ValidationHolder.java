@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.exception.BadLayoutException;
+import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 
 import java.util.regex.Pattern;
@@ -18,6 +19,8 @@ public class ValidationHolder {
     private Pattern mPattern;
     private NumericRange mNumericRange;
     private String mErrMsg;
+    private CustomValidation mCustomValidation;
+
 
     public ValidationHolder(EditText editText, Pattern pattern, String errMsg) {
         mEditText = editText;
@@ -34,6 +37,12 @@ public class ValidationHolder {
     public ValidationHolder(EditText confirmationEditText, EditText editText, String errMsg) {
         mConfirmationEditText = confirmationEditText;
         mEditText = editText;
+        mErrMsg = errMsg;
+    }
+
+    public ValidationHolder(EditText editText, CustomValidation customValidation, String errMsg) {
+        mEditText = editText;
+        mCustomValidation = customValidation;
         mErrMsg = errMsg;
     }
 
@@ -55,6 +64,12 @@ public class ValidationHolder {
         mErrMsg = errMsg;
     }
 
+    public ValidationHolder(TextInputLayout textInputLayout, CustomValidation customValidation, String errMsg) {
+        mTextInputLayout = textInputLayout;
+        mCustomValidation = customValidation;
+        mErrMsg = errMsg;
+    }
+
     public boolean isRegexType() {
         return mPattern != null;
     }
@@ -65,6 +80,10 @@ public class ValidationHolder {
 
     public boolean isConfirmationType() {
         return mConfirmationEditText != null || mConfirmationTextInputLayout != null;
+    }
+
+    public boolean isCustomType() {
+        return mCustomValidation != null;
     }
 
     public boolean isEditTextStyle() {
@@ -81,6 +100,10 @@ public class ValidationHolder {
 
     public NumericRange getNumericRange() {
         return mNumericRange;
+    }
+
+    public CustomValidation getCustomValidation() {
+        return mCustomValidation;
     }
 
     public String getErrMsg() {

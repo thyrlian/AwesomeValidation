@@ -22,10 +22,12 @@ import android.widget.ScrollView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.common.collect.Range;
 
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 import static com.basgeekball.awesomevalidation.ValidationStyle.COLORATION;
@@ -157,7 +159,14 @@ public class DemoActivity extends AppCompatActivity {
     }
 
     private void addValidationForEditText(Activity activity) {
-        mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
+        //        mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
+        mAwesomeValidation.addValidation(activity, R.id.edt_userid, new CustomValidation() {
+            @Override
+            public boolean compare(String input) {
+                String regex = "[a-zA-Z0-9_-]+";
+                return input.matches(regex);
+            }
+        }, R.string.err_userid);
         mAwesomeValidation.addValidation(activity, R.id.edt_password, "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}", R.string.err_password);
         mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
         mAwesomeValidation.addValidation(activity, R.id.edt_firstname, "[a-zA-Z\\s]+", R.string.err_name);
