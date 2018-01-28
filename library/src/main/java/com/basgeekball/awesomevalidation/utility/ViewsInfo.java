@@ -10,6 +10,7 @@ public class ViewsInfo {
     private ViewGroup mParent;
     private LinearLayout mNewContainer;
     private EditText mEditText;
+    private boolean mIsOriginal = false;
 
     public ViewsInfo(int index, ViewGroup parent, LinearLayout newContainer, EditText editText) {
         mIndex = index;
@@ -19,11 +20,14 @@ public class ViewsInfo {
     }
 
     public void restoreViews() {
-        mEditText.getBackground().clearColorFilter();
-        mEditText.requestFocus();
-        mNewContainer.removeView(mEditText);
-        mParent.removeView(mNewContainer);
-        mParent.addView(mEditText, mIndex);
+        if (!mIsOriginal) {
+            mEditText.getBackground().clearColorFilter();
+            mEditText.requestFocus();
+            mNewContainer.removeView(mEditText);
+            mParent.removeView(mNewContainer);
+            mParent.addView(mEditText, mIndex);
+            mIsOriginal = true;
+        }
     }
 
     public int getIndex() {

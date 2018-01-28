@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -16,6 +18,8 @@ import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 import com.basgeekball.awesomevalidation.utility.ViewsInfo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 
 public class UnderlabelValidator extends Validator {
@@ -25,6 +29,7 @@ public class UnderlabelValidator extends Validator {
     private int mColor;
     private boolean mHasFailed = false;
     private ValidationCallback mValidationCallback;
+    private HashMap<EditText, TextWatcher> mTextWatcherForEditText = new HashMap<EditText, TextWatcher>();
 
     private void init() {
         mValidationCallback = new ValidationCallback() {
@@ -77,10 +82,13 @@ public class UnderlabelValidator extends Validator {
         }
         mViewsInfos.clear();
         mHasFailed = false;
+        for (Map.Entry<EditText, TextWatcher> entry : mTextWatcherForEditText.entrySet()) {
+            entry.getKey().removeTextChangedListener(entry.getValue());
+        }
     }
 
     private TextView replaceView(ValidationHolder validationHolder) {
-        EditText editText = validationHolder.getEditText();
+        final EditText editText = validationHolder.getEditText();
         ViewGroup parent = (ViewGroup) editText.getParent();
         if (parent instanceof ConstraintLayout) {
             throw new UnsupportedLayoutException("UnderlabelValidator doesn't support ConstraintLayout, please use TextInputLayoutValidator or other any other validator.");
@@ -98,7 +106,26 @@ public class UnderlabelValidator extends Validator {
         newContainer.addView(editText);
         newContainer.addView(textView);
         parent.addView(newContainer, index);
-        mViewsInfos.add(new ViewsInfo(index, parent, newContainer, editText));
+        final ViewsInfo viewsInfo = new ViewsInfo(index, parent, newContainer, editText);
+        mViewsInfos.add(viewsInfo);
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                viewsInfo.restoreViews();
+                editText.requestFocus();
+                editText.removeTextChangedListener(this);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
+        editText.addTextChangedListener(textWatcher);
+        mTextWatcherForEditText.put(editText, textWatcher);
         return textView;
     }
 

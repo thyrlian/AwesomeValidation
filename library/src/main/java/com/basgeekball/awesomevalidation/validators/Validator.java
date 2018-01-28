@@ -139,7 +139,7 @@ public abstract class Validator {
             valid = false;
         }
         if (!valid) {
-            Matcher matcher = Pattern.compile("±*").matcher(validationHolder.getText());
+            Matcher matcher = Pattern.compile("±*~=").matcher(validationHolder.getText());
             executeCallback(callback, validationHolder, matcher);
             return false;
         }

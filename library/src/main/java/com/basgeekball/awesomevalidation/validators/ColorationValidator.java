@@ -2,6 +2,8 @@ package com.basgeekball.awesomevalidation.validators;
 
 import android.graphics.Color;
 import android.support.v4.util.Pair;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
@@ -10,11 +12,14 @@ import com.basgeekball.awesomevalidation.helper.SpanHelper;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 
 public class ColorationValidator extends Validator {
 
     private int mColor = Color.RED;
+    private HashMap<EditText, TextWatcher> mTextWatcherForEditText = new HashMap<EditText, TextWatcher>();
 
     public void setColor(int color) {
         mColor = color;
@@ -29,10 +34,28 @@ public class ColorationValidator extends Validator {
                     listOfMatching.add(Pair.create(matcher.start(), matcher.end() - 1));
                 }
             }
-            EditText editText = validationHolder.getEditText();
+            final EditText editText = validationHolder.getEditText();
             ArrayList<Pair<Integer, Integer>> listOfNotMatching = RangeHelper.inverse(listOfMatching, editText.getText().length());
             SpanHelper.setColor(editText, mColor, listOfNotMatching);
             editText.setError(validationHolder.getErrMsg());
+            TextWatcher textWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    SpanHelper.reset(editText);
+                    editText.setFocusable(true);
+                    editText.removeTextChangedListener(this);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                }
+            };
+            editText.addTextChangedListener(textWatcher);
+            mTextWatcherForEditText.put(editText, textWatcher);
         }
     };
 
@@ -48,6 +71,12 @@ public class ColorationValidator extends Validator {
             EditText editText = validationHolder.getEditText();
             editText.setError(null);
             SpanHelper.reset(editText);
+        }
+        for (Map.Entry<EditText, TextWatcher> entry : mTextWatcherForEditText.entrySet()) {
+            entry.getKey().removeTextChangedListener(entry.getValue());
+        }
+        if (mValidationHolderList.size() > 0) {
+            mValidationHolderList.get(0).getEditText().requestFocus();
         }
     }
 
