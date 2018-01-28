@@ -54,6 +54,27 @@ mAwesomeValidation.addValidation(activity, R.id.edt_password, regexPassword, R.s
 // to validate a confirmation field (don't validate any rule other than confirmation on confirmation field)
 mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
 
+// to validate using your own custom validator function
+mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation() {
+    @Override
+    public boolean compare(String input) {
+        try {
+            new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
+            return true;
+        } catch (Exception e) { return false;}
+        return false;
+    }
+}, R.string.err_birth);
+// or
+mAwesomeValidation.addValidation(editText, "Error info", new CustomValidation() {
+    @Override
+    public boolean compare(String input) {
+        //Custom check and validation
+        //return true if everything passes!
+        //else return false
+    }
+});
+
 // Step 3: set a trigger
 findViewById(R.id.btn_done).setOnClickListener(new View.OnClickListener() {
     @Override
