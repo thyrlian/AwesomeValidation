@@ -13,6 +13,7 @@
     <string name="edt_lastname">Last Name</string>
     <string name="edt_year">Year</string>
     <string name="edt_height">Height (m)</string>
+    <string name="edt_birth">Birth date E.g 18/12/1995</string>
     <string name="btn_done">Submit</string>
     <string name="btn_clr">Clear</string>
     <string name="err_userid">Letters, numbers, underscores or hyphens</string>
@@ -25,6 +26,7 @@
     <string name="err_zipcode">Number only</string>
     <string name="err_year">Year must be between 1900 and this year</string>
     <string name="err_height">Human height should be between 0 to 2.72 meters</string>
+    <string name="err_birth">Input birthday like Day/Month/Year</string>
     <string name="img_success">Success</string>
     <string-array name="styles">
         <item>BASIC</item>

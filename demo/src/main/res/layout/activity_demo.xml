@@ -108,6 +108,14 @@
                             android:maxLines="1"
                             android:hint="@string/edt_height"/>
 
+                        <EditText
+                            android:id="@+id/edt_birth"
+                            android:inputType="date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:hint="@string/edt_birth"/>
+
                     </LinearLayout>
 
                     <android.support.constraint.ConstraintLayout
