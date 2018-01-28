@@ -179,15 +179,9 @@ public abstract class Validator {
     }
 
     private boolean checkCustomTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
-        boolean valid;
-        try{
-            valid =  validationHolder.getCustomValidation().compare(validationHolder.getText());
-        }catch (Exception e){
-            valid = false;
-        }
+        boolean valid =  validationHolder.getCustomValidation().compare(validationHolder.getText());
         if (!valid) {
-            Matcher matcher = Pattern.compile("±*").matcher(validationHolder.getText());
-            executeCallback(callback, validationHolder, matcher);
+            executeCallback(callback, validationHolder, null);
             return false;
         }
         return true;
