@@ -166,13 +166,6 @@ public class DemoActivity extends AppCompatActivity {
                 return false;
             }
         }, R.string.err_birth);
-
-        mAwesomeValidation.addValidation((EditText) activity.findViewById(R.id.edt_birth), "Eror", new CustomValidation() {
-            @Override
-            public boolean compare(String input) {
-                return false;
-            }
-        });
         setValidationButtons();
     }
 
