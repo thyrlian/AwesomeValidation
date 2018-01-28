@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 
@@ -105,6 +106,26 @@ public abstract class Validator {
         }
     }
 
+    public void set(EditText editText, CustomValidation customValidation, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(editText, customValidation, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
+    public void set(TextInputLayout textInputLayout, CustomValidation customValidation, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(textInputLayout, customValidation, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
+    public void set(Activity activity, int viewId, CustomValidation customValidation, int errMsgId) {
+        View view = activity.findViewById(viewId);
+        String errMsg = activity.getResources().getString(errMsgId);
+        if (view instanceof EditText) {
+            set((EditText) view, customValidation, errMsg);
+        } else if (view instanceof TextInputLayout) {
+            set((TextInputLayout) view, customValidation, errMsg);
+        }
+    }
+
     protected boolean checkFields(ValidationCallback callback) {
         boolean result = true;
         mHasFailed = false;
@@ -116,6 +137,8 @@ public abstract class Validator {
                     result = checkRangeTypeField(validationHolder, callback) && result;
                 } else if (validationHolder.isConfirmationType()) {
                     result = checkConfirmationTypeField(validationHolder, callback) && result;
+                } else if (validationHolder.isCustomType()) {
+                    result = checkCustomTypeField(validationHolder, callback) && result;
                 }
             }
         }
@@ -150,6 +173,21 @@ public abstract class Validator {
         boolean valid = validationHolder.getText().equals(validationHolder.getConfirmationText());
         if (!valid) {
             executeCallback(callback, validationHolder, null);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkCustomTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
+        boolean valid;
+        try{
+            valid =  validationHolder.getCustomValidation().compare(validationHolder.getText());
+        }catch (Exception e){
+            valid = false;
+        }
+        if (!valid) {
+            Matcher matcher = Pattern.compile("±*").matcher(validationHolder.getText());
+            executeCallback(callback, validationHolder, matcher);
             return false;
         }
         return true;

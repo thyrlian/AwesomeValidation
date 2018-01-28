@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
+import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.validators.BasicValidator;
 import com.basgeekball.awesomevalidation.validators.ColorationValidator;
@@ -143,6 +144,22 @@ public class AwesomeValidation {
 
     public void addValidation(Activity activity, int confirmationViewId, int viewId, int errMsgId) {
         mValidator.set(activity, confirmationViewId, viewId, errMsgId);
+    }
+
+    public void addValidation(EditText editText, CustomValidation customValidation, String errMsg) {
+        checkIsNotTextInputLayoutValidator();
+        mValidator.set(editText, customValidation, errMsg);
+    }
+    public void addValidation(Activity activity, int editTextId, CustomValidation customValidation, int errMsgId) {
+        mValidator.set(activity, editTextId, customValidation, errMsgId);
+    }
+
+    public void addValidation(EditText editText, String errMsg, CustomValidation customValidation) {
+        checkIsNotTextInputLayoutValidator();
+        mValidator.set(editText, customValidation, errMsg);
+    }
+    public void addValidation(Activity activity, int editTextId, int errMsgId, CustomValidation customValidation) {
+        mValidator.set(activity, editTextId, customValidation, errMsgId);
     }
 
     public boolean validate() {
