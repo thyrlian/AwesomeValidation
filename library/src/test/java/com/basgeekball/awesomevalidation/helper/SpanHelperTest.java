@@ -56,6 +56,7 @@ public class SpanHelperTest extends TestCase {
     public void testReset() {
         SpanHelper.reset(mMockEditText);
         verify(mMockEditable, times(1)).clearSpans();
+        verify(mMockEditText, times(1)).setText(mMockEditable);
     }
 
 }

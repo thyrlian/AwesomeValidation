@@ -45,9 +45,11 @@ public class ColorationValidator extends Validator {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    SpanHelper.reset(editText);
-                    editText.setFocusable(true);
                     editText.removeTextChangedListener(this);
+                    int cursorStart = editText.getSelectionStart();
+                    int cursorEnd = editText.getSelectionEnd();
+                    SpanHelper.reset(editText);
+                    editText.setSelection(cursorStart, cursorEnd);
                 }
 
                 @Override

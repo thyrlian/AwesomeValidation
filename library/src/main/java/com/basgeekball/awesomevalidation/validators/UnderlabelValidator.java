@@ -115,9 +115,9 @@ public class UnderlabelValidator extends Validator {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                editText.removeTextChangedListener(this);
                 viewsInfo.restoreViews();
                 editText.requestFocus();
-                editText.removeTextChangedListener(this);
             }
 
             @Override
