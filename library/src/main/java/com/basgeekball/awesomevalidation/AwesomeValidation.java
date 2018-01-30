@@ -154,12 +154,9 @@ public class AwesomeValidation {
         mValidator.set(activity, editTextId, customValidation, errMsgId);
     }
 
-    public void addValidation(EditText editText, String errMsg, CustomValidation customValidation) {
-        checkIsNotTextInputLayoutValidator();
-        mValidator.set(editText, customValidation, errMsg);
-    }
-    public void addValidation(Activity activity, int editTextId, int errMsgId, CustomValidation customValidation) {
-        mValidator.set(activity, editTextId, customValidation, errMsgId);
+    public void addValidation(TextInputLayout textInputLayout,  CustomValidation customValidation, String errMsg) {
+        checkIsTextInputLayoutValidator();
+        mValidator.set(textInputLayout, customValidation, errMsg);
     }
 
     public boolean validate() {
