@@ -59,21 +59,16 @@ mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation(
     @Override
     public boolean compare(String input) {
         try {
-            new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
-            return true;
-        } catch (Exception e) { return false;}
+            Date date = new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
+            Calendar calendar = Calendar.getInstance();
+            if (calendar.getTime().before(date)) //You can't be born in future!
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
         return false;
     }
 }, R.string.err_birth);
-// or
-mAwesomeValidation.addValidation(editText, "Error info", new CustomValidation() {
-    @Override
-    public boolean compare(String input) {
-        //Custom check and validation
-        //return true if everything passes!
-        //else return false
-    }
-});
 
 // Step 3: set a trigger
 findViewById(R.id.btn_done).setOnClickListener(new View.OnClickListener() {
