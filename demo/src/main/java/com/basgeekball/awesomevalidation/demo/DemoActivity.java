@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -29,6 +28,7 @@ import com.google.common.collect.Range;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
@@ -138,13 +138,6 @@ public class DemoActivity extends AppCompatActivity {
 
     private void addValidationForEditText(Activity activity) {
         mAwesomeValidation.addValidation(activity, R.id.edt_userid, "[a-zA-Z0-9_-]+", R.string.err_userid);
-        mAwesomeValidation.addValidation(activity, R.id.edt_userid, new CustomValidation() {
-            @Override
-            public boolean compare(String input) {
-                String regex = "[a-zA-Z0-9_-]+";
-                return input.matches(regex);
-            }
-        }, R.string.err_userid);
         mAwesomeValidation.addValidation(activity, R.id.edt_password, "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}", R.string.err_password);
         mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
         mAwesomeValidation.addValidation(activity, R.id.edt_firstname, "[a-zA-Z\\s]+", R.string.err_name);
@@ -159,13 +152,18 @@ public class DemoActivity extends AppCompatActivity {
             @Override
             public boolean compare(String input) {
                 try {
-                    new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
-                    return true;
+                    Date date = new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
+                    Calendar calendar = Calendar.getInstance();
+                    if (calendar.getTime().after(date)) //You can't be born in future!
+                        return true;
                 } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
                 }
                 return false;
             }
         }, R.string.err_birth);
+
         setValidationButtons();
     }
 
