@@ -158,7 +158,6 @@ public class DemoActivity extends AppCompatActivity {
                         return true;
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return false;
                 }
                 return false;
             }
