@@ -21,7 +21,6 @@ public class ValidationHolder {
     private String mErrMsg;
     private CustomValidation mCustomValidation;
 
-
     public ValidationHolder(EditText editText, Pattern pattern, String errMsg) {
         mEditText = editText;
         mPattern = pattern;

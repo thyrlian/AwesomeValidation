@@ -46,7 +46,7 @@ public class DemoActivityTest {
         enterText(R.id.edt_zipcode, "53201");
         enterText(R.id.edt_year, "1982");
         enterText(R.id.edt_height, "1.93");
-        enterText(R.id.edt_birth, "17/01/1982");
+        enterText(R.id.edt_birthday, "17/01/1982");
         clickButton(R.id.btn_done);
         scrollToTheBottom();
         assertViewIsDisplayed(R.id.container_success);

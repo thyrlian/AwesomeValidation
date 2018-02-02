@@ -32,11 +32,11 @@ public class ValidationHolderTest extends TestCase {
     private ValidationHolder mValidationHolderRegexTypeWithEditText;
     private ValidationHolder mValidationHolderRangeTypeWithEditText;
     private ValidationHolder mValidationHolderConfirmationTypeWithEditText;
-    private ValidationHolder mValidationHolderCustomValidationWithEditText;
+    private ValidationHolder mValidationHolderCustomTypeWithEditText;
     private ValidationHolder mValidationHolderRegexTypeWithTextInputLayout;
     private ValidationHolder mValidationHolderRangeTypeWithTextInputLayout;
     private ValidationHolder mValidationHolderConfirmationTypeWithTextInputLayout;
-    private ValidationHolder mValidationHolderCustomValidationWithTextInputLayout;
+    private ValidationHolder mValidationHolderCustomTypeWithTextInputLayout;
 
     @Override
     protected void setUp() throws Exception {
@@ -52,11 +52,11 @@ public class ValidationHolderTest extends TestCase {
         mValidationHolderRegexTypeWithEditText = new ValidationHolder(mMockEditText, mockPattern, mockErrMsg);
         mValidationHolderRangeTypeWithEditText = new ValidationHolder(mMockEditText, mockNumericRange, mockErrMsg);
         mValidationHolderConfirmationTypeWithEditText = new ValidationHolder(mMockConfirmationEditText, mMockEditText, mockErrMsg);
-        mValidationHolderCustomValidationWithEditText = new ValidationHolder(mMockEditText, mockCustomValidation, mockErrMsg);
+        mValidationHolderCustomTypeWithEditText = new ValidationHolder(mMockEditText, mockCustomValidation, mockErrMsg);
         mValidationHolderRegexTypeWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockPattern, mockErrMsg);
         mValidationHolderRangeTypeWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockNumericRange, mockErrMsg);
         mValidationHolderConfirmationTypeWithTextInputLayout = new ValidationHolder(mMockConfirmationTextInputLayout, mMockTextInputLayout, mockErrMsg);
-        mValidationHolderCustomValidationWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockCustomValidation, mockErrMsg);
+        mValidationHolderCustomTypeWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockCustomValidation, mockErrMsg);
     }
 
     public void testIsRegexTypeTrue() {
@@ -67,10 +67,10 @@ public class ValidationHolderTest extends TestCase {
     public void testIsRegexTypeFalse() {
         assertFalse(mValidationHolderRangeTypeWithEditText.isRegexType());
         assertFalse(mValidationHolderConfirmationTypeWithEditText.isRegexType());
-        assertFalse(mValidationHolderCustomValidationWithEditText.isRegexType());
+        assertFalse(mValidationHolderCustomTypeWithEditText.isRegexType());
         assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isRegexType());
         assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isRegexType());
-        assertFalse(mValidationHolderCustomValidationWithTextInputLayout.isRegexType());
+        assertFalse(mValidationHolderCustomTypeWithTextInputLayout.isRegexType());
     }
 
     public void testIsRangeTypeTrue() {
@@ -81,10 +81,10 @@ public class ValidationHolderTest extends TestCase {
     public void testIsRangeTypeFalse() {
         assertFalse(mValidationHolderRegexTypeWithEditText.isRangeType());
         assertFalse(mValidationHolderConfirmationTypeWithEditText.isRangeType());
-        assertFalse(mValidationHolderCustomValidationWithEditText.isRangeType());
+        assertFalse(mValidationHolderCustomTypeWithEditText.isRangeType());
         assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isRangeType());
         assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isRangeType());
-        assertFalse(mValidationHolderCustomValidationWithTextInputLayout.isRangeType());
+        assertFalse(mValidationHolderCustomTypeWithTextInputLayout.isRangeType());
     }
 
     public void testIsConfirmationTypeTrue() {
@@ -95,15 +95,15 @@ public class ValidationHolderTest extends TestCase {
     public void testIsConfirmationTypeFalse() {
         assertFalse(mValidationHolderRegexTypeWithEditText.isConfirmationType());
         assertFalse(mValidationHolderRangeTypeWithEditText.isConfirmationType());
-        assertFalse(mValidationHolderCustomValidationWithEditText.isConfirmationType());
+        assertFalse(mValidationHolderCustomTypeWithEditText.isConfirmationType());
         assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isConfirmationType());
         assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isConfirmationType());
-        assertFalse(mValidationHolderCustomValidationWithTextInputLayout.isConfirmationType());
+        assertFalse(mValidationHolderCustomTypeWithTextInputLayout.isConfirmationType());
     }
 
     public void testIsCustomTypeTrue() {
-        assertTrue(mValidationHolderCustomValidationWithEditText.isCustomType());
-        assertTrue(mValidationHolderCustomValidationWithTextInputLayout.isCustomType());
+        assertTrue(mValidationHolderCustomTypeWithEditText.isCustomType());
+        assertTrue(mValidationHolderCustomTypeWithTextInputLayout.isCustomType());
     }
 
     public void testIsCustomTypeFalse() {
@@ -119,28 +119,28 @@ public class ValidationHolderTest extends TestCase {
         assertTrue(mValidationHolderRegexTypeWithEditText.isEditTextStyle());
         assertTrue(mValidationHolderRangeTypeWithEditText.isEditTextStyle());
         assertTrue(mValidationHolderConfirmationTypeWithEditText.isEditTextStyle());
-        assertTrue(mValidationHolderCustomValidationWithEditText.isEditTextStyle());
+        assertTrue(mValidationHolderCustomTypeWithEditText.isEditTextStyle());
     }
 
     public void testIsEditTextStyleFalse() {
         assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isEditTextStyle());
         assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isEditTextStyle());
         assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isEditTextStyle());
-        assertFalse(mValidationHolderCustomValidationWithTextInputLayout.isEditTextStyle());
+        assertFalse(mValidationHolderCustomTypeWithTextInputLayout.isEditTextStyle());
     }
 
     public void testIsTextInputLayoutStyleTrue() {
         assertTrue(mValidationHolderRegexTypeWithTextInputLayout.isTextInputLayoutStyle());
         assertTrue(mValidationHolderRangeTypeWithTextInputLayout.isTextInputLayoutStyle());
         assertTrue(mValidationHolderConfirmationTypeWithTextInputLayout.isTextInputLayoutStyle());
-        assertTrue(mValidationHolderCustomValidationWithTextInputLayout.isTextInputLayoutStyle());
+        assertTrue(mValidationHolderCustomTypeWithTextInputLayout.isTextInputLayoutStyle());
     }
 
     public void testIsTextInputLayoutStyleFalse() {
         assertFalse(mValidationHolderRegexTypeWithEditText.isTextInputLayoutStyle());
         assertFalse(mValidationHolderRangeTypeWithEditText.isTextInputLayoutStyle());
         assertFalse(mValidationHolderConfirmationTypeWithEditText.isTextInputLayoutStyle());
-        assertFalse(mValidationHolderCustomValidationWithEditText.isTextInputLayoutStyle());
+        assertFalse(mValidationHolderCustomTypeWithEditText.isTextInputLayoutStyle());
     }
 
     public void testGetTextFromEditText() {
@@ -151,7 +151,7 @@ public class ValidationHolderTest extends TestCase {
         assertEquals(text, mValidationHolderRegexTypeWithEditText.getText());
         assertEquals(text, mValidationHolderRangeTypeWithEditText.getText());
         assertEquals(text, mValidationHolderConfirmationTypeWithEditText.getText());
-        assertEquals(text, mValidationHolderCustomValidationWithEditText.getText());
+        assertEquals(text, mValidationHolderCustomTypeWithEditText.getText());
     }
 
     public void testGetTextFromTextInputLayout() {
@@ -164,7 +164,7 @@ public class ValidationHolderTest extends TestCase {
         assertEquals(text, mValidationHolderRegexTypeWithTextInputLayout.getText());
         assertEquals(text, mValidationHolderRangeTypeWithTextInputLayout.getText());
         assertEquals(text, mValidationHolderConfirmationTypeWithTextInputLayout.getText());
-        assertEquals(text, mValidationHolderCustomValidationWithTextInputLayout.getText());
+        assertEquals(text, mValidationHolderCustomTypeWithTextInputLayout.getText());
     }
 
     @Test(expected = BadLayoutException.class)
@@ -211,17 +211,17 @@ public class ValidationHolderTest extends TestCase {
     public void testGetConfirmationTextReturnsNull() {
         assertNull(mValidationHolderRegexTypeWithEditText.getConfirmationText());
         assertNull(mValidationHolderRangeTypeWithEditText.getConfirmationText());
-        assertNull(mValidationHolderCustomValidationWithEditText.getConfirmationText());
+        assertNull(mValidationHolderCustomTypeWithEditText.getConfirmationText());
         assertNull(mValidationHolderRegexTypeWithTextInputLayout.getConfirmationText());
         assertNull(mValidationHolderRangeTypeWithTextInputLayout.getConfirmationText());
-        assertNull(mValidationHolderCustomValidationWithTextInputLayout.getConfirmationText());
+        assertNull(mValidationHolderCustomTypeWithTextInputLayout.getConfirmationText());
     }
 
     public void testGetEditTextFromEditText() {
         assertEquals(mMockEditText, mValidationHolderRegexTypeWithEditText.getEditText());
         assertEquals(mMockEditText, mValidationHolderRangeTypeWithEditText.getEditText());
         assertEquals(mMockConfirmationEditText, mValidationHolderConfirmationTypeWithEditText.getEditText());
-        assertEquals(mMockEditText, mValidationHolderCustomValidationWithEditText.getEditText());
+        assertEquals(mMockEditText, mValidationHolderCustomTypeWithEditText.getEditText());
     }
 
     public void testGetEditTextFromTextInputLayout() {
@@ -232,21 +232,21 @@ public class ValidationHolderTest extends TestCase {
         assertEquals(mockEditText, mValidationHolderRegexTypeWithTextInputLayout.getEditText());
         assertEquals(mockEditText, mValidationHolderRangeTypeWithTextInputLayout.getEditText());
         assertEquals(mockConfirmationEditText, mValidationHolderConfirmationTypeWithTextInputLayout.getEditText());
-        assertEquals(mockEditText, mValidationHolderCustomValidationWithTextInputLayout.getEditText());
+        assertEquals(mockEditText, mValidationHolderCustomTypeWithTextInputLayout.getEditText());
     }
 
     public void testGetTextInputLayout() {
         assertEquals(mMockTextInputLayout, mValidationHolderRegexTypeWithTextInputLayout.getTextInputLayout());
         assertEquals(mMockTextInputLayout, mValidationHolderRangeTypeWithTextInputLayout.getTextInputLayout());
         assertEquals(mMockConfirmationTextInputLayout, mValidationHolderConfirmationTypeWithTextInputLayout.getTextInputLayout());
-        assertEquals(mMockTextInputLayout, mValidationHolderCustomValidationWithTextInputLayout.getTextInputLayout());
+        assertEquals(mMockTextInputLayout, mValidationHolderCustomTypeWithTextInputLayout.getTextInputLayout());
     }
 
     public void testGetTextInputLayoutReturnsNull() {
         assertNull(mValidationHolderRegexTypeWithEditText.getTextInputLayout());
         assertNull(mValidationHolderRangeTypeWithEditText.getTextInputLayout());
         assertNull(mValidationHolderConfirmationTypeWithEditText.getTextInputLayout());
-        assertNull(mValidationHolderCustomValidationWithEditText.getTextInputLayout());
+        assertNull(mValidationHolderCustomTypeWithEditText.getTextInputLayout());
     }
 
 }

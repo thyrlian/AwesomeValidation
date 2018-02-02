@@ -26,6 +26,7 @@ import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.common.collect.Range;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -148,15 +149,16 @@ public class DemoActivity extends AppCompatActivity {
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
         mAwesomeValidation.addValidation(activity, R.id.edt_year, Range.closed(1900, Calendar.getInstance().get(Calendar.YEAR)), R.string.err_year);
         mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2.72f), R.string.err_height);
-        mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation() {
+        mAwesomeValidation.addValidation(activity, R.id.edt_birthday, new CustomValidation() {
             @Override
             public boolean compare(String input) {
                 try {
-                    Date date = new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
+                    Date birthday = new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
                     Calendar calendar = Calendar.getInstance();
-                    if (calendar.getTime().after(date)) //You can't be born in future!
+                    Date today = calendar.getTime();
+                    if (today.after(birthday))
                         return true;
-                } catch (Exception e) {
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 return false;
