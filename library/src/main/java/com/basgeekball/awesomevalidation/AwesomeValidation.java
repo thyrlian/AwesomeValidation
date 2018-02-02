@@ -150,7 +150,7 @@ public class AwesomeValidation {
         checkIsNotTextInputLayoutValidator();
         mValidator.set(editText, customValidation, errMsg);
     }
-    public void addValidation(Activity activity, int editTextId, CustomValidation customValidation, int errMsgId) {
+    public void addValidation(Activity activity, int viewId, CustomValidation customValidation, int errMsgId) {
         mValidator.set(activity, editTextId, customValidation, errMsgId);
     }
 
