@@ -47,16 +47,16 @@ public class ValidationHolderTest extends TestCase {
         mMockConfirmationTextInputLayout = mock(TextInputLayout.class);
         Pattern mockPattern = PowerMock.createMock(Pattern.class);
         NumericRange mockNumericRange = mock(NumericRange.class);
-        CustomValidation customValidation = mock(CustomValidation.class);
+        CustomValidation mockCustomValidation = mock(CustomValidation.class);
         String mockErrMsg = PowerMock.createMock(String.class);
         mValidationHolderRegexTypeWithEditText = new ValidationHolder(mMockEditText, mockPattern, mockErrMsg);
         mValidationHolderRangeTypeWithEditText = new ValidationHolder(mMockEditText, mockNumericRange, mockErrMsg);
         mValidationHolderConfirmationTypeWithEditText = new ValidationHolder(mMockConfirmationEditText, mMockEditText, mockErrMsg);
-        mValidationHolderCustomValidationWithEditText = new ValidationHolder(mMockEditText, customValidation, mockErrMsg);
+        mValidationHolderCustomValidationWithEditText = new ValidationHolder(mMockEditText, mockCustomValidation, mockErrMsg);
         mValidationHolderRegexTypeWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockPattern, mockErrMsg);
         mValidationHolderRangeTypeWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockNumericRange, mockErrMsg);
         mValidationHolderConfirmationTypeWithTextInputLayout = new ValidationHolder(mMockConfirmationTextInputLayout, mMockTextInputLayout, mockErrMsg);
-        mValidationHolderCustomValidationWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, customValidation, mockErrMsg);
+        mValidationHolderCustomValidationWithTextInputLayout = new ValidationHolder(mMockTextInputLayout, mockCustomValidation, mockErrMsg);
     }
 
     public void testIsRegexTypeTrue() {
