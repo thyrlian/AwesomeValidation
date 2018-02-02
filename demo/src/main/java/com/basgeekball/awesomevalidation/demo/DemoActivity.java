@@ -154,9 +154,11 @@ public class DemoActivity extends AppCompatActivity {
             public boolean compare(String input) {
                 try {
                     Date birthday = new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
-                    Calendar calendar = Calendar.getInstance();
-                    Date today = calendar.getTime();
-                    if (today.after(birthday))
+                    Date today = Calendar.getInstance().getTime();
+                    long birthdayInMilliseconds = birthday.getTime();
+                    long todayInMilliseconds = today.getTime();
+                    long age = (todayInMilliseconds - birthdayInMilliseconds) / 1000 / 60 / 60 / 24 / 365;
+                    if (age >= 18)
                         return true;
                 } catch (ParseException e) {
                     e.printStackTrace();
