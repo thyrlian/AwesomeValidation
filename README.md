@@ -64,7 +64,7 @@ mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation(
             if (calendar.getTime().before(date)) //You can't be born in future!
                 return true;
         } catch (Exception e) {
-            return false;
+             e.printStackTrace();
         }
         return false;
     }
