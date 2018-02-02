@@ -29,7 +29,6 @@ import com.google.common.collect.Range;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
@@ -153,13 +152,24 @@ public class DemoActivity extends AppCompatActivity {
             @Override
             public boolean compare(String input) {
                 try {
-                    Date birthday = new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
-                    Date today = Calendar.getInstance().getTime();
-                    long birthdayInMilliseconds = birthday.getTime();
-                    long todayInMilliseconds = today.getTime();
-                    long age = (todayInMilliseconds - birthdayInMilliseconds) / 1000 / 60 / 60 / 24 / 365;
-                    if (age >= 18)
+                    Calendar calendarBirthday = Calendar.getInstance();
+                    Calendar calendarToday = Calendar.getInstance();
+                    calendarBirthday.setTime(new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input));
+                    int yearOfToday = calendarToday.get(Calendar.YEAR);
+                    int yearOfBirthday = calendarBirthday.get(Calendar.YEAR);
+                    if (yearOfToday - yearOfBirthday > 18) {
                         return true;
+                    } else if (yearOfToday - yearOfBirthday == 18) {
+                        int monthOfToday = calendarToday.get(Calendar.MONTH);
+                        int monthOfBirthday = calendarBirthday.get(Calendar.MONTH);
+                        if (monthOfToday > monthOfBirthday) {
+                            return true;
+                        } else if (monthOfToday == monthOfBirthday) {
+                            if (calendarToday.get(Calendar.DAY_OF_MONTH) >= calendarBirthday.get(Calendar.DAY_OF_MONTH)) {
+                                return true;
+                            }
+                        }
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

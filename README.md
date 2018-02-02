@@ -58,12 +58,26 @@ mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation(
     @Override
     public boolean compare(String input) {
         try {
-            Date date = new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input);
-            Calendar calendar = Calendar.getInstance();
-            if (calendar.getTime().before(date)) //You can't be born in future!
+            Calendar calendarBirthday = Calendar.getInstance();
+            Calendar calendarToday = Calendar.getInstance();
+            calendarBirthday.setTime(new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input));
+            int yearOfToday = calendarToday.get(Calendar.YEAR);
+            int yearOfBirthday = calendarBirthday.get(Calendar.YEAR);
+            if (yearOfToday - yearOfBirthday > 18) {
                 return true;
-        } catch (Exception e) {
-             e.printStackTrace();
+            } else if (yearOfToday - yearOfBirthday == 18) {
+                int monthOfToday = calendarToday.get(Calendar.MONTH);
+                int monthOfBirthday = calendarBirthday.get(Calendar.MONTH);
+                if (monthOfToday > monthOfBirthday) {
+                    return true;
+                } else if (monthOfToday == monthOfBirthday) {
+                    if (calendarToday.get(Calendar.DAY_OF_MONTH) >= calendarBirthday.get(Calendar.DAY_OF_MONTH)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return false;
     }
