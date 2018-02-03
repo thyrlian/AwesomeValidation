@@ -53,10 +53,11 @@ mAwesomeValidation.addValidation(activity, R.id.edt_password, regexPassword, R.s
 // to validate a confirmation field (don't validate any rule other than confirmation on confirmation field)
 mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
 
-// to validate using your own custom validator function
+// to validate with your own custom validator function
 mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation() {
     @Override
     public boolean compare(String input) {
+        // check if the age is >= 18
         try {
             Calendar calendarBirthday = Calendar.getInstance();
             Calendar calendarToday = Calendar.getInstance();
