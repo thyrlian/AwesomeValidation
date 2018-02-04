@@ -1,5 +1,7 @@
 package com.basgeekball.awesomevalidation.utility;
 
+import android.content.res.ColorStateList;
+import android.support.v4.view.ViewCompat;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -10,6 +12,7 @@ public class ViewsInfo {
     private ViewGroup mParent;
     private LinearLayout mNewContainer;
     private EditText mEditText;
+    private ColorStateList mColorStateList;
     private boolean mIsOriginal = false;
 
     public ViewsInfo(int index, ViewGroup parent, LinearLayout newContainer, EditText editText) {
@@ -17,11 +20,12 @@ public class ViewsInfo {
         mParent = parent;
         mNewContainer = newContainer;
         mEditText = editText;
+        mColorStateList = ViewCompat.getBackgroundTintList(editText);
     }
 
     public void restoreViews() {
         if (!mIsOriginal) {
-            mEditText.getBackground().clearColorFilter();
+            ViewCompat.setBackgroundTintList(mEditText, mColorStateList);
             mEditText.requestFocus();
             mNewContainer.removeView(mEditText);
             mParent.removeView(mNewContainer);

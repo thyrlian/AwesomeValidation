@@ -1,9 +1,10 @@
 package com.basgeekball.awesomevalidation.validators;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
+import android.content.res.ColorStateList;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class UnderlabelValidator extends Validator {
                     textView.requestFocus();
                     mHasFailed = true;
                 }
-                validationHolder.getEditText().getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
+                ViewCompat.setBackgroundTintList(validationHolder.getEditText(), ColorStateList.valueOf(mColor));
             }
         };
     }
