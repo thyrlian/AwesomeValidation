@@ -24,9 +24,11 @@ task zipRelease(type: Zip) {
     archiveName "release-${pomVersion}.zip"
 }
 
-task generateRelease << {
-    println "Release v${pomVersion} is generated to ${localReleaseDest}/"
-    println "Release v${pomVersion} (zip) is generated to ${buildDir}/release-${pomVersion}.zip"
+task generateRelease {
+    doLast {
+        println "Release v${pomVersion} is generated to ${localReleaseDest}/"
+        println "Release v${pomVersion} (zip) is generated to ${buildDir}/release-${pomVersion}.zip"
+    }
 }
 
 generateRelease.dependsOn(uploadArchives)
