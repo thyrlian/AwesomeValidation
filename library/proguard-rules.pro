@@ -15,12 +15,18 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
- -renamesourcefileattribute SourceFile
- -keepattributes SourceFile,LineNumberTable
-
- -keep class com.basgeekball.awesomevalidation.** { *; }
- -keep public class com.google.common.base.** { public *; }
- -keep public class com.google.common.annotations.** { public *; }
- -keep public class com.google.common.collect.Range
- -keepclassmembers class com.google.common.collect.Range** { *; }
- -dontwarn com.google.common.**
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+-keep class com.basgeekball.awesomevalidation.** { *; }
+-keep public class com.google.common.base.** { public *; }
+-keep public class com.google.common.annotations.** { public *; }
+-keep class com.google.appengine.api.ThreadManager
+-keep class com.google.apphosting.api.ApiProxy
+-keep, includedescriptorclasses public class com.google.common.collect.Range
+-keepclassmembers class com.google.common.collect.Range** { *; }
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn java.lang.ClassValue
+-dontwarn sun.misc.Unsafe
+-dontwarn afu.org.checkerframework.**
+-dontwarn org.checkerframework.**
