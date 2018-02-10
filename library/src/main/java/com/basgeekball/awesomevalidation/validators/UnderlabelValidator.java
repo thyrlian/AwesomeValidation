@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
+import com.basgeekball.awesomevalidation.exception.MissingContextException;
 import com.basgeekball.awesomevalidation.exception.UnsupportedLayoutException;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
 import com.basgeekball.awesomevalidation.utility.ViewsInfo;
@@ -61,7 +62,7 @@ public class UnderlabelValidator extends Validator {
 
     public void setColorByResource(int colorResId) {
         if (mContext == null) {
-            throw new RuntimeException("Context should be set before setting color for Underlabel style.");
+            throw new MissingContextException("Context should be set before setting color for Underlabel style.");
         } else {
             mColor = ContextCompat.getColor(mContext, colorResId);
         }
@@ -112,6 +113,7 @@ public class UnderlabelValidator extends Validator {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // do nothing
             }
 
             @Override
@@ -123,6 +125,7 @@ public class UnderlabelValidator extends Validator {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                // do nothing
             }
         };
         editText.addTextChangedListener(textWatcher);

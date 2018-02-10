@@ -115,32 +115,32 @@ public class ValidationHolderTest extends TestCase {
         assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isCustomType());
     }
 
-    public void testIsEditTextStyleTrue() {
-        assertTrue(mValidationHolderRegexTypeWithEditText.isEditTextStyle());
-        assertTrue(mValidationHolderRangeTypeWithEditText.isEditTextStyle());
-        assertTrue(mValidationHolderConfirmationTypeWithEditText.isEditTextStyle());
-        assertTrue(mValidationHolderCustomTypeWithEditText.isEditTextStyle());
+    public void testIsEditTextViewTrue() {
+        assertTrue(mValidationHolderRegexTypeWithEditText.isEditTextView());
+        assertTrue(mValidationHolderRangeTypeWithEditText.isEditTextView());
+        assertTrue(mValidationHolderConfirmationTypeWithEditText.isEditTextView());
+        assertTrue(mValidationHolderCustomTypeWithEditText.isEditTextView());
     }
 
-    public void testIsEditTextStyleFalse() {
-        assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isEditTextStyle());
-        assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isEditTextStyle());
-        assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isEditTextStyle());
-        assertFalse(mValidationHolderCustomTypeWithTextInputLayout.isEditTextStyle());
+    public void testIsEditTextViewFalse() {
+        assertFalse(mValidationHolderRegexTypeWithTextInputLayout.isEditTextView());
+        assertFalse(mValidationHolderRangeTypeWithTextInputLayout.isEditTextView());
+        assertFalse(mValidationHolderConfirmationTypeWithTextInputLayout.isEditTextView());
+        assertFalse(mValidationHolderCustomTypeWithTextInputLayout.isEditTextView());
     }
 
-    public void testIsTextInputLayoutStyleTrue() {
-        assertTrue(mValidationHolderRegexTypeWithTextInputLayout.isTextInputLayoutStyle());
-        assertTrue(mValidationHolderRangeTypeWithTextInputLayout.isTextInputLayoutStyle());
-        assertTrue(mValidationHolderConfirmationTypeWithTextInputLayout.isTextInputLayoutStyle());
-        assertTrue(mValidationHolderCustomTypeWithTextInputLayout.isTextInputLayoutStyle());
+    public void testIsTextInputLayoutViewTrue() {
+        assertTrue(mValidationHolderRegexTypeWithTextInputLayout.isTextInputLayoutView());
+        assertTrue(mValidationHolderRangeTypeWithTextInputLayout.isTextInputLayoutView());
+        assertTrue(mValidationHolderConfirmationTypeWithTextInputLayout.isTextInputLayoutView());
+        assertTrue(mValidationHolderCustomTypeWithTextInputLayout.isTextInputLayoutView());
     }
 
-    public void testIsTextInputLayoutStyleFalse() {
-        assertFalse(mValidationHolderRegexTypeWithEditText.isTextInputLayoutStyle());
-        assertFalse(mValidationHolderRangeTypeWithEditText.isTextInputLayoutStyle());
-        assertFalse(mValidationHolderConfirmationTypeWithEditText.isTextInputLayoutStyle());
-        assertFalse(mValidationHolderCustomTypeWithEditText.isTextInputLayoutStyle());
+    public void testIsTextInputLayoutViewFalse() {
+        assertFalse(mValidationHolderRegexTypeWithEditText.isTextInputLayoutView());
+        assertFalse(mValidationHolderRangeTypeWithEditText.isTextInputLayoutView());
+        assertFalse(mValidationHolderConfirmationTypeWithEditText.isTextInputLayoutView());
+        assertFalse(mValidationHolderCustomTypeWithEditText.isTextInputLayoutView());
     }
 
     public void testGetTextFromEditText() {

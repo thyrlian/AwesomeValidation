@@ -85,11 +85,11 @@ public class ValidationHolder {
         return mCustomValidation != null;
     }
 
-    public boolean isEditTextStyle() {
+    public boolean isEditTextView() {
         return mEditText != null;
     }
 
-    public boolean isTextInputLayoutStyle() {
+    public boolean isTextInputLayoutView() {
         return mTextInputLayout != null;
     }
 
@@ -138,9 +138,9 @@ public class ValidationHolder {
     }
 
     public EditText getEditText() {
-        if (isEditTextStyle()) {
+        if (isEditTextView()) {
             return isConfirmationType() ? mConfirmationEditText : mEditText;
-        } else if (isTextInputLayoutStyle()) {
+        } else if (isTextInputLayoutView()) {
             return isConfirmationType() ? mConfirmationTextInputLayout.getEditText() : mTextInputLayout.getEditText();
         } else {
             return null;
@@ -148,7 +148,7 @@ public class ValidationHolder {
     }
 
     public TextInputLayout getTextInputLayout() {
-        if (isTextInputLayoutStyle()) {
+        if (isTextInputLayoutView()) {
             return isConfirmationType() ? mConfirmationTextInputLayout : mTextInputLayout;
         } else {
             return null;
@@ -156,7 +156,7 @@ public class ValidationHolder {
     }
 
     public boolean isVisible() {
-        return ((isEditTextStyle() && getEditText().getVisibility() == View.VISIBLE) || (isTextInputLayoutStyle() && getTextInputLayout().getVisibility() == View.VISIBLE));
+        return (isEditTextView() && getEditText().getVisibility() == View.VISIBLE) || (isTextInputLayoutView() && getTextInputLayout().getVisibility() == View.VISIBLE);
     }
 
 }

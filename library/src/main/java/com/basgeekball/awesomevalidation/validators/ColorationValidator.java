@@ -41,6 +41,7 @@ public class ColorationValidator extends Validator {
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    // do nothing
                 }
 
                 @Override
@@ -54,6 +55,7 @@ public class ColorationValidator extends Validator {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
+                    // do nothing
                 }
             };
             editText.addTextChangedListener(textWatcher);
