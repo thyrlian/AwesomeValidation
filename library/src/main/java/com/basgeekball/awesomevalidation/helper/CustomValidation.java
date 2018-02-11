@@ -5,5 +5,7 @@ package com.basgeekball.awesomevalidation.helper;
  */
 
 public interface CustomValidation {
+
     boolean compare(String input);
+
 }
