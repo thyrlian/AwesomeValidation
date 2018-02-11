@@ -156,7 +156,7 @@ public class ValidationHolder {
     }
 
     public boolean isVisible() {
-        return (isEditTextView() && getEditText().getVisibility() == View.VISIBLE) || (isTextInputLayoutView() && getTextInputLayout().getVisibility() == View.VISIBLE);
+        return isEditTextView() && getEditText().getVisibility() == View.VISIBLE || isTextInputLayoutView() && getTextInputLayout().getVisibility() == View.VISIBLE;
     }
 
 }
