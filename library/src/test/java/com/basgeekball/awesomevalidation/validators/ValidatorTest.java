@@ -3,11 +3,16 @@ package com.basgeekball.awesomevalidation.validators;
 import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.text.SpannableStringBuilder;
+import android.view.View;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
+import com.basgeekball.awesomevalidation.utility.custom.CustomErrorReset;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidation;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidationCallback;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 
 import junit.framework.TestCase;
 
@@ -24,8 +29,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.CONFIRMATION;
+import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.CUSTOM;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.RANGE;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.REGEX;
+import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.ValidationHolderType.SIMPLE_CUSTOM;
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.generate;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -64,6 +71,13 @@ public class ValidatorTest extends TestCase {
         }
     };
 
+    private CustomValidationCallback mEmptyCustomValidationCallback = new CustomValidationCallback() {
+        @Override
+        public void execute(ValidationHolder validationHolder) {
+            // intentionally empty, no need to test here
+        }
+    };
+
     private void mockPrivateMethods() {
         try {
             PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
@@ -83,8 +97,8 @@ public class ValidatorTest extends TestCase {
             // org.mockito.exceptions.misusing.WrongTypeOfReturnValue:
             // Boolean[] cannot be returned by checkXxxTypeField()
             // checkXxxTypeField() should return boolean
-            PowerMockito.doReturn(firstBoolean, otherBooleans)
-                    .when(mSpiedValidator, methodName, ArgumentMatchers.any(ValidationHolder.class), ArgumentMatchers.any(ValidationCallback.class));
+            Class<?> typeOfCallback = methodName.equals("checkCustomTypeField") ? CustomValidationCallback.class : ValidationCallback.class;
+            PowerMockito.doReturn(firstBoolean, otherBooleans).when(mSpiedValidator, methodName, ArgumentMatchers.any(ValidationHolder.class), ArgumentMatchers.any(typeOfCallback));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,6 +116,14 @@ public class ValidatorTest extends TestCase {
         mockCheckSomeCertainTypeField("checkConfirmationTypeField", returnValues);
     }
 
+    private void mockCheckSimpleCustomTypeField(Boolean... returnValues) {
+        mockCheckSomeCertainTypeField("checkSimpleCustomTypeField", returnValues);
+    }
+
+    private void mockCheckCustomTypeField(Boolean... returnValues) {
+        mockCheckSomeCertainTypeField("checkCustomTypeField", returnValues);
+    }
+
     public void testValidator() {
         assertTrue(mSpiedValidator.mValidationHolderList.isEmpty());
     }
@@ -113,10 +135,17 @@ public class ValidatorTest extends TestCase {
         int errMsgId = 9;
         String errMsg = "Error";
         EditText mockEditText = mock(EditText.class);
+        PowerMockito.mockStatic(Pattern.class);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        when(Pattern.compile(regex)).thenReturn(mockPattern);
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, regex, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockEditText, regex, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockEditText, validationHolder.getEditText());
+        assertEquals(mockPattern, validationHolder.getPattern());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testSetTextInputLayoutWithActivityAndRegex() {
@@ -126,10 +155,17 @@ public class ValidatorTest extends TestCase {
         int errMsgId = 9;
         String errMsg = "Error";
         TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        PowerMockito.mockStatic(Pattern.class);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        when(Pattern.compile(regex)).thenReturn(mockPattern);
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, regex, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockTextInputLayout, regex, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockTextInputLayout, validationHolder.getTextInputLayout());
+        assertEquals(mockPattern, validationHolder.getPattern());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testSetEditTextWithActivityAndPattern() {
@@ -142,7 +178,11 @@ public class ValidatorTest extends TestCase {
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, mockPattern, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockEditText, mockPattern, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockEditText, validationHolder.getEditText());
+        assertEquals(mockPattern, validationHolder.getPattern());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testSetTextInputLayoutWithActivityAndPattern() {
@@ -155,7 +195,11 @@ public class ValidatorTest extends TestCase {
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, mockPattern, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockTextInputLayout, mockPattern, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockTextInputLayout, validationHolder.getTextInputLayout());
+        assertEquals(mockPattern, validationHolder.getPattern());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testSetEditTextWithActivityAndNumericRange() {
@@ -168,7 +212,11 @@ public class ValidatorTest extends TestCase {
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, mockNumericRange, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockEditText, mockNumericRange, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockEditText, validationHolder.getEditText());
+        assertEquals(mockNumericRange, validationHolder.getNumericRange());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testSetTextInputLayoutWithActivityAndNumericRange() {
@@ -181,7 +229,11 @@ public class ValidatorTest extends TestCase {
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, mockNumericRange, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockTextInputLayout, mockNumericRange, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockTextInputLayout, validationHolder.getTextInputLayout());
+        assertEquals(mockNumericRange, validationHolder.getNumericRange());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testSetEditTextWithActivityAndConfirmation() {
@@ -196,7 +248,10 @@ public class ValidatorTest extends TestCase {
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, confirmationViewId, viewId, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockConfirmationEditText, mockEditText, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockConfirmationEditText, validationHolder.getEditText());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testSetTextInputLayoutWithActivityAndConfirmation() {
@@ -211,7 +266,89 @@ public class ValidatorTest extends TestCase {
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, confirmationViewId, viewId, errMsgId);
-        verify(mSpiedValidator, times(1)).set(mockConfirmationTextInputLayout, mockTextInputLayout, errMsg);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockConfirmationTextInputLayout, validationHolder.getTextInputLayout());
+        assertEquals(errMsg, validationHolder.getErrMsg());
+    }
+
+    public void testSetEditTextWithActivityAndSimpleCustomValidation() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        int errMsgId = 9;
+        String errMsg = "Error";
+        EditText mockEditText = mock(EditText.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        SimpleCustomValidation simpleCustomValidation = new SimpleCustomValidation() {
+            @Override
+            public boolean compare(String input) {
+                return false;
+            }
+        };
+        mSpiedValidator.set(mockActivity, viewId, simpleCustomValidation, errMsgId);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockEditText, validationHolder.getEditText());
+        assertEquals(simpleCustomValidation, validationHolder.getSimpleCustomValidation());
+        assertEquals(errMsg, validationHolder.getErrMsg());
+    }
+
+    public void testSetTextInputLayoutWithActivityAndSimpleCustomValidation() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        int errMsgId = 9;
+        String errMsg = "Error";
+        TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        SimpleCustomValidation simpleCustomValidation = new SimpleCustomValidation() {
+            @Override
+            public boolean compare(String input) {
+                return false;
+            }
+        };
+        mSpiedValidator.set(mockActivity, viewId, simpleCustomValidation, errMsgId);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockTextInputLayout, validationHolder.getTextInputLayout());
+        assertEquals(simpleCustomValidation, validationHolder.getSimpleCustomValidation());
+        assertEquals(errMsg, validationHolder.getErrMsg());
+    }
+
+    public void testSetViewWithActivityAndCustomValidation() {
+        Activity mockActivity = mock(Activity.class, RETURNS_DEEP_STUBS);
+        int viewId = 1;
+        int errMsgId = 9;
+        String errMsg = "Error";
+        View mockView = mock(View.class);
+        when(mockActivity.findViewById(eq(viewId))).thenReturn(mockView);
+        when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
+        CustomValidation customValidation = new CustomValidation() {
+            @Override
+            public boolean compare(ValidationHolder validationHolder) {
+                return false;
+            }
+        };
+        CustomValidationCallback customValidationCallback = new CustomValidationCallback() {
+            @Override
+            public void execute(ValidationHolder validationHolder) {
+                // do nothing
+            }
+        };
+        CustomErrorReset customErrorReset = new CustomErrorReset() {
+            @Override
+            public void reset(ValidationHolder validationHolder) {
+                // do nothing
+            }
+        };
+        mSpiedValidator.set(mockActivity, viewId, customValidation, customValidationCallback, customErrorReset, errMsgId);
+        assertEquals(1, mSpiedValidator.mValidationHolderList.size());
+        ValidationHolder validationHolder = mSpiedValidator.mValidationHolderList.get(0);
+        assertEquals(mockView, validationHolder.getView());
+        assertEquals(customValidation, validationHolder.getCustomValidation());
+        assertEquals(customValidationCallback, validationHolder.getCustomValidationCallback());
+        assertEquals(errMsg, validationHolder.getErrMsg());
     }
 
     public void testCheckFieldsPassWithOnlyOneRegexValidationHolder() {
@@ -256,18 +393,52 @@ public class ValidatorTest extends TestCase {
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
 
+    public void testCheckFieldsPassWithOnlyOneSimpleCustomValidationHolder() {
+        mockPrivateMethods();
+        mockCheckSimpleCustomTypeField(true);
+        mSpiedValidator.mValidationHolderList.add(generate(SIMPLE_CUSTOM));
+        assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsFailWithOnlyOneSimpleCustomValidationHolder() {
+        mockPrivateMethods();
+        mockCheckSimpleCustomTypeField(false);
+        mSpiedValidator.mValidationHolderList.add(generate(SIMPLE_CUSTOM));
+        assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsPassWithOnlyOneCustomValidationHolder() {
+        mockPrivateMethods();
+        mockCheckCustomTypeField(true);
+        mSpiedValidator.mValidationHolderList.add(generate(CUSTOM));
+        assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsFailWithOnlyOneCustomValidationHolder() {
+        mockPrivateMethods();
+        mockCheckCustomTypeField(false);
+        mSpiedValidator.mValidationHolderList.add(generate(CUSTOM));
+        assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
     public void testCheckFieldsPassWithManyDifferentValidationHolders() {
         mockPrivateMethods();
         mockCheckRegexTypeField(true, true);
         mockCheckRangeTypeField(true, true);
         mockCheckConfirmationTypeField(true, true);
+        mockCheckSimpleCustomTypeField(true, true);
+        mockCheckCustomTypeField(true, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
                 generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
                 generate(REGEX),
                 generate(RANGE),
-                generate(CONFIRMATION)
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM)
         ));
         assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -277,16 +448,24 @@ public class ValidatorTest extends TestCase {
         mockCheckRegexTypeField(true, false, true);
         mockCheckRangeTypeField(true, true, true);
         mockCheckConfirmationTypeField(true, true, true);
+        mockCheckSimpleCustomTypeField(true, true, true);
+        mockCheckCustomTypeField(true, true, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
                 generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
                 generate(REGEX),
                 generate(RANGE),
                 generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
                 generate(REGEX),
                 generate(RANGE),
-                generate(CONFIRMATION)
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM)
         ));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -296,16 +475,24 @@ public class ValidatorTest extends TestCase {
         mockCheckRegexTypeField(true, true, true);
         mockCheckRangeTypeField(true, false, true);
         mockCheckConfirmationTypeField(true, true, true);
+        mockCheckSimpleCustomTypeField(true, true, true);
+        mockCheckCustomTypeField(true, true, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
                 generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
                 generate(REGEX),
                 generate(RANGE),
                 generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
                 generate(REGEX),
                 generate(RANGE),
-                generate(CONFIRMATION)
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM)
         ));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -315,16 +502,78 @@ public class ValidatorTest extends TestCase {
         mockCheckRegexTypeField(true, true, true);
         mockCheckRangeTypeField(true, true, true);
         mockCheckConfirmationTypeField(true, false, true);
+        mockCheckSimpleCustomTypeField(true, true, true);
+        mockCheckCustomTypeField(true, true, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX),
                 generate(RANGE),
                 generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
                 generate(REGEX),
                 generate(RANGE),
                 generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
                 generate(REGEX),
                 generate(RANGE),
-                generate(CONFIRMATION)
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM)
+        ));
+        assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsFailDueToOneSimpleCustomFromManyDifferentValidationHolders() {
+        mockPrivateMethods();
+        mockCheckRegexTypeField(true, true, true);
+        mockCheckRangeTypeField(true, true, true);
+        mockCheckConfirmationTypeField(true, true, true);
+        mockCheckSimpleCustomTypeField(true, false, true);
+        mockCheckCustomTypeField(true, true, true);
+        mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM)
+        ));
+        assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
+    }
+
+    public void testCheckFieldsFailDueToOneCustomFromManyDifferentValidationHolders() {
+        mockPrivateMethods();
+        mockCheckRegexTypeField(true, true, true);
+        mockCheckRangeTypeField(true, true, true);
+        mockCheckConfirmationTypeField(true, true, true);
+        mockCheckSimpleCustomTypeField(true, true, true);
+        mockCheckCustomTypeField(true, false, true);
+        mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM),
+                generate(REGEX),
+                generate(RANGE),
+                generate(CONFIRMATION),
+                generate(SIMPLE_CUSTOM),
+                generate(CUSTOM)
         ));
         assertFalse(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -423,6 +672,50 @@ public class ValidatorTest extends TestCase {
         verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, null);
     }
 
+    public void testCheckSimpleCustomTypeFieldPass() throws Exception {
+        mockPrivateMethods();
+        ValidationHolder mockValidationHolder = generate(SIMPLE_CUSTOM);
+        String mockString = "aaa";
+        SimpleCustomValidation mockSimpleCustomValidation = mock(SimpleCustomValidation.class);
+        when(mockValidationHolder.getSimpleCustomValidation()).thenReturn(mockSimpleCustomValidation);
+        when(mockValidationHolder.getText()).thenReturn(mockString);
+        when(mockSimpleCustomValidation.compare(mockString)).thenReturn(true);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkSimpleCustomTypeField", mockValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, never()).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, null);
+    }
+
+    public void testCheckSimpleCustomTypeFieldFail() throws Exception {
+        mockPrivateMethods();
+        ValidationHolder mockValidationHolder = generate(SIMPLE_CUSTOM);
+        String mockString = "aaa";
+        SimpleCustomValidation mockSimpleCustomValidation = mock(SimpleCustomValidation.class);
+        when(mockValidationHolder.getSimpleCustomValidation()).thenReturn(mockSimpleCustomValidation);
+        when(mockValidationHolder.getText()).thenReturn(mockString);
+        when(mockSimpleCustomValidation.compare(mockString)).thenReturn(false);
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkSimpleCustomTypeField", mockValidationHolder, mEmptyValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCallback", mEmptyValidationCallback, mockValidationHolder, null);
+    }
+
+    public void testCheckCustomTypeFieldPass() throws Exception {
+        mockPrivateMethods();
+        ValidationHolder mockValidationHolder = generate(CUSTOM);
+        CustomValidation mockCustomValidation = mock(CustomValidation.class);
+        when(mockValidationHolder.getCustomValidation()).thenReturn(mockCustomValidation);
+        when(mockCustomValidation.compare(mockValidationHolder)).thenReturn(true);
+        assertTrue((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkCustomTypeField", mockValidationHolder, mEmptyCustomValidationCallback));
+        verifyPrivate(mSpiedValidator, never()).invoke("executeCustomCallback", mEmptyCustomValidationCallback, mockValidationHolder);
+    }
+
+    public void testCheckCustomTypeFieldFail() throws Exception {
+        mockPrivateMethods();
+        ValidationHolder mockValidationHolder = generate(CUSTOM);
+        CustomValidation mockCustomValidation = mock(CustomValidation.class);
+        when(mockValidationHolder.getCustomValidation()).thenReturn(mockCustomValidation);
+        when(mockCustomValidation.compare(mockValidationHolder)).thenReturn(false);
+        assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkCustomTypeField", mockValidationHolder, mEmptyCustomValidationCallback));
+        verifyPrivate(mSpiedValidator, times(1)).invoke("executeCustomCallback", mEmptyCustomValidationCallback, mockValidationHolder);
+    }
+
     public void testCheckFieldsPassWithValidInvisibleField() {
         mockPrivateMethods();
         mockCheckRegexTypeField(true);
@@ -442,13 +735,19 @@ public class ValidatorTest extends TestCase {
         mockCheckRegexTypeField(false, true);
         mockCheckRangeTypeField(true, false);
         mockCheckConfirmationTypeField(false, true);
+        mockCheckSimpleCustomTypeField(true, false);
+        mockCheckCustomTypeField(false, true);
         mSpiedValidator.mValidationHolderList.addAll(Arrays.asList(
                 generate(REGEX, false),
                 generate(RANGE, false),
                 generate(CONFIRMATION, false),
+                generate(SIMPLE_CUSTOM, false),
+                generate(CUSTOM, false),
                 generate(REGEX, false),
                 generate(RANGE, false),
-                generate(CONFIRMATION, false)
+                generate(CONFIRMATION, false),
+                generate(SIMPLE_CUSTOM, false),
+                generate(CUSTOM, false)
         ));
         assertTrue(mSpiedValidator.checkFields(mEmptyValidationCallback));
     }
@@ -462,6 +761,14 @@ public class ValidatorTest extends TestCase {
         Whitebox.invokeMethod(mSpiedValidator, "executeCallback", mockValidationCallback, mockValidationHolder, mockMatcher);
         verify(mockValidationCallback).execute(mockValidationHolder, mockMatcher);
         verifyPrivate(mSpiedValidator, times(1)).invoke("requestFocus", mockValidationHolder);
+    }
+
+    public void testExecuteCustomCallback() throws Exception {
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
+        CustomValidationCallback mockCustomValidationCallback = mock(CustomValidationCallback.class);
+        doNothing().when(mockCustomValidationCallback).execute(any(ValidationHolder.class));
+        Whitebox.invokeMethod(mSpiedValidator, "executeCustomCallback", mockCustomValidationCallback, mockValidationHolder);
+        verify(mockCustomValidationCallback).execute(mockValidationHolder);
     }
 
     public void testRequestFocus() throws Exception {

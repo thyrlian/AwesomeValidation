@@ -53,4 +53,13 @@ public class BasicValidatorTest extends TestCase {
         verify(mockEditText).setError(null);
     }
 
+    public void testHaltWithSomeSortOfView() {
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
+        when(mockValidationHolder.isSomeSortOfView()).thenReturn(true);
+        mSpiedBasicValidator.mValidationHolderList.clear();
+        mSpiedBasicValidator.mValidationHolderList.add(mockValidationHolder);
+        mSpiedBasicValidator.halt();
+        verify(mockValidationHolder).resetCustomError();
+    }
+
 }

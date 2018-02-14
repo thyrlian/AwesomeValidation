@@ -68,4 +68,13 @@ public class ColorationValidatorTest extends TestCase {
         SpanHelper.reset(eq(mockEditText));
     }
 
+    public void testHaltWithSomeSortOfView() {
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
+        when(mockValidationHolder.isSomeSortOfView()).thenReturn(true);
+        mSpiedColorationValidator.mValidationHolderList.clear();
+        mSpiedColorationValidator.mValidationHolderList.add(mockValidationHolder);
+        mSpiedColorationValidator.halt();
+        verify(mockValidationHolder).resetCustomError();
+    }
+
 }

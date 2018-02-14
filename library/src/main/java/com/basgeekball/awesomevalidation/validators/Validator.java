@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.ValidationHolder;
-import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
+import com.basgeekball.awesomevalidation.utility.custom.CustomErrorReset;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidation;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidationCallback;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -106,27 +109,38 @@ public abstract class Validator {
         }
     }
 
-    public void set(EditText editText, CustomValidation customValidation, String errMsg) {
-        ValidationHolder validationHolder = new ValidationHolder(editText, customValidation, errMsg);
+    public void set(EditText editText, SimpleCustomValidation simpleCustomValidation, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(editText, simpleCustomValidation, errMsg);
         mValidationHolderList.add(validationHolder);
     }
 
-    public void set(TextInputLayout textInputLayout, CustomValidation customValidation, String errMsg) {
-        ValidationHolder validationHolder = new ValidationHolder(textInputLayout, customValidation, errMsg);
+    public void set(TextInputLayout textInputLayout, SimpleCustomValidation simpleCustomValidation, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(textInputLayout, simpleCustomValidation, errMsg);
         mValidationHolderList.add(validationHolder);
     }
 
-    public void set(Activity activity, int viewId, CustomValidation customValidation, int errMsgId) {
+    public void set(Activity activity, int viewId, SimpleCustomValidation simpleCustomValidation, int errMsgId) {
         View view = activity.findViewById(viewId);
         String errMsg = activity.getResources().getString(errMsgId);
         if (view instanceof EditText) {
-            set((EditText) view, customValidation, errMsg);
+            set((EditText) view, simpleCustomValidation, errMsg);
         } else if (view instanceof TextInputLayout) {
-            set((TextInputLayout) view, customValidation, errMsg);
+            set((TextInputLayout) view, simpleCustomValidation, errMsg);
         }
     }
 
-    protected boolean checkFields(ValidationCallback callback) {
+    public void set(Activity activity, int viewId, CustomValidation customValidation, CustomValidationCallback customValidationCallback, CustomErrorReset customErrorReset, int errMsgId) {
+        View view = activity.findViewById(viewId);
+        String errMsg = activity.getResources().getString(errMsgId);
+        set(view, customValidation, customValidationCallback, customErrorReset, errMsg);
+    }
+
+    public void set(View view, CustomValidation customValidation, CustomValidationCallback customValidationCallback, CustomErrorReset customErrorReset, String errMsg) {
+        ValidationHolder validationHolder = new ValidationHolder(view, customValidation, customValidationCallback, customErrorReset, errMsg);
+        mValidationHolderList.add(validationHolder);
+    }
+
+    boolean checkFields(ValidationCallback callback) {
         boolean result = true;
         mHasFailed = false;
         for (ValidationHolder validationHolder : mValidationHolderList) {
@@ -137,8 +151,10 @@ public abstract class Validator {
                     result = checkRangeTypeField(validationHolder, callback) && result;
                 } else if (validationHolder.isConfirmationType()) {
                     result = checkConfirmationTypeField(validationHolder, callback) && result;
+                } else if (validationHolder.isSimpleCustomType()) {
+                    result = checkSimpleCustomTypeField(validationHolder, callback) && result;
                 } else if (validationHolder.isCustomType()) {
-                    result = checkCustomTypeField(validationHolder, callback) && result;
+                    result = checkCustomTypeField(validationHolder, validationHolder.getCustomValidationCallback()) && result;
                 }
             }
         }
@@ -178,10 +194,19 @@ public abstract class Validator {
         return true;
     }
 
-    private boolean checkCustomTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
-        boolean valid =  validationHolder.getCustomValidation().compare(validationHolder.getText());
+    private boolean checkSimpleCustomTypeField(ValidationHolder validationHolder, ValidationCallback callback) {
+        boolean valid =  validationHolder.getSimpleCustomValidation().compare(validationHolder.getText());
         if (!valid) {
             executeCallback(callback, validationHolder, null);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkCustomTypeField(ValidationHolder validationHolder, CustomValidationCallback callback) {
+        boolean valid =  validationHolder.getCustomValidation().compare(validationHolder);
+        if (!valid) {
+            executeCustomCallback(callback, validationHolder);
             return false;
         }
         return true;
@@ -190,6 +215,10 @@ public abstract class Validator {
     private void executeCallback(ValidationCallback callback, ValidationHolder validationHolder, Matcher matcher) {
         callback.execute(validationHolder, matcher);
         requestFocus(validationHolder);
+    }
+
+    private void executeCustomCallback(CustomValidationCallback callback, ValidationHolder validationHolder) {
+        callback.execute(validationHolder);
     }
 
     private void requestFocus(ValidationHolder validationHolder) {

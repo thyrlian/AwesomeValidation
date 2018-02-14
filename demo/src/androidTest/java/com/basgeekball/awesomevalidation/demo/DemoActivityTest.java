@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -26,6 +27,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.basgeekball.awesomevalidation.demo.ViewMatcher.hasAncestorAndSelfMatcher;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
 public class DemoActivityTest {
@@ -41,6 +45,7 @@ public class DemoActivityTest {
         enterText(R.id.edt_firstname, "Dwyane");
         enterText(R.id.edt_lastname, "Wade");
         enterText(R.id.edt_email, "D-Wade@nba.com");
+        selectSpinnerValue(R.id.spinner_tech_stacks, "Mobile");
         enterText(R.id.edt_ip, "184.154.83.119");
         enterText(R.id.edt_tel, "312-455-4000");
         enterText(R.id.edt_zipcode, "53201");
@@ -80,6 +85,11 @@ public class DemoActivityTest {
 
     private void clickButton(int viewId) {
         findView(viewId).perform(click());
+    }
+
+    private void selectSpinnerValue(int spinnerId, String text) {
+        onView(withId(spinnerId)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(text))).perform(click());
     }
 
     private void assertViewIsDisplayed(int viewId) {

@@ -49,4 +49,13 @@ public class TextInputLayoutValidatorTest extends TestCase {
         verify(mockTextInputLayout).setError(null);
     }
 
+    public void testHaltWithSomeSortOfView() {
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
+        when(mockValidationHolder.isSomeSortOfView()).thenReturn(true);
+        mSpiedTextInputLayoutValidator.mValidationHolderList.clear();
+        mSpiedTextInputLayoutValidator.mValidationHolderList.add(mockValidationHolder);
+        mSpiedTextInputLayoutValidator.halt();
+        verify(mockValidationHolder).resetCustomError();
+    }
+
 }

@@ -79,8 +79,16 @@ public class UnderlabelValidator extends Validator {
         for (ViewsInfo viewsInfo : mViewsInfos) {
             viewsInfo.restoreViews();
         }
+        for (ValidationHolder validationHolder : mValidationHolderList) {
+            if (validationHolder.isSomeSortOfView()) {
+                validationHolder.resetCustomError();
+            }
+        }
         if (mValidationHolderList.size() > 0) {
-            mValidationHolderList.get(0).getEditText().requestFocus();
+            ValidationHolder validationHolder = mValidationHolderList.get(0);
+            if (!validationHolder.isSomeSortOfView()) {
+                validationHolder.getEditText().requestFocus();
+            }
         }
         mViewsInfos.clear();
         mHasFailed = false;

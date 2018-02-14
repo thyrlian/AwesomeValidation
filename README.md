@@ -53,8 +53,8 @@ mAwesomeValidation.addValidation(activity, R.id.edt_password, regexPassword, R.s
 // to validate a confirmation field (don't validate any rule other than confirmation on confirmation field)
 mAwesomeValidation.addValidation(activity, R.id.edt_password_confirmation, R.id.edt_password, R.string.err_password_confirmation);
 
-// to validate with your own custom validator function
-mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation() {
+// to validate with a simple custom validator function
+mAwesomeValidation.addValidation(activity, R.id.edt_birthday, new SimpleCustomValidation() {
     @Override
     public boolean compare(String input) {
         // check if the age is >= 18
@@ -83,6 +83,32 @@ mAwesomeValidation.addValidation(activity, R.id.edt_birth, new CustomValidation(
         return false;
     }
 }, R.string.err_birth);
+
+// to validate with your own custom validator function, warn and clear the warning with your way
+mAwesomeValidation.addValidation(activity, R.id.spinner_tech_stacks, new CustomValidation() {
+    @Override
+    public boolean compare(ValidationHolder validationHolder) {
+        if (((Spinner) validationHolder.getView()).getSelectedItem().toString().equals("< Please select one >")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}, new CustomValidationCallback() {
+    @Override
+    public void execute(ValidationHolder validationHolder) {
+        TextView textViewError = (TextView) ((Spinner) validationHolder.getView()).getSelectedView();
+        textViewError.setError(validationHolder.getErrMsg());
+        textViewError.setTextColor(Color.RED);
+    }
+}, new CustomErrorReset() {
+    @Override
+    public void reset(ValidationHolder validationHolder) {
+        TextView textViewError = (TextView) ((Spinner) validationHolder.getView()).getSelectedView();
+        textViewError.setError(null);
+        textViewError.setTextColor(Color.BLACK);
+    }
+}, R.string.err_tech_stacks);
 
 // Step 3: set a trigger
 findViewById(R.id.btn_done).setOnClickListener(new View.OnClickListener() {

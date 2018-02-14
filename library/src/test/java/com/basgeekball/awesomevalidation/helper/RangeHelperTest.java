@@ -5,7 +5,6 @@ import android.support.v4.util.Pair;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RangeHelperTest extends TestCase {
 

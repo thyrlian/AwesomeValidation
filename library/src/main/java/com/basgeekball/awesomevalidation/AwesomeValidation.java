@@ -3,10 +3,14 @@ package com.basgeekball.awesomevalidation;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
+import android.view.View;
 import android.widget.EditText;
 
-import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.model.NumericRange;
+import com.basgeekball.awesomevalidation.utility.custom.CustomErrorReset;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidation;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidationCallback;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.basgeekball.awesomevalidation.validators.BasicValidator;
 import com.basgeekball.awesomevalidation.validators.ColorationValidator;
 import com.basgeekball.awesomevalidation.validators.TextInputLayoutValidator;
@@ -70,6 +74,11 @@ public class AwesomeValidation {
         }
     }
 
+    public void setContext(Context context) {
+        checkIsUnderlabelValidator();
+        ((UnderlabelValidator) mValidator).setContext(context);
+    }
+
     public void setColor(int color) {
         checkIsColorationValidator();
         ((ColorationValidator) mValidator).setColor(color);
@@ -83,11 +92,6 @@ public class AwesomeValidation {
     public void setUnderlabelColorByResource(int colorResId) {
         checkIsUnderlabelValidator();
         ((UnderlabelValidator) mValidator).setColorByResource(colorResId);
-    }
-
-    public void setContext(Context context) {
-        checkIsUnderlabelValidator();
-        ((UnderlabelValidator) mValidator).setContext(context);
     }
 
     public void addValidation(EditText editText, String regex, String errMsg) {
@@ -146,18 +150,26 @@ public class AwesomeValidation {
         mValidator.set(activity, confirmationViewId, viewId, errMsgId);
     }
 
-    public void addValidation(EditText editText, CustomValidation customValidation, String errMsg) {
+    public void addValidation(EditText editText, SimpleCustomValidation simpleCustomValidation, String errMsg) {
         checkIsNotTextInputLayoutValidator();
-        mValidator.set(editText, customValidation, errMsg);
+        mValidator.set(editText, simpleCustomValidation, errMsg);
     }
 
-    public void addValidation(TextInputLayout textInputLayout,  CustomValidation customValidation, String errMsg) {
+    public void addValidation(TextInputLayout textInputLayout, SimpleCustomValidation simpleCustomValidation, String errMsg) {
         checkIsTextInputLayoutValidator();
-        mValidator.set(textInputLayout, customValidation, errMsg);
+        mValidator.set(textInputLayout, simpleCustomValidation, errMsg);
     }
 
-    public void addValidation(Activity activity, int viewId, CustomValidation customValidation, int errMsgId) {
-        mValidator.set(activity, viewId, customValidation, errMsgId);
+    public void addValidation(Activity activity, int viewId, SimpleCustomValidation simpleCustomValidation, int errMsgId) {
+        mValidator.set(activity, viewId, simpleCustomValidation, errMsgId);
+    }
+
+    public void addValidation(View view, CustomValidation customValidation, CustomValidationCallback customValidationCallback, CustomErrorReset customErrorReset, String errMsg) {
+        mValidator.set(view, customValidation, customValidationCallback, customErrorReset, errMsg);
+    }
+
+    public void addValidation(Activity activity, int viewId, CustomValidation customValidation, CustomValidationCallback customValidationCallback, CustomErrorReset customErrorReset, int errMsgId) {
+        mValidator.set(activity, viewId, customValidation, customValidationCallback, customErrorReset, errMsgId);
     }
 
     public boolean validate() {

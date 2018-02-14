@@ -72,15 +72,22 @@ public class ColorationValidator extends Validator {
     @Override
     public void halt() {
         for (ValidationHolder validationHolder : mValidationHolderList) {
-            EditText editText = validationHolder.getEditText();
-            editText.setError(null);
-            SpanHelper.reset(editText);
+            if (validationHolder.isSomeSortOfView()) {
+                validationHolder.resetCustomError();
+            } else {
+                EditText editText = validationHolder.getEditText();
+                editText.setError(null);
+                SpanHelper.reset(editText);
+            }
         }
         for (Map.Entry<EditText, TextWatcher> entry : mTextWatcherForEditText.entrySet()) {
             entry.getKey().removeTextChangedListener(entry.getValue());
         }
         if (mValidationHolderList.size() > 0) {
-            mValidationHolderList.get(0).getEditText().requestFocus();
+            ValidationHolder validationHolder = mValidationHolderList.get(0);
+            if (!validationHolder.isSomeSortOfView()) {
+                validationHolder.getEditText().requestFocus();
+            }
         }
     }
 

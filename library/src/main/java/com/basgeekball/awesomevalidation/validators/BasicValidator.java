@@ -22,7 +22,11 @@ public class BasicValidator extends Validator {
     @Override
     public void halt() {
         for (ValidationHolder validationHolder : mValidationHolderList) {
-            validationHolder.getEditText().setError(null);
+            if (validationHolder.isSomeSortOfView()) {
+                validationHolder.resetCustomError();
+            } else {
+                validationHolder.getEditText().setError(null);
+            }
         }
     }
 

@@ -82,6 +82,15 @@ public class UnderlabelValidatorTest extends TestCase {
         assertTrue(viewsInfos.isEmpty());
     }
 
+    public void testHaltWithSomeSortOfView() {
+        ValidationHolder mockValidationHolder = mock(ValidationHolder.class);
+        when(mockValidationHolder.isSomeSortOfView()).thenReturn(true);
+        mSpiedUnderlabelValidator.mValidationHolderList.clear();
+        mSpiedUnderlabelValidator.mValidationHolderList.add(mockValidationHolder);
+        mSpiedUnderlabelValidator.halt();
+        verify(mockValidationHolder).resetCustomError();
+    }
+
     public void testReplaceView() throws Exception {
         EditText mockEditText = mock(EditText.class);
         ViewGroup mockViewGroup = mock(ViewGroup.class);

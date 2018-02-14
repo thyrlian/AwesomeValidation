@@ -19,11 +19,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationHolder;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.basgeekball.awesomevalidation.helper.CustomValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.basgeekball.awesomevalidation.utility.custom.CustomErrorReset;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidation;
+import com.basgeekball.awesomevalidation.utility.custom.CustomValidationCallback;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.google.common.collect.Range;
 
 import java.text.ParseException;
@@ -68,6 +74,7 @@ public class DemoActivity extends AppCompatActivity {
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
         }
+        setupSpinner();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -110,6 +117,13 @@ public class DemoActivity extends AppCompatActivity {
         }
     }
 
+    private void setupSpinner() {
+        Spinner spinner = findViewById(R.id.spinner_tech_stacks);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tech_stacks, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
     private void clearValidation() {
         if (mAwesomeValidation != null) {
             mAwesomeValidation.clear();
@@ -148,7 +162,7 @@ public class DemoActivity extends AppCompatActivity {
         mAwesomeValidation.addValidation(activity, R.id.edt_zipcode, "\\d+", R.string.err_zipcode);
         mAwesomeValidation.addValidation(activity, R.id.edt_year, Range.closed(1900, Calendar.getInstance().get(Calendar.YEAR)), R.string.err_year);
         mAwesomeValidation.addValidation(activity, R.id.edt_height, Range.closed(0.0f, 2.72f), R.string.err_height);
-        mAwesomeValidation.addValidation(activity, R.id.edt_birthday, new CustomValidation() {
+        mAwesomeValidation.addValidation(activity, R.id.edt_birthday, new SimpleCustomValidation() {
             @Override
             public boolean compare(String input) {
                 try {
@@ -176,6 +190,30 @@ public class DemoActivity extends AppCompatActivity {
                 return false;
             }
         }, R.string.err_birth);
+        mAwesomeValidation.addValidation(activity, R.id.spinner_tech_stacks, new CustomValidation() {
+            @Override
+            public boolean compare(ValidationHolder validationHolder) {
+                if (((Spinner) validationHolder.getView()).getSelectedItem().toString().equals("< Please select one >")) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }, new CustomValidationCallback() {
+            @Override
+            public void execute(ValidationHolder validationHolder) {
+                TextView textViewError = (TextView) ((Spinner) validationHolder.getView()).getSelectedView();
+                textViewError.setError(validationHolder.getErrMsg());
+                textViewError.setTextColor(Color.RED);
+            }
+        }, new CustomErrorReset() {
+            @Override
+            public void reset(ValidationHolder validationHolder) {
+                TextView textViewError = (TextView) ((Spinner) validationHolder.getView()).getSelectedView();
+                textViewError.setError(null);
+                textViewError.setTextColor(Color.BLACK);
+            }
+        }, R.string.err_tech_stacks);
 
         setValidationButtons();
     }

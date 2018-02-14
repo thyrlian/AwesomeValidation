@@ -29,7 +29,11 @@ public class TextInputLayoutValidator extends Validator {
     @Override
     public void halt() {
         for (ValidationHolder validationHolder : mValidationHolderList) {
-            validationHolder.getTextInputLayout().setError(null);
+            if (validationHolder.isSomeSortOfView()) {
+                validationHolder.resetCustomError();
+            } else {
+                validationHolder.getTextInputLayout().setError(null);
+            }
         }
     }
 

@@ -1,9 +1,9 @@
 package com.basgeekball.awesomevalidation.helper;
 
+import android.support.v4.util.Pair;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
-import android.support.v4.util.Pair;
 import android.widget.EditText;
 
 import junit.framework.TestCase;
