@@ -5,6 +5,7 @@ import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.EditText;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationHolder;
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
@@ -140,7 +141,7 @@ public abstract class Validator {
         mValidationHolderList.add(validationHolder);
     }
 
-    boolean checkFields(ValidationCallback callback) {
+    protected boolean checkFields(ValidationCallback callback) {
         boolean result = true;
         mHasFailed = false;
         for (ValidationHolder validationHolder : mValidationHolderList) {
@@ -222,7 +223,7 @@ public abstract class Validator {
     }
 
     private void requestFocus(ValidationHolder validationHolder) {
-        if (!mHasFailed) {
+        if (AwesomeValidation.isAutoFocusOnFirstFailureEnabled() && !mHasFailed) {
             EditText editText = validationHolder.getEditText();
             editText.requestFocus();
             editText.setSelection(editText.getText().length());

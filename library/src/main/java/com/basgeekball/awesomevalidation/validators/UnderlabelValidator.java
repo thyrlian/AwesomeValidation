@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationHolder;
 import com.basgeekball.awesomevalidation.exception.MissingContextException;
 import com.basgeekball.awesomevalidation.exception.UnsupportedLayoutException;
@@ -38,7 +39,7 @@ public class UnderlabelValidator extends Validator {
             @Override
             public void execute(ValidationHolder validationHolder, Matcher matcher) {
                 TextView textView = replaceView(validationHolder);
-                if (!mHasFailed) {
+                if (AwesomeValidation.isAutoFocusOnFirstFailureEnabled() && !mHasFailed) {
                     textView.setFocusable(true);
                     textView.setFocusableInTouchMode(true);
                     textView.setClickable(true);
@@ -84,7 +85,7 @@ public class UnderlabelValidator extends Validator {
                 validationHolder.resetCustomError();
             }
         }
-        if (mValidationHolderList.size() > 0) {
+        if (AwesomeValidation.isAutoFocusOnFirstFailureEnabled() && mValidationHolderList.size() > 0) {
             ValidationHolder validationHolder = mValidationHolderList.get(0);
             if (!validationHolder.isSomeSortOfView()) {
                 validationHolder.getEditText().requestFocus();

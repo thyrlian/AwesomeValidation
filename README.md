@@ -31,6 +31,9 @@ mAwesomeValidation.setUnderlabelColorByResource(android.R.color.holo_orange_ligh
 mAwesomeValidation.setUnderlabelColor(ContextCompat.getColor(this, android.R.color.holo_orange_dark)); // optional for UNDERLABEL style
 // or
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
+// by default, it automatically sets focus to the first failed input field after validation is triggered
+// you can disable this behavior by
+AwesomeValidation.disableAutoFocusOnFirstFailure();
 
 // Step 2: add validations
 // support regex string, java.util.regex.Pattern and Guava#Range

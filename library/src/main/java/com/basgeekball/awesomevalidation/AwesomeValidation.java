@@ -24,6 +24,8 @@ public class AwesomeValidation {
 
     private Validator mValidator = null;
 
+    private static boolean autoFocusOnFirstFailure = true;
+
     public AwesomeValidation(ValidationStyle style) {
         switch (style) {
             case BASIC:
@@ -48,6 +50,14 @@ public class AwesomeValidation {
                 return;
             default:
         }
+    }
+
+    public static boolean isAutoFocusOnFirstFailureEnabled() {
+        return autoFocusOnFirstFailure;
+    }
+
+    public static void disableAutoFocusOnFirstFailure() {
+        autoFocusOnFirstFailure = false;
     }
 
     private void checkIsColorationValidator() {

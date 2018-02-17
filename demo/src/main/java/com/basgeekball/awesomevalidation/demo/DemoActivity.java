@@ -75,6 +75,7 @@ public class DemoActivity extends AppCompatActivity {
             }
         }
         setupSpinner();
+        // AwesomeValidation.disableAutoFocusOnFirstFailure();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);

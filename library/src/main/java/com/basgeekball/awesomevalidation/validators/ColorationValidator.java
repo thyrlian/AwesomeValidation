@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationHolder;
 import com.basgeekball.awesomevalidation.helper.RangeHelper;
 import com.basgeekball.awesomevalidation.helper.SpanHelper;
@@ -83,7 +84,7 @@ public class ColorationValidator extends Validator {
         for (Map.Entry<EditText, TextWatcher> entry : mTextWatcherForEditText.entrySet()) {
             entry.getKey().removeTextChangedListener(entry.getValue());
         }
-        if (mValidationHolderList.size() > 0) {
+        if (AwesomeValidation.isAutoFocusOnFirstFailureEnabled() && mValidationHolderList.size() > 0) {
             ValidationHolder validationHolder = mValidationHolderList.get(0);
             if (!validationHolder.isSomeSortOfView()) {
                 validationHolder.getEditText().requestFocus();
