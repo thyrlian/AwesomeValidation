@@ -155,7 +155,7 @@ dependencies {
 ## Release guide
 * Update version number in ***build.gradle***, ***gradle.properties*** and ***README***
 * Create new git tag: `v*.*`
-* Run `./gradlew clean build :library:generateRelease` to generate release zip file
+* Run `./gradlew clean build && ./gradlew generateRelease` to generate release zip file
 * Run `./gradlew bintrayUpload` to create a new version in bintray (first make sure that environment variables `BINTRAY_USER` & `BINTRAY_KEY` are set)
 * Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
 
