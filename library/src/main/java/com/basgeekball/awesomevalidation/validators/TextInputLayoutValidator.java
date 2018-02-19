@@ -32,7 +32,9 @@ public class TextInputLayoutValidator extends Validator {
             if (validationHolder.isSomeSortOfView()) {
                 validationHolder.resetCustomError();
             } else {
-                validationHolder.getTextInputLayout().setError(null);
+                TextInputLayout textInputLayout = validationHolder.getTextInputLayout();
+                textInputLayout.setErrorEnabled(false);
+                textInputLayout.setError(null);
             }
         }
     }

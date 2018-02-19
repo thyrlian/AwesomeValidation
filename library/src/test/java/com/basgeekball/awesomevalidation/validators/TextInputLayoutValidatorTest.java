@@ -46,6 +46,7 @@ public class TextInputLayoutValidatorTest extends TestCase {
         TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
         when(mMockValidationHolder.getTextInputLayout()).thenReturn(mockTextInputLayout);
         mSpiedTextInputLayoutValidator.halt();
+        verify(mockTextInputLayout).setErrorEnabled(false);
         verify(mockTextInputLayout).setError(null);
     }
 
