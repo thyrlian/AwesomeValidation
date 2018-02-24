@@ -1,5 +1,6 @@
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![JCenter](https://api.bintray.com/packages/thyrlian/android-libraries/com.basgeekball.awesomevalidation/images/download.svg) ](https://bintray.com/thyrlian/android-libraries/com.basgeekball.awesomevalidation/_latestVersion)
+[![JitPack](https://jitpack.io/v/thyrlian/AwesomeValidation.svg)](https://jitpack.io/#thyrlian/AwesomeValidation)
 [![Travis CI Status](https://travis-ci.org/thyrlian/AwesomeValidation.svg?branch=master)](https://travis-ci.org/thyrlian/AwesomeValidation)
 [![CircleCI Status](https://circleci.com/gh/thyrlian/AwesomeValidation/tree/master.svg?style=shield&circle-token=78719835860892697c8c54e1f22c872e086a0b09)](https://circleci.com/gh/thyrlian/AwesomeValidation/tree/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/dfea4a7a16c34cab9b810829fc221e19)](https://www.codacy.com/app/thyrlian/AwesomeValidation)
@@ -137,10 +138,29 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 * `UNDERLABEL` validation style doesn't support `ConstraintLayout` at the moment, please use other validation styles.  There is an open issue [here](https://github.com/thyrlian/AwesomeValidation/issues/33).
 
 ## Import as dependency
-For Gradle it's so easy: just add below compile line to your module's build.gradle (it's available on JCenter).
-```java
+For Gradle it's easy - just add below to your module's `build.gradle` (it's available on [JCenter](https://bintray.com/bintray/jcenter)):
+```gradle
 dependencies {
     implementation 'com.basgeekball:awesome-validation:4.1'
+}
+```
+
+Alternatively, it's also available on [JitPack](https://jitpack.io/):
+* Add it in your root `build.gradle` at the end of repositories:
+```gradle
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+* Add the dependency
+```gradle
+dependencies {
+	implementation 'com.github.thyrlian:AwesomeValidation:v4.1'
+	// you can also use the short commit hash to get a specific version
+	// implementation 'com.github.thyrlian:AwesomeValidation:GIT_COMMIT_HASH'
 }
 ```
 
