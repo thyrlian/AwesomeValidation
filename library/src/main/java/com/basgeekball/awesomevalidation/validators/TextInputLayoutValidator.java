@@ -1,5 +1,6 @@
 package com.basgeekball.awesomevalidation.validators;
 
+import android.graphics.Color;
 import android.support.design.widget.TextInputLayout;
 
 import com.basgeekball.awesomevalidation.R;
@@ -10,15 +11,21 @@ import java.util.regex.Matcher;
 
 public class TextInputLayoutValidator extends Validator {
 
+    private int mErrorTextAppearanceStyle = R.style.AwesomeValidation_TextInputLayout;
+
     private ValidationCallback mValidationCallback = new ValidationCallback() {
         @Override
         public void execute(ValidationHolder validationHolder, Matcher matcher) {
             TextInputLayout textInputLayout = validationHolder.getTextInputLayout();
-            textInputLayout.setErrorTextAppearance(R.style.AwesomeValidation_TextInputLayout);
+            textInputLayout.setErrorTextAppearance(mErrorTextAppearanceStyle);
             textInputLayout.setErrorEnabled(true);
             textInputLayout.setError(validationHolder.getErrMsg());
         }
     };
+
+    public void setErrorTextAppearance(int styleId) {
+        mErrorTextAppearanceStyle = styleId;
+    }
 
     @Override
     public boolean trigger() {

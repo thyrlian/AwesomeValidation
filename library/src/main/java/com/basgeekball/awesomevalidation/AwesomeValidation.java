@@ -104,6 +104,12 @@ public class AwesomeValidation {
         ((UnderlabelValidator) mValidator).setColorByResource(colorResId);
     }
 
+    public void setTextInputLayoutErrorTextAppearance(int styleId)
+    {
+        checkIsTextInputLayoutValidator();
+        ((TextInputLayoutValidator) mValidator).setErrorTextAppearance(styleId);
+    }
+
     public void addValidation(EditText editText, String regex, String errMsg) {
         checkIsNotTextInputLayoutValidator();
         mValidator.set(editText, regex, errMsg);
