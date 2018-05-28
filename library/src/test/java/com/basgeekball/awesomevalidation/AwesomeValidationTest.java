@@ -54,6 +54,7 @@ public class AwesomeValidationTest extends TestCase {
     private Context mMockContext;
     private int mColor = 256;
     private int mColorResId = 512;
+    private int mStyleResId = 768;
     private SimpleCustomValidation mEmptySimpleCustomValidation = new SimpleCustomValidation() {
         @Override
         public boolean compare(String input) {
@@ -230,6 +231,16 @@ public class AwesomeValidationTest extends TestCase {
     @Test(expected = UnsupportedOperationException.class)
     public void testSetUnderlabelColorByResourceForNonUnderlabelStyle() throws Exception {
         mSpiedAwesomeValidationBasicStyle.setUnderlabelColorByResource(mColorResId);
+    }
+
+    public void testSetTextInputLayoutErrorTextAppearanceForTextInputLayoutStyle() throws Exception {
+        mSpiedAwesomeValidationTextInputLayoutStyle.setTextInputLayoutErrorTextAppearance(mStyleResId);
+        verify(mSpiedTextInputLayoutValidator, times(1)).setErrorTextAppearance(mStyleResId);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testSetTextInputLayoutErrorTextAppearanceForNonTextInputLayoutStyle() throws Exception {
+        mSpiedAwesomeValidationBasicStyle.setTextInputLayoutErrorTextAppearance(mStyleResId);
     }
 
     public void testAddValidation() throws Exception {

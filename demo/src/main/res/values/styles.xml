@@ -9,8 +9,8 @@
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
-    <style name="TextInputLayoutStyle" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@android:color/holo_orange_light</item>
+    <style name="TextInputLayoutErrorStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#ffffbb33</item>
     </style>
 
 </resources>

@@ -147,7 +147,7 @@ public class DemoActivity extends AppCompatActivity {
                 break;
             case TEXT_INPUT_LAYOUT:
                 mAwesomeValidation = new AwesomeValidation(TEXT_INPUT_LAYOUT);
-                mAwesomeValidation.setTextInputLayoutErrorTextAppearance(R.style.TextInputLayoutStyle);
+                mAwesomeValidation.setTextInputLayoutErrorTextAppearance(R.style.TextInputLayoutErrorStyle);
                 break;
         }
     }
