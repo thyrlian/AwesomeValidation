@@ -36,8 +36,9 @@ dependencies {
     implementation "com.android.support:support-v4:${rootProject.ext.androidSupportLibVersion}"
     implementation "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
     implementation "com.android.support.constraint:constraint-layout:1.1.2"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.1") {
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2") {
         exclude module: "support-annotations"
     }
+    androidTestImplementation "com.android.support.test:rules:1.0.2"
     debugImplementation fileTree(dir: "${project.projectDir}/../library/build/intermediates/jacoco", include: ["jacocoagent.jar"])
 }
