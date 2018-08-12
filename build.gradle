@@ -20,7 +20,7 @@ ext {
     targetSdk = 27
     compileSdkVersion = 27
     buildToolsVersion = "27.0.3"
-    androidSupportLibVersion = "27.0.2"
+    androidSupportLibVersion = "27.1.1"
     versionCode = 8
     versionName = "4.1"
 }
