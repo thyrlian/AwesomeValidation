@@ -143,7 +143,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 For Gradle it's easy - just add below to your module's `build.gradle` (it's available on [JCenter](https://bintray.com/bintray/jcenter)):
 ```gradle
 dependencies {
-    implementation 'com.basgeekball:awesome-validation:4.1'
+    implementation 'com.basgeekball:awesome-validation:4.2'
 }
 ```
 
@@ -160,7 +160,7 @@ allprojects {
 * Add the dependency
 ```gradle
 dependencies {
-    implementation 'com.github.thyrlian:AwesomeValidation:v4.1'
+    implementation 'com.github.thyrlian:AwesomeValidation:v4.2'
     // you can also use the short commit hash to get a specific version
     // implementation 'com.github.thyrlian:AwesomeValidation:GIT_COMMIT_HASH'
 }

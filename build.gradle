@@ -21,8 +21,8 @@ ext {
     compileSdkVersion = 27
     buildToolsVersion = "27.0.3"
     androidSupportLibVersion = "27.1.1"
-    versionCode = 8
-    versionName = "4.1"
+    versionCode = 9
+    versionName = "4.2"
 }
 
 bintray {
