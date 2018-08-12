@@ -47,8 +47,8 @@ android {
 ext {
     guavaVersion = "26.0-android"
     junitVersion = "4.12"
-    mockitoVersion = "2.13.0"
-    easymockVersion = "3.5.1"
+    mockitoVersion = "2.21.0"
+    easymockVersion = "3.6"
     powermockVersion = "2.0.0-beta.5"
 }
 
