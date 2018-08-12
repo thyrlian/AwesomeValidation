@@ -6,13 +6,13 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
-        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2"
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.3"
     }
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.8.0"
+    id "com.jfrog.bintray" version "1.8.4"
 }
 
 ext {
