@@ -1,7 +1,7 @@
 package com.basgeekball.awesomevalidation.validators;
 
 import android.graphics.Color;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;

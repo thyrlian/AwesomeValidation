@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -124,12 +124,12 @@
 
                     </LinearLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/container_text_input_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -137,15 +137,15 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <android.support.design.widget.TextInputEditText
+                            <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:maxLines="1"
                                 android:hint="@string/edt_email" />
 
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_password"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -155,16 +155,16 @@
                             app:layout_constraintHorizontal_chainStyle="spread"
                             app:layout_constraintHorizontal_weight="1">
 
-                            <android.support.design.widget.TextInputEditText
+                            <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
                                 android:hint="@string/edt_password" />
 
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_password_confirmation"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -173,16 +173,16 @@
                             app:layout_constraintLeft_toRightOf="@+id/til_password"
                             app:layout_constraintHorizontal_weight="1">
 
-                            <android.support.design.widget.TextInputEditText
+                            <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
                                 android:hint="@string/edt_password_confirmation" />
 
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_year"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -190,15 +190,15 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent">
 
-                            <android.support.design.widget.TextInputEditText
+                            <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:maxLines="1"
                                 android:hint="@string/edt_year" />
 
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
@@ -272,6 +272,6 @@
             android:dividerHeight="0dp"
             android:background="#111"/>
 
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </LinearLayout>

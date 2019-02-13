@@ -4,7 +4,6 @@ apply from: "gradle/script/coverage.gradle"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdk
@@ -45,7 +44,7 @@ android {
 }
 
 ext {
-    guavaVersion = "26.0-android"
+    guavaVersion = "27.0.1-android"
     junitVersion = "4.12"
     mockitoVersion = "2.21.0"
     easymockVersion = "3.6"
@@ -53,8 +52,8 @@ ext {
 }
 
 dependencies {
-    implementation "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
-    implementation "com.android.support.constraint:constraint-layout:1.1.2"
+    implementation 'com.google.android.material:material:1.1.0-alpha03'
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
     api("com.google.guava:guava:${guavaVersion}") {
         exclude module: "jsr305"
     }

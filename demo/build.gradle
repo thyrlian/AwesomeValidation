@@ -2,7 +2,6 @@ apply plugin: "com.android.application"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.basgeekball.awesomevalidation"
@@ -10,7 +9,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -32,13 +31,13 @@ android {
 
 dependencies {
     implementation project(":library")
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.androidSupportLibVersion}"
-    implementation "com.android.support:support-v4:${rootProject.ext.androidSupportLibVersion}"
-    implementation "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
-    implementation "com.android.support.constraint:constraint-layout:1.1.2"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2") {
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0-alpha03'
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.1.2-alpha01") {
         exclude module: "support-annotations"
     }
-    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    androidTestImplementation "androidx.test:rules:1.1.2-alpha01"
     debugImplementation fileTree(dir: "${project.projectDir}/../library/build/intermediates/jacoco", include: ["jacocoagent.jar"])
 }

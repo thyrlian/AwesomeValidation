@@ -2,7 +2,7 @@ package com.basgeekball.awesomevalidation;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.textfield.TextInputLayout;
 import android.view.View;
 import android.widget.EditText;
 

@@ -6,7 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.3"
     }
 }
@@ -18,8 +18,7 @@ plugins {
 ext {
     minSdk = 14
     targetSdk = 27
-    compileSdkVersion = 27
-    buildToolsVersion = "27.0.3"
+    compileSdkVersion = 28
     androidSupportLibVersion = "27.1.1"
     versionCode = 9
     versionName = "4.2"
