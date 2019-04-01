@@ -30,7 +30,7 @@ jobs:
           command: ./gradlew check
       - run:
           name: Run UI Tests
-          command: ./gradlew :demo:connectedAndroidTest
+          command: chmod +x android-wait-for-emulator.sh && ./android-wait-for-emulator && ./gradlew :demo:connectedAndroidTest
       - store_artifacts:
           path: library/build/reports
           destination: reports
