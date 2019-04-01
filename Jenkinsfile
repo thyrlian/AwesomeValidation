@@ -22,21 +22,21 @@ node('android') {
 
 def checkLintAndPublishResults() {
     try {
-        sh "./gradlew :library:lint"
+        sh './gradlew :library:lint'
     } catch(err) {
     }
-    String file = "library/build/outputs/lint-results-debug.xml"
-    step([$class: 'LintPublisher', pattern: file])
+    String file = 'library/build/outputs/lint-results-debug.xml'
+    androidLint pattern: file
 }
 
 def runUnitTestAndPublishResults() {
     failure = false
     try {
-        sh "./gradlew :library:testDebugUnitTest"
+        sh './gradlew :library:testDebugUnitTest'
     } catch(err) {
         failure = true
     } finally {
-        String results = "library/build/test-results/testDebugUnitTest/*.xml"
+        String results = 'library/build/test-results/testDebugUnitTest/*.xml'
         step([$class: 'JUnitResultArchiver', testResults: results])
     }
     if (failure) {
@@ -45,6 +45,6 @@ def runUnitTestAndPublishResults() {
 }
 
 def generateAndArchiveAPK() {
-    sh "./gradlew :demo:assembleDebug"
-    archive "demo/build/outputs/apk/*.apk"
+    sh './gradlew :demo:assembleDebug'
+    archiveArtifacts artifacts: 'demo/build/outputs/apk/**/*.apk', excludes: 'demo/build/outputs/apk/**/output.json'
 }
