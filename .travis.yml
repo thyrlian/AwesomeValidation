@@ -23,6 +23,8 @@ android:
     - sys-img-$ANDROID_ABI-$ANDROID_EMULATOR_TARGET
   licenses:
     - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+    - 'android-sdk-preview-license-.+'
 
 before_script:
   - sudo service postgresql stop || true
