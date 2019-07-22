@@ -13,6 +13,9 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
+          name: Install dependencies
+          command: sudo apt-get update && sudo apt-get install -y --no-install-recommends libpulse0
+      - run:
           name: Setup emulator
           command: echo y | sdkmanager "platform-tools" "platforms;android-${ANDROID_EMULATOR_TARGET}" "emulator" "system-images;android-${ANDROID_EMULATOR_TARGET};default;armeabi-v7a" && echo "no" | avdmanager create avd --force -n test -k "system-images;android-${ANDROID_EMULATOR_TARGET};default;armeabi-v7a"
       - run:
