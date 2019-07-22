@@ -13,7 +13,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Setup emulator
-          command: echo y | sdkmanager "platform-tools" "platforms;android-22" "emulator" "system-images;android-22;default;armeabi-v7a" && echo "no" | android create avd --force -n test -k "system-images;android-22;default;armeabi-v7a"
+          command: echo y | sdkmanager "platform-tools" "platforms;android-22" "emulator" "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd --force -n test -k "system-images;android-22;default;armeabi-v7a"
       - run:
           name: Launch emulator
           command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator -avd test -no-audio -no-boot-anim -no-window -accel on -gpu off
