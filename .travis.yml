@@ -36,7 +36,7 @@ before_script:
   - sudo service cassandra stop || true
   - sudo service rsync stop || true
   - sudo service x11-common stop || true
-  - echo no | android create avd --force -n test -t $ANDROID_EMULATOR_TARGET --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t android-$ANDROID_EMULATOR_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
