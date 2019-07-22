@@ -13,7 +13,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
           name: Install dependencies
-          command: sudo apt-get install libqt5widgets5
+          command: sudo apt-get update && sudo apt-get install libqt5widgets5
       - run:
           name: Setup emulator
           command: echo y | sdkmanager "platform-tools" "platforms;android-22" "emulator" "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd --force -n test -k "system-images;android-22;default;armeabi-v7a"
