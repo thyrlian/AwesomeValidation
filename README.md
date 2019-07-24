@@ -182,4 +182,4 @@ dependencies {
 * Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
 
 ## License
-Copyright (c) 2014-2016 Jing Li. See the [LICENSE](https://github.com/thyrlian/AwesomeValidation/blob/master/LICENSE) file for license rights and limitations (MIT).
+Copyright (c) 2014-2019 Jing Li. See the [LICENSE](https://github.com/thyrlian/AwesomeValidation/blob/master/LICENSE) file for license rights and limitations (MIT).
