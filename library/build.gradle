@@ -1,4 +1,5 @@
 apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 apply plugin: "com.getkeepsafe.dexcount"
 apply from: "gradle/script/coverage.gradle"
 
@@ -48,6 +49,7 @@ ext {
     guavaVersion = "26.0-android"
     junitVersion = "4.12"
     mockitoVersion = "2.21.0"
+    mockitokotlinVersion = "2.2.0"
     easymockVersion = "3.6"
     powermockVersion = "2.0.0-beta.5"
 }
@@ -55,6 +57,7 @@ ext {
 dependencies {
     implementation "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
     implementation "com.android.support.constraint:constraint-layout:1.1.3"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.ext.kotlinVersion}"
     api("com.google.guava:guava:${guavaVersion}") {
         exclude module: "jsr305"
     }
@@ -64,6 +67,7 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4:${powermockVersion}"
     testImplementation "org.powermock:powermock-api-mockito2:${powermockVersion}"
     testImplementation "org.powermock:powermock-api-easymock:${powermockVersion}"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitokotlinVersion"
 }
 
 configurations.all {
