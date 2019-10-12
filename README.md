@@ -11,12 +11,13 @@
 # AwesomeValidation
 
 ## Introduction
-Implement validation for Android within only 3 steps.  Developers should focus on their awesome code, and let the library do the boilerplate.  And what's more, this could help keep your layout file clean.
+Implement validation for Android within only 4 steps.  Developers should focus on their awesome code, and let the library do the boilerplate.  And what's more, this could help keep your layout file clean.
 
 ## Steps
 1. Declare validation style;
 2. Add validations;
 3. Set a point when to trigger validation.
+4. Congratulations
 
 ## Sample code
 ```java
