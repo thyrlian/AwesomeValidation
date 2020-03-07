@@ -11,14 +11,17 @@
 # AwesomeValidation
 
 ## Introduction
+
 Implement validation for Android within only 3 steps.  Developers should focus on their awesome code, and let the library do the boilerplate.  And what's more, this could help keep your layout file clean.
 
 ## Steps
+
 1. Declare validation style;
 2. Add validations;
 3. Set a point when to trigger validation.
 
 ## Sample code
+
 ```java
 // Step 1: designate a style
 AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
@@ -140,6 +143,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 * `UNDERLABEL` validation style doesn't support `ConstraintLayout` at the moment, please use other validation styles.  There is an open issue [here](https://github.com/thyrlian/AwesomeValidation/issues/33).
 
 ## Import as dependency
+
 For Gradle it's easy - just add below to your module's `build.gradle` (it's available on [JCenter](https://bintray.com/bintray/jcenter)):
 ```gradle
 dependencies {
@@ -167,6 +171,7 @@ dependencies {
 ```
 
 ## Screenshots
+
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_0.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_0.png" height="600"></a>
 
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_1.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_1.png" height="600"></a>
@@ -175,11 +180,17 @@ dependencies {
 <a href="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" target="_blank"><img src="https://github.com/thyrlian/AwesomeValidation/blob/master/resource/images/screenshot_4.png" height="600"></a>
 
 ## Release guide
+
 * Update version number in ***build.gradle***, ***gradle.properties*** and ***README***
 * Create new git tag: `v*.*`
 * Run `./gradlew clean build && ./gradlew generateRelease` to generate release zip file
 * Run `./gradlew bintrayUpload` to create a new version in bintray (first make sure that environment variables `BINTRAY_USER` & `BINTRAY_KEY` are set)
 * Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
 
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/thyrlian/AwesomeValidation.svg)](https://starchart.cc/thyrlian/AwesomeValidation)
+
 ## License
+
 Copyright (c) 2014-2019 Jing Li. See the [LICENSE](https://github.com/thyrlian/AwesomeValidation/blob/master/LICENSE) file for license rights and limitations (MIT).
