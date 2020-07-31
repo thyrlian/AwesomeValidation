@@ -6,6 +6,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/dfea4a7a16c34cab9b810829fc221e19)](https://www.codacy.com/app/thyrlian/AwesomeValidation)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AwesomeValidation-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1605)
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23142-brightgreen.svg)](http://androidweekly.net/issues/issue-142)
+[![Trusted By Many Apps](https://www.appbrain.com/stats/libraries/shield/awesomevalidation.svg)](https://www.appbrain.com/stats/libraries/details/awesomevalidation/awesomevalidation)
 [![AppBrain](https://img.shields.io/badge/AppBrain-stats-brightgreen.svg)](https://www.appbrain.com/stats/libraries/details/awesomevalidation/awesomevalidation)
 
 # AwesomeValidation
