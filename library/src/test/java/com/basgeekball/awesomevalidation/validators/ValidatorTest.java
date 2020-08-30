@@ -16,8 +16,10 @@ import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 
 import junit.framework.TestCase;
 
+import org.easymock.EasyMock;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
+import org.powermock.api.easymock.PowerMock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -36,7 +38,6 @@ import static com.basgeekball.awesomevalidation.validators.MockValidationHolderH
 import static com.basgeekball.awesomevalidation.validators.MockValidationHolderHelper.generate;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.doNothing;
@@ -135,9 +136,10 @@ public class ValidatorTest extends TestCase {
         int errMsgId = 9;
         String errMsg = "Error";
         EditText mockEditText = mock(EditText.class);
-        PowerMockito.mockStatic(Pattern.class);
         Pattern mockPattern = PowerMockito.mock(Pattern.class);
-        when(Pattern.compile(regex)).thenReturn(mockPattern);
+        PowerMock.mockStatic(Pattern.class);
+        EasyMock.expect(Pattern.compile(regex)).andReturn(mockPattern);
+        PowerMock.replay(Pattern.class);
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockEditText);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, regex, errMsgId);
@@ -155,9 +157,10 @@ public class ValidatorTest extends TestCase {
         int errMsgId = 9;
         String errMsg = "Error";
         TextInputLayout mockTextInputLayout = mock(TextInputLayout.class);
-        PowerMockito.mockStatic(Pattern.class);
         Pattern mockPattern = PowerMockito.mock(Pattern.class);
-        when(Pattern.compile(regex)).thenReturn(mockPattern);
+        PowerMock.mockStatic(Pattern.class);
+        EasyMock.expect(Pattern.compile(regex)).andReturn(mockPattern);
+        PowerMock.replay(Pattern.class);
         when(mockActivity.findViewById(eq(viewId))).thenReturn(mockTextInputLayout);
         when(mockActivity.getResources().getString(eq(errMsgId))).thenReturn(errMsg);
         mSpiedValidator.set(mockActivity, viewId, regex, errMsgId);
@@ -623,10 +626,11 @@ public class ValidatorTest extends TestCase {
         when(mockValidationHolder.getText()).thenReturn(mockString);
         when(mockValidationHolder.getNumericRange()).thenReturn(mockNumericRange);
         when(mockNumericRange.isValid(mockString)).thenReturn(false);
-        PowerMockito.mockStatic(Pattern.class);
-        Pattern mockPattern = PowerMockito.mock(Pattern.class);
         Matcher mockMatcher = PowerMockito.mock(Matcher.class);
-        when(Pattern.compile(anyString())).thenReturn(mockPattern);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        PowerMock.mockStatic(Pattern.class);
+        EasyMock.expect(Pattern.compile("±*~=")).andReturn(mockPattern);
+        PowerMock.replay(Pattern.class);
         when(mockPattern.matcher(mockString)).thenReturn(mockMatcher);
         PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
         assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockValidationHolder, mEmptyValidationCallback));
@@ -640,10 +644,11 @@ public class ValidatorTest extends TestCase {
         when(mockValidationHolder.getText()).thenReturn(mockString);
         when(mockValidationHolder.getNumericRange()).thenReturn(mockNumericRange);
         doThrow(NumberFormatException.class).when(mockNumericRange).isValid(mockString);
-        PowerMockito.mockStatic(Pattern.class);
-        Pattern mockPattern = PowerMockito.mock(Pattern.class);
         Matcher mockMatcher = PowerMockito.mock(Matcher.class);
-        when(Pattern.compile(anyString())).thenReturn(mockPattern);
+        Pattern mockPattern = PowerMockito.mock(Pattern.class);
+        PowerMock.mockStatic(Pattern.class);
+        EasyMock.expect(Pattern.compile("±*~=")).andReturn(mockPattern);
+        PowerMock.replay(Pattern.class);
         when(mockPattern.matcher(mockString)).thenReturn(mockMatcher);
         PowerMockito.doNothing().when(mSpiedValidator, "executeCallback", any(ValidationCallback.class), any(ValidationHolder.class), any(Matcher.class));
         assertFalse((Boolean) Whitebox.invokeMethod(mSpiedValidator, "checkRangeTypeField", mockValidationHolder, mEmptyValidationCallback));
