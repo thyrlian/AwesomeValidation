@@ -3,9 +3,9 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-28
+      - image: circleci/android:api-30
     environment:
-      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xms1024m -Xmx1536m -XX:MaxMetaspaceSize=1536m"
+      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -XX:MaxMetaspaceSize=1536m"
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex"
       ANDROID_EMULATOR_TARGET: "24"
     steps:
