@@ -30,8 +30,8 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}
       - run:
-          name: Run Unit Tests
-          command: ./gradlew :library:testDebugUnitTest
+          name: Run all checks
+          command: ./gradlew check
       - run:
           name: Run UI Tests
           command: chmod +x android-wait-for-emulator.sh && ./android-wait-for-emulator.sh && ./gradlew :demo:connectedAndroidTest
