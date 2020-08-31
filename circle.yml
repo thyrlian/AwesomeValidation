@@ -15,13 +15,13 @@ jobs:
       - run:
           name: Install dependencies
           command: sudo apt-get update && sudo apt-get install -y --no-install-recommends libpulse0
-      - run:
-          name: Setup emulator
-          command: echo y | sdkmanager "platform-tools" "platforms;android-${ANDROID_EMULATOR_TARGET}" "emulator" "system-images;android-${ANDROID_EMULATOR_TARGET};default;armeabi-v7a" && echo "no" | avdmanager create avd --force -n test -k "system-images;android-${ANDROID_EMULATOR_TARGET};default;armeabi-v7a"
-      - run:
-          name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator -avd test -no-audio -no-boot-anim -no-window -accel on -gpu off
-          background: true
+#      - run:
+#          name: Setup emulator
+#          command: echo y | sdkmanager "platform-tools" "platforms;android-${ANDROID_EMULATOR_TARGET}" "emulator" "system-images;android-${ANDROID_EMULATOR_TARGET};default;armeabi-v7a" && echo "no" | avdmanager create avd --force -n test -k "system-images;android-${ANDROID_EMULATOR_TARGET};default;armeabi-v7a"
+#      - run:
+#          name: Launch emulator
+#          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator -avd test -no-audio -no-boot-anim -no-window -accel on -gpu off
+#          background: true
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
@@ -32,9 +32,9 @@ jobs:
       - run:
           name: Run all checks
           command: ./gradlew check
-      - run:
-          name: Run UI Tests
-          command: chmod +x android-wait-for-emulator.sh && ./android-wait-for-emulator.sh && ./gradlew :demo:connectedAndroidTest
+#      - run:
+#          name: Run UI Tests
+#          command: chmod +x android-wait-for-emulator.sh && ./android-wait-for-emulator.sh && ./gradlew :demo:connectedAndroidTest
       - store_artifacts:
           path: library/build/reports
           destination: reports
