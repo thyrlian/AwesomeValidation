@@ -1,6 +1,5 @@
 package com.basgeekball.awesomevalidation;
 
-import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +10,7 @@ import com.basgeekball.awesomevalidation.utility.custom.CustomErrorReset;
 import com.basgeekball.awesomevalidation.utility.custom.CustomValidation;
 import com.basgeekball.awesomevalidation.utility.custom.CustomValidationCallback;
 import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
+import com.google.android.material.textfield.TextInputLayout;
 
 import junit.framework.TestCase;
 

@@ -1,6 +1,6 @@
 package com.basgeekball.awesomevalidation.model;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.google.common.collect.Range;
 

@@ -10,7 +10,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -28,17 +28,21 @@ android {
         disable "IconMissingDensityFolder"
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation project(":library")
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.androidSupportLibVersion}"
-    implementation "com.android.support:support-v4:${rootProject.ext.androidSupportLibVersion}"
-    implementation "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
-    implementation "com.android.support.constraint:constraint-layout:2.0.1"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2") {
-        exclude module: "support-annotations"
+    implementation "androidx.appcompat:appcompat:$supportVersion"
+    implementation "androidx.legacy:legacy-support-v4:$supportVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion") {
+      exclude module: "support-annotations"
     }
-    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    androidTestImplementation "androidx.test:rules:$testRulesVersion"
     debugImplementation fileTree(dir: "${project.projectDir}/../library/build/intermediates/jacoco", include: ["jacocoagent.jar"])
 }

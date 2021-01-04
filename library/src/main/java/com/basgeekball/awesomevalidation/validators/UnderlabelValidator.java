@@ -2,9 +2,10 @@ package com.basgeekball.awesomevalidation.validators;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ViewGroup;
