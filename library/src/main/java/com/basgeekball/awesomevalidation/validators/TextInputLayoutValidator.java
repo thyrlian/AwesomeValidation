@@ -1,10 +1,9 @@
 package com.basgeekball.awesomevalidation.validators;
 
-import android.support.design.widget.TextInputLayout;
-
 import com.basgeekball.awesomevalidation.R;
 import com.basgeekball.awesomevalidation.ValidationHolder;
 import com.basgeekball.awesomevalidation.utility.ValidationCallback;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
 

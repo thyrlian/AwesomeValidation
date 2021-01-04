@@ -2,7 +2,6 @@ package com.basgeekball.awesomevalidation;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.EditText;
 
@@ -16,6 +15,7 @@ import com.basgeekball.awesomevalidation.validators.ColorationValidator;
 import com.basgeekball.awesomevalidation.validators.TextInputLayoutValidator;
 import com.basgeekball.awesomevalidation.validators.UnderlabelValidator;
 import com.basgeekball.awesomevalidation.validators.Validator;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.common.collect.Range;
 
 import java.util.regex.Pattern;

@@ -1,7 +1,7 @@
 package com.basgeekball.awesomevalidation.utility;
 
 import android.content.res.ColorStateList;
-import android.support.v4.view.ViewCompat;
+import androidx.core.view.ViewCompat;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
