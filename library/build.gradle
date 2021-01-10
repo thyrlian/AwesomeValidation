@@ -55,20 +55,20 @@ ext {
 dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
-    api("com.google.guava:guava:${guavaVersion}") {
+    api("com.google.guava:guava:$guavaVersion") {
         exclude module: "jsr305"
     }
-    testImplementation "junit:junit:${junitVersion}"
-    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
-    testImplementation "org.easymock:easymock:${easymockVersion}"
-    testImplementation "org.powermock:powermock-module-junit4:${powermockVersion}"
-    testImplementation "org.powermock:powermock-api-mockito2:${powermockVersion}"
-    testImplementation "org.powermock:powermock-api-easymock:${powermockVersion}"
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.easymock:easymock:$easymockVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-easymock:$powermockVersion"
 }
 
 configurations.all {
     resolutionStrategy {
-        force "junit:junit:${junitVersion}"
+        force "junit:junit:$junitVersion"
     }
 }
 

@@ -44,5 +44,5 @@ dependencies {
       exclude module: "support-annotations"
     }
     androidTestImplementation "androidx.test:rules:$testRulesVersion"
-    debugImplementation fileTree(dir: "${project.projectDir}/../library/build/intermediates/jacoco", include: ["jacocoagent.jar"])
+    debugImplementation fileTree(dir: "$project.projectDir/../library/build/intermediates/jacoco", include: ["jacocoagent.jar"])
 }
