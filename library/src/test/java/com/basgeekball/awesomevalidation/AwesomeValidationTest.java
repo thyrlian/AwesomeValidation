@@ -2,9 +2,10 @@ package com.basgeekball.awesomevalidation;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.core.content.ContextCompat;
 
 import com.basgeekball.awesomevalidation.model.NumericRange;
 import com.basgeekball.awesomevalidation.utility.custom.CustomErrorReset;
