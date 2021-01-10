@@ -45,7 +45,7 @@ android {
 }
 
 ext {
-    guavaVersion = '30.1-jre'
+    guavaVersion = '30.1-android'
     junitVersion = "4.13.1"
     mockitoVersion = '3.7.0'
     easymockVersion = "4.2"
