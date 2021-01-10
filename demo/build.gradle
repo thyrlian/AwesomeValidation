@@ -37,7 +37,7 @@ android {
 dependencies {
     implementation project(":library")
     implementation "androidx.appcompat:appcompat:$supportVersion"
-    implementation "androidx.legacy:legacy-support-v4:$supportVersion"
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion") {

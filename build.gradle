@@ -23,6 +23,7 @@ ext {
     materialVersion = "1.2.1"
     constraintlayoutVersion = "2.0.4"
     supportVersion = '1.2.0'
+    legacySupportVersion = '1.0.0'
     espressoCoreVersion = "3.3.0"
     testRulesVersion = "1.3.0"
     versionCode = 9
