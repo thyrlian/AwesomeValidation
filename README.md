@@ -195,4 +195,4 @@ dependencies {
 
 ## License
 
-Copyright (c) 2014-2020 Jing Li. See the [LICENSE](https://github.com/thyrlian/AwesomeValidation/blob/master/LICENSE) file for license rights and limitations (MIT).
+Copyright (c) 2014-2021 Jing Li. See the [LICENSE](https://github.com/thyrlian/AwesomeValidation/blob/master/LICENSE) file for license rights and limitations (MIT).
