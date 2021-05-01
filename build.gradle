@@ -2,17 +2,13 @@
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
-        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:2.0.0"
+        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:2.0.0'
     }
-}
-
-plugins {
-    id "com.jfrog.bintray" version "1.8.5"
 }
 
 ext {
@@ -20,7 +16,7 @@ ext {
     targetSdk = 30
     compileSdkVersion = 30
     buildToolsVersion = "30.0.2"
-    materialVersion = "1.2.1"
+    materialVersion = "1.3.0"
     constraintlayoutVersion = "2.0.4"
     supportVersion = '1.2.0'
     legacySupportVersion = '1.0.0'
@@ -30,31 +26,8 @@ ext {
     versionName = "4.2"
 }
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    filesSpec {
-        from "build/libs"
-        into "/"
-    }
-    pkg {
-        repo = "android-libraries"
-        name = "com.basgeekball.awesomevalidation"
-        licenses = ["MIT"]
-        websiteUrl = "https://github.com/thyrlian/AwesomeValidation"
-        issueTrackerUrl = "https://github.com/thyrlian/AwesomeValidation/issues"
-        vcsUrl = "https://github.com/thyrlian/AwesomeValidation.git"
-        labels = ["Android", "UI", "validation"]
-        version {
-            name = project.ext.versionName
-            released  = new Date()
-        }
-    }
-}
-
 allprojects {
     repositories {
-        jcenter()
         mavenCentral()
         google()
     }

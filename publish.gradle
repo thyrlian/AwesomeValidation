@@ -31,46 +31,7 @@ task generateRelease {
     }
 }
 
-generateRelease.dependsOn(uploadArchives)
 generateRelease.dependsOn(zipRelease)
-
-uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = pomGroupId
-        pom.artifactId = pomArtifactId
-        pom.version = pomVersion
-
-        pom.project {
-            name pomName
-            packaging pomPackaging
-            description pomDescription
-            url pomUrl
-
-            scm {
-                url pomScmUrl
-                connection pomScmConnection
-                developerConnection pomScmDevConnection
-            }
-
-            licenses {
-                license {
-                    name pomLicenceName
-                    url pomLicenceUrl
-                    distribution pomLicenceDist
-                }
-            }
-
-            developers {
-                developer {
-                    id pomDeveloperId
-                    name pomDeveloperName
-                }
-            }
-        }
-
-        repository(url: "file://${localReleaseDest}")
-    }
-}
 
 artifacts {
     archives androidSourcesJar

@@ -1,5 +1,5 @@
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![JCenter](https://api.bintray.com/packages/thyrlian/android-libraries/com.basgeekball.awesomevalidation/images/download.svg) ](https://bintray.com/thyrlian/android-libraries/com.basgeekball.awesomevalidation/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.basgeekball/awesome-validation)](https://search.maven.org/artifact/com.basgeekball/awesome-validation)
 [![JitPack](https://jitpack.io/v/thyrlian/AwesomeValidation.svg)](https://jitpack.io/#thyrlian/AwesomeValidation)
 [![Build & Test](https://github.com/thyrlian/AwesomeValidation/workflows/Build%20&%20Test/badge.svg)](https://github.com/thyrlian/AwesomeValidation/actions?query=workflow%3A%22Build+%26+Test%22)
 [![Travis CI Status](https://travis-ci.org/thyrlian/AwesomeValidation.svg?branch=master)](https://travis-ci.org/thyrlian/AwesomeValidation)
@@ -146,7 +146,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 
 ## Import as dependency
 
-For Gradle it's easy - just add below to your module's `build.gradle` (it's available on [JCenter](https://bintray.com/bintray/jcenter)):
+For Gradle it's easy - just add below to your module's `build.gradle` (it's available on [Maven Central](https://search.maven.org/artifact/com.basgeekball/awesome-validation)):
 ```gradle
 dependencies {
     implementation 'com.basgeekball:awesome-validation:4.2'
@@ -186,8 +186,6 @@ dependencies {
 * Update version number in ***build.gradle***, ***gradle.properties*** and ***README***
 * Create new git tag: `v*.*`
 * Run `./gradlew clean build && ./gradlew generateRelease` to generate release zip file
-* Run `./gradlew bintrayUpload` to create a new version in bintray (first make sure that environment variables `BINTRAY_USER` & `BINTRAY_KEY` are set)
-* Upload release zip file manually to bintray, make sure to check '**Explode this archive**'
 
 ## Stargazers over time
 
