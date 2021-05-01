@@ -1,5 +1,5 @@
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Maven Central](https://img.shields.io/maven-central/v/com.basgeekball/awesome-validation)](https://search.maven.org/artifact/com.basgeekball/awesome-validation)
+[![Maven Central](https://img.shields.io/maven-central/v/com.basgeekball/awesome-validation)](https://search.maven.org/search?q=g:com.basgeekball%20AND%20a:awesome-validation)
 [![JitPack](https://jitpack.io/v/thyrlian/AwesomeValidation.svg)](https://jitpack.io/#thyrlian/AwesomeValidation)
 [![Build & Test](https://github.com/thyrlian/AwesomeValidation/workflows/Build%20&%20Test/badge.svg)](https://github.com/thyrlian/AwesomeValidation/actions?query=workflow%3A%22Build+%26+Test%22)
 [![Travis CI Status](https://travis-ci.org/thyrlian/AwesomeValidation.svg?branch=master)](https://travis-ci.org/thyrlian/AwesomeValidation)
