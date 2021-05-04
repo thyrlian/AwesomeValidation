@@ -1,0 +1,131 @@
+// Create variables, for signing and publishing
+ext["signing.keyId"] = ''
+ext["signing.password"] = ''
+ext["signing.secretKeyRingFile"] = ''
+ext["sonatypeUsername"] = ''
+ext["sonatypePassword"] = ''
+ext["sonatypeStagingProfileId"] = ''
+
+// Fetch confidential values for those empty variables
+File propsFile = project.rootProject.file("library/local.properties")
+if (propsFile.exists()) {
+    // Read variables values from a local properties file if it exists (e.g.: for local development)
+    Properties props = new Properties()
+    new FileInputStream(propsFile).withCloseable { fis -> props.load(fis) }
+    props.each { k, v -> ext[k] = v }
+} else {
+    // Read variables values from environment variables (e.g.: for CI build)
+    ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
+    ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
+    ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
+    ext["sonatypeUsername"] = System.getenv('SONATYPE_USERNAME')
+    ext["sonatypePassword"] = System.getenv('SONATYPE_PASSWORD')
+    ext["sonatypeStagingProfileId"] = System.getenv('SONATYPE_STAGING_PROFILE_ID')
+}
+
+// Configure Sonatype's Nexus Repository
+nexusPublishing {
+    repositories {
+        sonatype {
+            username = sonatypeUsername
+            password = sonatypePassword
+            stagingProfileId = sonatypeStagingProfileId
+            nexusUrl.set(uri('https://s01.oss.sonatype.org/service/local/'))
+            snapshotRepositoryUrl.set(uri('https://s01.oss.sonatype.org/content/repositories/snapshots/'))
+        }
+    }
+}
+
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+//apply plugin: 'org.jetbrains.dokka'
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        from android.sourceSets.main.java.srcDirs
+//        from android.sourceSets.main.kotlin.srcDirs
+    } else {
+        from sourceSets.main.java.srcDirs
+//        from sourceSets.main.kotlin.srcDirs
+    }
+}
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    archiveClassifier.set('javadoc')
+    from androidJavadocs.destinationDir
+}
+
+//tasks.withType(dokkaHtmlPartial.getClass()).configureEach {
+//    pluginsMapConfiguration.set(
+//            ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true}"""]
+//    )
+//}
+//
+//task androidJavadocsJar(type: Jar, dependsOn: dokkaJavadoc) {
+//    archiveClassifier.set('javadoc')
+//    from dokkaJavadoc.outputDirectory
+//}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+afterEvaluate {
+    androidJavadocs.classpath += files(android.libraryVariants.collect { variant ->
+        variant.javaCompileProvider.get().classpath.files
+    })
+
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId pomGroupId
+                artifactId pomArtifactId
+                version pomVersion
+
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    artifact("${buildDir}/libs/${project.getName()}-${version}.jar")
+                }
+
+                artifact androidSourcesJar
+                artifact androidJavadocsJar
+
+                pom {
+                    name = pomArtifactId
+                    description = pomDescription
+                    url = pomUrl
+                    licenses {
+                        license {
+                            name = pomLicenceName
+                            url = pomLicenceUrl
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = pomDeveloperId
+                            name = pomDeveloperName
+                            email = pomDeveloperEmail
+                        }
+                    }
+                    scm {
+                        connection = pomScmConnection
+                        developerConnection = pomScmDevConnection
+                        url = pomScmUrl
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
+}

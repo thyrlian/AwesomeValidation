@@ -149,7 +149,7 @@ findViewById(R.id.btn_clr).setOnClickListener(new View.OnClickListener() {
 For Gradle it's easy - just add below to your module's `build.gradle` (it's available on [Maven Central](https://search.maven.org/artifact/com.basgeekball/awesome-validation)):
 ```gradle
 dependencies {
-    implementation 'com.basgeekball:awesome-validation:4.2'
+    implementation 'com.basgeekball:awesome-validation:4.3'
 }
 ```
 
@@ -166,7 +166,7 @@ allprojects {
 * Add the dependency
 ```gradle
 dependencies {
-    implementation 'com.github.thyrlian:AwesomeValidation:v4.2'
+    implementation 'com.github.thyrlian:AwesomeValidation:v4.3'
     // you can also use the short commit hash to get a specific version
     // implementation 'com.github.thyrlian:AwesomeValidation:GIT_COMMIT_HASH'
 }
@@ -185,7 +185,8 @@ dependencies {
 
 * Update version number in ***build.gradle***, ***gradle.properties*** and ***README***
 * Create new git tag: `v*.*`
-* Run `./gradlew clean build && ./gradlew generateRelease` to generate release zip file
+* Make sure a `local.properties` file which holds the necessary credentials is present under the [`library` directory](https://github.com/thyrlian/AwesomeValidation/tree/master/library)
+* Run `./gradlew clean build && ./gradlew :library:publishReleasePublicationToSonatypeRepository` to generate release file and upload it to [Nexus Repository](https://s01.oss.sonatype.org/#stagingRepositories)
 
 ## Stargazers over time
 

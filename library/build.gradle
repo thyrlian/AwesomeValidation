@@ -1,6 +1,7 @@
 apply plugin: "com.android.library"
 apply plugin: "com.getkeepsafe.dexcount"
 apply from: "gradle/script/coverage.gradle"
+apply from: "gradle/script/publish.gradle"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -49,7 +50,7 @@ android {
 }
 
 ext {
-    guavaVersion = '30.1-android'
+    guavaVersion = '30.1.1-android'
     junitVersion = "4.13.1"
     mockitoVersion = '3.7.0'
     easymockVersion = "4.2"
@@ -57,23 +58,21 @@ ext {
 }
 
 dependencies {
-    implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
-    api("com.google.guava:guava:$guavaVersion") {
+    implementation "com.google.android.material:material:${materialVersion}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}"
+    api("com.google.guava:guava:${guavaVersion}") {
         exclude module: "jsr305"
     }
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "org.easymock:easymock:$easymockVersion"
-    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
-    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
-    testImplementation "org.powermock:powermock-api-easymock:$powermockVersion"
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.easymock:easymock:${easymockVersion}"
+    testImplementation "org.powermock:powermock-module-junit4:${powermockVersion}"
+    testImplementation "org.powermock:powermock-api-mockito2:${powermockVersion}"
+    testImplementation "org.powermock:powermock-api-easymock:${powermockVersion}"
 }
 
 configurations.all {
     resolutionStrategy {
-        force "junit:junit:$junitVersion"
+        force "junit:junit:${junitVersion}"
     }
 }
-
-apply from: "$rootProject.projectDir/publish.gradle"
