@@ -27,7 +27,7 @@ ext {
     legacySupportVersion = '1.0.0'
     espressoCoreVersion = "3.3.0"
     testRulesVersion = "1.3.0"
-    versionCode = 10
+    versionCode = getCommitsCount()
     versionName = "4.3"
 }
 
@@ -36,4 +36,8 @@ allprojects {
         mavenCentral()
         google()
     }
+}
+
+def getCommitsCount() {
+    return "git rev-list HEAD --count".execute().text.toInteger()
 }
