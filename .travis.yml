@@ -5,7 +5,7 @@ dist: trusty
 
 env:
   global:
-    - GRADLE_OPTS='-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
+    - GRADLE_OPTS='-Dorg.gradle.daemon=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
     - ANDROID_TARGET=30
     - ANDROID_BUILD_TOOLS_VERSION=30.0.2
     - ANDROID_ABI=armeabi-v7a
